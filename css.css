@@ -15,8 +15,9 @@
     background-size: cover;
     position: relative;
     
-    padding-top: 5in;
-    margin-bottom: 5in;
+    padding-top: 20%;
+    margin-left: 0in;
+    padding-bottom: 10%;
   }
   .honeycomb
 {
