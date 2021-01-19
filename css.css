@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body 
+  {
+    font-family: 'Poppins', sans-serif;
+    background: url("img/iceland.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    /*margin-top: 400px;*/
+    background-size: cover;
+    position: relative;
+    
+    padding-top: 5in;
+    margin-bottom: 5in;
+  }
+  .honeycomb
+{
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  max-width: 1800px;
+  background-position: center;
+    margin-bottom: 0in;
+    margin-left: 0in;
+    margin-right: 0in;
+}
+  
+  .honeycomb-cell
+  {
+    flex: 0 1 250px;
+    max-width: 250px;
+    height: 137.5px;
+    margin: 65.4px 12.5px 25px;
+    position: relative;
+    padding: 0.5em;
+    text-align: center;
+    z-index: 1;
+    margin-bottom: 3cm;
+    box-shadow: 0px 0px 0px 0 rgba(0,0,0,0.1);
+  }
+  .honeycomb-cell_img
+  {
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(80%);
+    opacity: 0;
+  }
+
+  .honeycomb-cell_title
+  {
+    height: 100%;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    word-break: break-word;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.75em;
+    transition: opacity 350ms;
+  }
+  .honeycomb-cell_title > small
+  {
+    font-weight: 300;
+    margin-top: 0.25em;
+  }
+  .honeycomb-cell::before,
+  .honeycomb-cell::after
+  {
+    content: '';
+  }
+  .honeycomb-cell::before,
+  .honeycomb-cell::after,
+  .honeycomb-cell_img
+  {
+    top: -50%;
+    left: 0;
+    width: 100%;
+    height: 200%;
+    display: block;
+    position: absolute;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    z-index: -1;
+    opacity: 0;
+  }
+
+  .honeycomb-cell::before
+  {
+    background: #77772a;
+    transform: scale(1.0);
+    opacity: 0.6;
+  }
+  .honeycomb-cell::after
+  {
+    background: #0b319b;
+    opacity: 0;
+    transition: opacity 350ms;
+  }
+  .honeycomb-cell:hover
+  .honeycomb-cell_title
+  {
+    opacity: 0;
+  }
+  .honeycomb-cell:hover
+  .honeycomb-cell_img
+  {
+    filter: grayscale(0%);
+  }
+  .honeycomb-cell:hover::before
+  {
+    background: #77772a;
+    opacity: 0;
+  }
+  .honeycomb-cell_image:hover
+  {
+   opacity: 1;
+  }
+  .honeycomb-cell:hover::after
+  {
+    opacity: 0;
+  }
+  .honeycomb_Hidden
+  {
+    display: none;
+    opacity: 0;
+    width: 250px;
+    margin: 0 12.5px;
+  }
+  
+  
+  .honeycomb-cell:hover .honeycomb-cell_img
+  {
+    object-fit: cover;
+    object-position: center;
+    filter: grayscale(0%);
+    opacity: 1;
+  }
