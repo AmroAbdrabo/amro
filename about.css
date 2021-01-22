@@ -32,7 +32,7 @@ body {
   #nested > div {
     padding-left: 4%;
     border: 1px solid #fff;
-    background: #eee;
+    background: rgba(0, 0, 156, 0.05);
     margin-top: 0in;
     position: relative;
     padding-top: 4%;
@@ -54,7 +54,7 @@ body {
 
   .wrapper > div {
    
-    background: #eee;
+    background: rgba(0, 0, 156, 0.05);
     border-radius:14%;
     padding-top: 6%;
     padding-left: 2%;
