@@ -39,27 +39,29 @@ body {
     border-radius:7%;
   }
   .wrapper {
-    display: grid;
-    grid-template-columns: 0.7fr 3fr;
-    /*grid-template-rows: 270px 90px;*/
-    grid-auto-rows: 270px;
-    grid-column-gap: 2em;
-    grid-row-gap: 2em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     /*grid-auto-rows: 300px;*/
-    margin-left: 6vw;
-    margin-bottom: 1cm;
+    margin-left: 4vw;
+    margin-bottom: 10px;
     margin-right: 6vw;
-    overflow: scroll;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    
   }
 
   .wrapper > div {
    
     background: rgba(0, 0, 156, 0.05);
     border-radius:14%;
-    padding-top: 6%;
-    padding-left: 2%;
-    padding-right: 5%;
-    word-wrap: break-word;
+    padding-top: 2vh;
+    flex-basis: 270px;
+    padding-left: 12px;
+    padding-right: 8px;
+    margin-bottom: 5%;
+    height: 270px;
+    /*word-wrap: break-word;*/
     
     /*justify-items: center;*/
     /*border: 1px solid yellow;*/
