@@ -34,6 +34,9 @@ body {
     flex-direction: column;
     background-color: white;
     box-shadow: 2px 0.8rem 1rem rgba(0,0,0, 0.1);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
 }
 
 .image-data {
@@ -98,7 +101,7 @@ body {
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 2.4rem;
     line-height: 1;
 }
 
@@ -205,16 +208,28 @@ body {
     50% { border-color: black }
   }
 
-@media screen and (min-width: 600px){
+  @media only screen and (min-width: 660px){
     .card {
         flex-direction: row;
         max-width: 75rem;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .image-data {
         flex-basis: 40%;
-        height: unset;
+        
     }
+
+    .publication-details {
+        transform: translateX(-100%);
+        transition: transform .5s;
+    }
+
+    .card:hover .publication-details {
+        transform: translateX(0);
+    }
+
 
     .post-data{
         flex-basis: 60%;
