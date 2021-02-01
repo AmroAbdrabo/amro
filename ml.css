@@ -44,6 +44,7 @@ body {
     position: relative;
     z-index: 1;
     overflow: hidden;
+    flex-basis: 220px;
 }
 
 .background-image {
@@ -98,6 +99,7 @@ body {
     background-color: white;
     padding: 2rem 3rem;
     position: relative;
+    flex-basis: 60%;
 }
 
 .title {
