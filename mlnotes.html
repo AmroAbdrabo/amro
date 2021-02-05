@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Notes</title>
+    <style>
+        li {
+          color: blue;
+        }
+        li > span {
+            color: black;
+        }
+        img {
+            width: 300px;
+            height: auto;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            grid-column-gap: 20px;
+        }
+
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <h1 style = "background: linear-gradient(to right, blue 35%, white 35%, white 65%, red 30%); border-radius: 4px; text-align: center;">Machine Learning Notes</h1>
+    <h2 style = "text-decoration: underline; "> Lecture 12-13: PAC Learning and VC Theory</h2>
+    <h3>Generalization error and empirical error</h3>
+    <ul>
+        <li>Generalization error: \(  R(\hat{c}) :=  \mathbf{P}(\hat{c}(X)\neq c(X)) \)  <span>not computable by the learner</span> </li>
+        <li>Empirical error: \( \hat{R}_n(\hat{c}) := \frac{1}{n} \sum_{i \leq n}{1_{\hat{c}(x_i) \neq c(x_i)}}  \) </li>
+    </ul>
+    <p> The empirical risk is an unbiased estimator of the expected risk since \( \mathbb{E}_{X = (X_1, X_2, .., X_n)} [\hat{R}_n (\hat{c}(X))  ] = \frac{1}{n} \sum_{i \leq n}{  \mathbb{E} ( 1_{\hat{c}(x_i) \neq c(x_i)}) }  =  \frac{1}{n} \sum_{i \leq n}{   \mathbf{P}(\hat{c}(x_i) \neq c(x_i)})  =   \mathbf{P}(\hat{c}(x_i) \neq c(x_i))  \)</p>  
+Some terminology:
+    <ul>
+        <li>Concept: <span>A concept is a subset of \( X \) that maps to 1, the remaining values of \( X \) mapping to 0</span></li>
+        <li>Concept class: <span>a set of concepts we wish to learn</span> </li>
+        <li>Hypothesis class: <span>Another set of concepts we use to learn a target concept from the concept class</span> </li>
+    </ul>
+
+    The target concept correctly maps all values of \(X \) (in the deterministic case).
+
+    <h3>The PAC Learning Model</h3>
+    A learning algorithm \(A \) can learn a concept \( c \) from \(C \) if, given as input a sufficiently large sample, it outputs a hypothesis that generalizes well with high probability
+    <br>
+    <h4>Definition</h4> 
+    A learning algorithm \(A \) can learn a concept \(c \) if there is a polynomial function \( poly(\cdot, \cdot, \cdot )\) such that 
+    <ol>
+        <li>For any distribution \( D\) on \( X\) and </li>
+        <li> for any \( 0 < \epsilon < \frac{1}{2}, 0 < \delta < \frac{1}{2}\)</li>
+    </ol>
+    if \( A\) receives as input a sample \( Z\) of size \( n \geq poly(\frac{1}{\epsilon}, \frac{1}{\delta},\text{size}(c)) \) then \(A \) outputs \(\hat{c} \) such that 
+    \[ \mathbf{P}_{Z \sim D^n} (R(\hat{c}) \leq \epsilon ) \geq 1 - \delta \]
+
+    A concept class \(C \) is PAC-learnable from a hypothesis class \( H\) if there is an alogrithm that can learn any concept in \(C \) using a hypothesis from \(H \).
+    <h3>Example: Axis-aligned rectangles are PAC-learnable</h3>
+    <div class="row">
+        <img src="img/aarect.png" alt="Picture of axis-aligned rectangle with positive points in the interior, negative in the exterior">
+        
+        <img src="img/lernrect.png" alt="Picture of the hypothesis rectangle which tightly fits positive points"> 
+    </div>
+    Where the algorithm \( A\) outputs the smallest fitting rectangle \(\hat{R} \).
+    To prove learnability we show that \(\mathbf{P} (R(\hat{R}) \leq \epsilon ) \geq \mathbf{P}(\hat{R}IG) \geq 1-4\exp(-\frac{n\epsilon}{4}) \geq 1-\delta \) 
+
+</body>
+</html>
