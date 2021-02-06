@@ -37,8 +37,8 @@ h1:after {
 <body>
     <h1> <span>\( \mathcal{A}lgo \)</span></h1>
     <h3>Observation 1</h3>
-    Consider the left endpoint \( a[i] \): if there exists an index \(i'\) less than  \(i \) such that \( a[i'] > a[i]\) then clearly we have found a way to make 
-    the expression \( (a[i]+a[j])(j-i) \) larger. This leads to the observation that \(a[i] \) must be the maximum element in the range \([0,..,i] \). We can construct such an array, call it \(indices\_grow\),
+    Consider the left endpoint \( a[i] \): if there exists an index \(i'\) less than  \(i \) such that \( a[i'] > a[i]\) then clearly 
+    the expression \( (a[i]+a[j])(j-i) \) can be made larger. This leads to the observation that \(a[i] \) must be the maximum element in the range \([0,..,i] \). We can construct such an array, call it \(indices\_grow\),
     that stores the index of elements that are greater than all other elements to their left in time \(O(n)\). Similarly for the right endpoint,  \(a[j] \) must be greater than any element to its right. We store the indices of such elements in an array \(indices\_decay \).
     Note that by construction these arrays fulfil the following properties:
     <ul>
