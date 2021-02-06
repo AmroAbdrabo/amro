@@ -203,7 +203,7 @@ body {
     width: 0;
     animation: 
       typing 3.5s steps(13, end) 2s forwards,
-      blink-caret .5s step-end 2s 4 forwards;
+      blink-caret .5s step-end 2s 5 forwards;
   }
   
   /* The typing effect */
