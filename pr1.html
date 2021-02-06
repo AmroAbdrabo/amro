@@ -55,6 +55,64 @@ h1:after {
     </ul>
     Note further that both satisfy \( a[indices\_(..)[i]] < a[indices\_(..)[i+1]] \). Visually speaking you can represent \(indices\_grow \) as a positively sloped line touching the peaks from the left of the array and \(indices\_decay\) as a negatively sloped line touching the peaks towards the right of the array.
     <h3>Observation 2</h3>
-    
+    Let \(u\) and \(u_0\) be two elements in \( indices\_grow \) such that \(u_0 < u \) and let \(v\) and \(v_0\) two indices in \(indices\_decay\) such that \( v < v_0 \). Let \( g(u, v) = (a[u]+a[v])(v - u) \). We prove the statement: if
+    \( g(u_0, v_0) > g(u_0, v) \) then \( \forall u >u_0 \) we have \( g(u, v_0) > g(u, v) \). By definition, \( u_0 < u < v < v_0 \) and define distance between \( u\) and \(v \) as \( d\) and the distance between \( u_0\) and \(u\), as well as \(v_0\) and \(v\) as \(\delta_1 \) and \(\delta_2\) respectively. <br>
+   <p style="text-align: center;">
+    \( g(u_0, v_0) > g(u_0, v)  \) <br>
+    \( \Leftrightarrow \) <br>
+    \( (f(v_0)+f(u_0))(d + \delta_1 + \delta_2) > (f(v)+f(u_0))(d+\delta_1)\) <br>
+    \(  \Leftrightarrow  \) <br>
+    \( (f(v_0)+f(u_0))\delta_2 > d(f(v)-f(v_0))+\delta_1(f(v)-f(v_0)) \)
+   </p>
+   If we assume then that \( g(u, v_0) < g(u, v) \) or \( (f(u)+f(v_0))(d+\delta_2) < (f(u)+f(v))d \) which means that \(d(f(v)-f(v_0)) > \delta_2(f(u)+f(v_0)) > \delta_2(f(u_0)+f(v_0)) \) contradiction. <br>
+   We use this result as well as its contrapositive to make the following solution: <br>
+   <h3>Code</h3>
+   <div style="background: rgb(230, 230, 230); width: 40em; margin-bottom: 40px;">
+    <pre>
+   <code  class="language-pascal">
+    #include &ltbits/stdc++.h&gt 
+    #include &ltiostream&gt
+    #include &ltcstdio&gt
+    typedef long long ll;
+    const int N=1e6+5;
+     
+    int a1[N],a2[N], h[N];
+    ll ans;
+    using namespace std;
+    #define func(p) (1ll*(h[a1[mid]]+h[a2[p]])*(a2[p]-a1[mid]))
+    int solve(int l1,int r1,int l2,int r2)
+    {
+    	if(l1>r1) return;
+        int mid=l1+r1>>1,pos=l2;
+        ll temp = -1;
+    	for(int i=l2+1; i<=r2; ++i)
+    		if(func(i)>func(pos)) pos=i;
+    	temp=max(temp,func(pos));
+        ll res1 = solve(l1,mid-1,pos,r2);
+        ll res2 = solve(mid+1,r1,l2,pos);
+        ans = max(res1, max(res2, temp));
+        return ans;
+    }
+     
+    int main()
+    {
+        ios::sync_with_stdio(false);
+        int n;
+        cin >> n;
+    	for(int i=1; i<=n; ++i) cin >> h[i];
+    	int cnt1=1,cnt2=1; a1[1]=1, a2[1]=n;
+    	for(int i=2; i<=n; ++i)
+    		if(h[i]>h[a1[cnt1]]) a1[++cnt1]=i;
+    	for(int i=n-1; i; --i)
+    		if(h[i]>h[a2[cnt2]]) a2[++cnt2]=i;
+        ll ans = solve(1,cnt1,1,cnt2);
+        printf("%lld\n",ans);
+     
+    	return 0;
+    }
+   </code>
+   </pre>
+</div>
+   
 </body>
 </html>
