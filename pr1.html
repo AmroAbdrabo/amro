@@ -36,7 +36,25 @@ h1:after {
 </head>
 <body>
     <h1> <span>\( \mathcal{A}lgo \)</span></h1>
-    
+    <h3>Observation 1</h3>
+    Consider the left endpoint \( a[i] \): if there exists an index \(i'\) less than  \(i \) such that \( a[i'] > a[i]\) then clearly we have found a way to make 
+    the expression \( (a[i]+a[j])(j-i) \) larger. This leads to the observation that \(a[i] \) must be the maximum element in the range \([0,..,i] \). We can construct such an array, call it \(indices\_grow\),
+    that stores the index of elements that are greater than all other elements to their left in time \(O(n)\). Similarly for the right endpoint,  \(a[j] \) must be greater than any element to its right. We store the indices of such elements in an array \(indices\_decay \).
+    Note that by construction these arrays fulfil the following properties:
+    <ul>
+        <li>\( indices\_decay[0] = n \) </li>
+        <li>
+            \( indices\_decay[i] < indices\_decay[i-1] \)
+        </li>
+        <li>
+            \(indices\_grow[0] = 0 \)
+        </li>
+        <li>
+            \( indices\_grow[i-1] < indices\_grow[i] \)
+        </li>
+    </ul>
+    Note further that both satisfy \( a[indices\_(..)[i]] < a[indices\_(..)[i+1]] \). Visually speaking you can represent \(indices\_grow \) as a positively sloped line touching the peaks from the left of the array and \(indices\_decay\) as a negatively sloped line touching the peaks towards the right of the array.
+    <h3>Observation 2</h3>
     
 </body>
 </html>
