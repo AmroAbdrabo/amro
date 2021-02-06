@@ -80,9 +80,9 @@ h1:after {
     ll ans;
     using namespace std;
     #define func(p) (1ll*(h[a1[mid]]+h[a2[p]])*(a2[p]-a1[mid]))
-    int solve(int l1,int r1,int l2,int r2)
+    ll solve(int l1,int r1,int l2,int r2)
     {
-    	if(l1>r1) return;
+    	if(l1>r1) return 0;
         int mid=l1+r1>>1,pos=l2;
         ll temp = -1;
     	for(int i=l2+1; i<=r2; ++i)
