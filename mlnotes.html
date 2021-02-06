@@ -65,6 +65,9 @@ Some terminology:
     </div>
     Where the algorithm \( A\) outputs the smallest fitting rectangle \(\hat{R} \).
     To prove learnability we show that \(\mathbf{P} (R(\hat{R}) \leq \epsilon ) \geq \mathbf{P}(\hat{R}IG) \geq 1-4\exp(-\frac{n\epsilon}{4}) \geq 1-\delta \) 
-
+    <br> where the last inequality implies that \( n\geq \displaystyle\frac{4}{\epsilon} \ln\frac{1}{\delta} \geq  \displaystyle\frac{4}{\epsilon}\frac{1}{\delta} \)
+    <br> \(\hat{R}IG \) is the event that a rectangle intersects all four strips (upper, lower, left, right strips) where each strip has probability mass distribution \(\displaystyle\frac{\epsilon}{4} \). The following rectangle, for example, is not RIG.
+    <br> <img src="img/notrig.png" alt="not RIG rectangle" style ="width: 400px;"> 
+    
 </body>
 </html>
