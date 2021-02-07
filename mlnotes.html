@@ -88,7 +88,7 @@ Some terminology:
     <ol>
         <li> \( R(\hat{c}^*_{n}) - \inf_{c \in \mathcal{C}}R(c) < 2\sup_{c \in \mathcal{C}}|\hat{R}_n(c) - R(c)| \) where \( \hat{c}^*_n = \arg \min_{c \in \mathcal{C}} \hat{R}_n(c)  \)  </li>
         <li> \( \forall \epsilon > 0, \ \mathbf{P}(|\hat{R}_n(c) - R(c)| > \epsilon) \leq 2|\mathcal{C}|\exp{(-2n\epsilon^2)} \)</li>
-        <li> \( \mathbf{P}(R(\hat{c}^*_n) - \inf_{c \in \mathcal{C}}R(c) > \epsilon ) \leq  2|\mathcal{C}|\exp{(-\frac{n\epsilon^2}{2})} \) <span>can be deduced from the two above</span> </li>
+        <li> \( \mathbf{P}(R(\hat{c}^*_n) - \inf_{c \in \mathcal{C}}R(c) > \epsilon ) \leq  2|\mathcal{C}|\exp{(-\frac{n\epsilon^2}{2})} \) <span>can be demonstrated from the two above</span> </li>
     </ol>
     The proof for (1) follows: <br>
     Let \(c^* \in \arg \min_{c \in \mathcal{C}} R(c) \text{ and } \hat{c} \in  \arg \min_{c \in \mathcal{C}} \hat{R}_n(c)  \) then \( R(\hat{c})  - \inf_{c \in \mathcal{C}} R(c) = ( R(\hat{c}) - \hat{R}_n(\hat{c}) ) + (\hat{R}_n(\hat{c}) - R(c^*))  \leq ( R(\hat{c}) - \hat{R}_n(\hat{c}) ) + (\hat{R}_n(c^*) - R(c^*))   \) <br>
@@ -98,6 +98,8 @@ Some terminology:
     Let \(X_1, ..., X_m \) be independent random variables with \(X_i \) taking values in [\(a_i, b_i\)] for all \( i\in [m] \). Then for any \(\epsilon > 0 \), the following inequalities hold for \(S_m = \sum_{i=1}^{m}X_i \),
     \[ \mathbf{P}(S_m - \mathbb{E}[S_m] \geq \epsilon ) \leq e^{-2\epsilon^2/\sum_{i=1}^{m}(b_i - a_i)^2}  \]
     \[ \mathbf{P}(S_m - \mathbb{E}[S_m] \leq -\epsilon ) \leq e^{-2\epsilon^2/\sum_{i=1}^{m}(b_i - a_i)^2} \] 
-    Now using the fact \(n\hat{R}_n(\hat{c}) = \sum_{i = 1}^{n} 1_{c(x_i) \neq \hat{c}(x_i)}  \) and \(X_i = 1_{c(x_i) \neq \hat{c}(x_i)} \)
+    Now using the fact \(n\hat{R}_n(\hat{c}) = \sum_{i = 1}^{n} 1_{c(x_i) \neq \hat{c}(x_i)} =S_n  \) and \(X_i = 1_{c(x_i) \neq \hat{c}(x_i)} \) as well as the union bound completes the proof. 
+
+    
 </body>
 </html>
