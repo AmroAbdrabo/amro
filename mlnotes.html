@@ -70,7 +70,7 @@ Some terminology:
     <br> <img src="img/notrig.png" alt="not RIG rectangle" style ="width: 400px;">  <br>
      
     To show that   \(\mathbf{P} (R(\hat{R}) \leq \epsilon ) \geq \mathbf{P}(\hat{R}IG)  \), or that the event RIG implies the former, we prove the contrapositive: <br> <br>
-    \( \mathbf{P}_{S \sim  D^m} (R(R_s) > \epsilon) \leq \mathbf{P}_{S \sim D^m} (\cup_{i = 1}^{4} \{ R_s \cap r_i = \emptyset \} )  \leq \sum_{i=1}^{4} \mathbf{P}(\{ R_s \cap r_i = \emptyset \}) \text{ (by the union bound)} \leq 4(1 - \epsilon/4)^{m} \leq 4\exp{(-m\epsilon/4)}  \text{( since } 1-x \leq e^{-x} ) \)
+    \( \mathbf{P}_{S \sim  D^m} (R(R_s) > \epsilon) \leq \mathbf{P}_{S \sim D^m} (\cup_{i = 1}^{4} \{ R_s \cap r_i = \emptyset \} )  \leq \sum_{i=1}^{4} \mathbf{P}(\{ R_s \cap r_i = \emptyset \}) \text{ (by the union bound)} \leq 4(1 - \epsilon/4)^{m} \leq 4\exp{(-m\epsilon/4)}  \text{ (since } 1-x \leq e^{-x} ) \)
    <br>
    which means that if the error area is to be larger that \( \epsilon \) then the learned rectangle cannot intersect all strips (otherwise the error area of the rectangle will be less than \( \epsilon \)). <br>
    \( 4\exp{(-m\epsilon/4)}  \leq \delta \Leftrightarrow  m \geq \frac{4}{\epsilon}\log{\frac{4}{\delta}} \) since log is subpolynomial then we can change the bound by replacing \( \log{\frac{4}{\delta}} \) to \( \frac{4}{\delta} \)  
@@ -90,7 +90,8 @@ Some terminology:
         <li> \( \forall \epsilon > 0, \ \mathbf{P}(|\hat{R}_n(c) - R(c)| > \epsilon) \leq 2|\mathcal{C}|\exp{(-2n\epsilon^2)} \)</li>
         <li> \( \mathbf{P}(R(\hat{c}^*_n) - \inf_{c \in \mathcal{C}}R(c) > \epsilon ) \leq  2|\mathcal{C}|\exp{(-\frac{n\epsilon^2}{2})} \) <span>can be deduced from the two above</span> </li>
     </ol>
-    The proof for 1) follows: <br>
-    Let \(c^* \in \arg \min_{c \in \mathcal{C}} R(c) \text{ and } \hat{c} \in  \arg \min_{c \in \mathcal{C}} \hat{R}_n(c)  \) then \( R(\hat{c})  - \inf_{c \in \mathcal{C}} R(c) = ( R() ) \)
+    The proof for (1) follows: <br>
+    Let \(c^* \in \arg \min_{c \in \mathcal{C}} R(c) \text{ and } \hat{c} \in  \arg \min_{c \in \mathcal{C}} \hat{R}_n(c)  \) then \( R(\hat{c})  - \inf_{c \in \mathcal{C}} R(c) = ( R(\hat{c}) - \hat{R}_n(\hat{c}) ) + (\hat{R}_n(\hat{c}) - R(c^*))  \leq ( R(\hat{c}) - \hat{R}_n(\hat{c}) ) + (\hat{R}_n(c^*) - R(c^*))   \) <br>
+    note that both parenthesized terms are each less than \( \sup_{c \in \mathcal{C}} |R(c) - \hat{R}_n(c)| \), which completes the proof. 
 </body>
 </html>
