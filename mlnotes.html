@@ -86,9 +86,9 @@ Some terminology:
     \( \mathbf{P}(R(\hat{c}) > \epsilon)  \leq \mathbf{P}\{ \max_{c \in \mathcal{C}: R_n(c) = 0} R(c) > \epsilon \}  = \mathbb{E}\{ \displaystyle I_{\max_{c \in \mathcal{C}: R_n(c) = 0 } R(c) > \epsilon } \} = \mathbb{E}\{ \max_{c \in \mathcal{C}} I_{R(c)>\epsilon}I_{R_n(c) =0} \} \leq \mathbb{E}\{ \sum_{c \in \mathcal{C}} I_{R(c)>\epsilon}I_{R_n(c) =0} \} \leq \mathbb{E}\{ \sum_{c \in \mathcal{C}: R(c) > \epsilon} I_{R_n(c) =0} \} \leq |\mathcal{C}|(1-\epsilon)^n \leq  |\mathcal{C}|\exp(-\epsilon n) \leq \delta \)
     <h3>Useful Inequalities</h3>
     <ol>
-        <li> \( R(\hat{c}^*_{n}) - \inf_{c \in \mathcal{C}}R(c) < 2\sup_{c \in \mathcal{C}}|\hat{R}_n(c) - R(c)| \)  </li>
-        <li></li>
-        <li></li>
+        <li> \( R(\hat{c}^*_{n}) - \inf_{c \in \mathcal{C}}R(c) < 2\sup_{c \in \mathcal{C}}|\hat{R}_n(c) - R(c)| \) where \( \hat{c}^*_n = \arg \min_{c \in \mathcal{C}} \hat{R}_n(c)  \)  </li>
+        <li> \( \forall \epsilon > 0, \ \mathbf{P}(|\hat{R}_n(c) - R(c)| > \epsilon) \leq 2|\mathcal{C}|\exp{(-2n\epsilon^2)} \)</li>
+        <li> \( \mathbf{P}(R(\hat{c}^*_n) - \inf_{c \in \mathcal{C}}R(c) > \epsilon ) \leq  2|\mathcal{C}|\exp{(-\frac{n\epsilon^2}{2})} \) </li>
     </ol>
 </body>
 </html>
