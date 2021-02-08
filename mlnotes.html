@@ -100,6 +100,18 @@ Some terminology:
     \[ \mathbf{P}(S_m - \mathbb{E}[S_m] \leq -\epsilon ) \leq e^{-2\epsilon^2/\sum_{i=1}^{m}(b_i - a_i)^2} \] 
     Now using the fact \(n\hat{R}_n(\hat{c}) = \sum_{i = 1}^{n} 1_{c(x_i) \neq \hat{c}(x_i)} =S_n  \) and \(X_i = 1_{c(x_i) \neq \hat{c}(x_i)} \) as well as the union bound completes the proof. 
 
-    
+    <br> <br>
+    <b>Problem 3 (Learning concentric circles)</b> from the HW:
+    <br>
+    Consider the instance space \(\mathcal{X} = \mathbb{R}^2 \) and the hypothesis class \( \mathcal{C} = \{\mathcal{C}_r : r \in \mathbb{R} \}  \) consisting of all indicator functions of circles with center at (0, 0): 
+    \[ C_r(\mathbf{x}) = \begin{cases} 
+    0 & ||\mathbf{x}||_2 > r \\
+    1 & ||\mathbf{x}||_2 \leq r 
+ \end{cases} \]
+ Fix some \(r^* \in \mathbb{R} \) and consider the target classifier \(c^* = C_{r^*} \). Let \(X_1, X_2, ... \) be i.i.d random variables taking values in \(\mathbb{R}^2 \) and let \(Y_i := c^*(X_i) \).
+ Moreover, for \( n \in \mathbb{N} \), let \(\hat{c}_n := C_{r_\min^n}  \)  be the tightest fitting consistent circle with 
+ \[ r_\min^n := \underset{i \leq n, Y_i = 1}{\max} ||X_i||_2 \]
+ 1. Let \( \epsilon > 0 \), and assume there exists a unique \( r_{\epsilon}^+ \in \mathbb{R}\) s.t. \(\mathbf{P}(r_{\epsilon}^+ < ||X_i||_2 \leq r^*) = \epsilon \). Show that \(\mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) = (1 - \epsilon)^n \)
+ <br> Ans:  \(\mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) = \mathbf{P}(\underset{ i \leq n, Y_i = 1}{\bigwedge} X_i \leq r_{\epsilon}^+) \)
 </body>
 </html>
