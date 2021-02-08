@@ -112,6 +112,9 @@ Some terminology:
  Moreover, for \( n \in \mathbb{N} \), let \(\hat{c}_n := C_{r_\min^n}  \)  be the tightest fitting consistent circle with 
  \[ r_\min^n := \underset{i \leq n, Y_i = 1}{\max} ||X_i||_2 \]
  1. Let \( \epsilon > 0 \), and assume there exists a unique \( r_{\epsilon}^+ \in \mathbb{R}\) s.t. \(\mathbf{P}(r_{\epsilon}^+ < ||X_i||_2 \leq r^*) = \epsilon \). Show that \(\mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) = (1 - \epsilon)^n \)
- <br> Ans:  \(\mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) = \mathbf{P}(\underset{ i \leq n, Y_i = 1}{\bigwedge} X_i \leq r_{\epsilon}^+) \)
+ <br> Ans:  \(\mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) = \mathbf{P}(\underset{ i \leq n, Y_i = 1}{\bigwedge} ||X_i||_2 \leq r_{\epsilon}^+)  = \displaystyle\prod_{i=1}^{n} \mathbf{P} (||X_i||_2 \leq r_{\epsilon}^+) \) since by definition \( ||X_i||_2 \leq r^* \) then the probability mass of \( ||X_i||_2 \) is distributed in \([0, r^*] \) thus 
+ \( \displaystyle\prod_{i=1}^{n} \mathbf{P}(||X_i||_2 \leq r_{\epsilon}^+) =  \displaystyle\prod_{i=1}^{n} (1 - \mathbf{P}(r_{\epsilon}^+ < ||X_i||_2 \leq r^*)) = (1-\epsilon)^n   \)
+ <br>
+ 2. Show that if \( n \geq \frac{1}{\epsilon}\log{\frac{1}{\delta}} \), then \(\mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) \leq \delta, \text{ for } \delta > 0 \)
 </body>
 </html>
