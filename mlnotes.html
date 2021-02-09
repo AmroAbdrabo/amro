@@ -127,5 +127,29 @@ Some terminology:
     Thus, \(\mathcal{C} \) is PAC learnable. Moreover, \( \mathcal{C} \) is efficiently PAC learnable since computing \(r_{\min}^n\) is \(O(n)\) and we require at least \(\frac{1}{\epsilon}\log\frac{1}{\delta}\) instances, i.e. the proposed algorithm runs in time polynomial in \(\frac{1}{\epsilon} \text{ and } \frac{1}{\delta}\).
     <br>
     <h2 style = "text-decoration: underline; "> Lecture 11: Non-parametic Bayesian Methods </h2>
+    <h3>
+        <i>k</i> -Means Algorithm
+    </h3>
+    Given <i>d</i>-dimensional sample vectors \(\mathcal{X} = \{\mathbf{x_1},..., \mathbf{x_n}\} \) find an assignment function \[ \begin{gather*} c: \mathbb{R}^d \rightarrow {1, ..., k} \\ \mathbf{x} \mapsto c(\mathbf{x}) \end{gather*} \]
+    such that \( \mathcal{R}^{k}(c, \mathcal{Y}) = \sum_{\mathbf{x} \in \mathcal{x}} ||\mathbf{x}-\mu_{c(\mathbf{x})}||^2  \) is minimized where \(\mathcal{Y} \) is the cluster protoypes (centroids) and \(\mu_c \in \mathcal{Y}, c\in \{1, ..., k\}\).
+    <br> <br>
+    <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: 500px; padding-bottom: 10px;">
+    <div style="font-weight: 600; text-align: center; width: 100%; padding-top: 10px; display: inline-block;"><i>k</i>-Means Algorithm </div> <br>
+    <ol>
+        <li> Initialize prototypes to arbitrary values </li>
+        <li>Assign each \(\mathbf{x}\) to its closest prototype (i.e. define function \(c(\mathbf{x})\))</li>
+        <li>
+            Estimate new prototypes by taking averages of points assigned to the same prototype from the previous step. 
+        </li>
+        <li>
+            Iterate until changes of \( c(\mathbf{x}), \mathcal{Y}\) vanish 
+        </li>
+        <li>
+            return the prototypes and assignment function
+        </li>
+    </ol>
+      
+    </div>
+
 </body>
 </html>
