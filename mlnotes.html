@@ -212,5 +212,8 @@ Some terminology:
     <br>
     The multivariate generalization of the beta distribution is the Dirichlet distribution: \[\text{Dir}(\mathbf{x}|\mathbf{\alpha}) = \frac{1}{B(\alpha)} \cdot \prod_{k=1}^n x_k^{\alpha_k - 1}\]
     where \(B(\mathbf{\alpha}) = \displaystyle\frac{\prod_{k=1}^n \Gamma(\alpha_k)}{\Gamma(\sum_{k=1}^n \alpha_k)}\) and \(\mathbf{x} \text{ and } \mathbf{\alpha}\) are vectors of length <i>n</i> with only positive components and \(x_i \in  [0, 1]\). 
+    <br><b>Latent clusters</b> <br>
+    For a finite number of drawings <i>N</i>, we do not have to realize <b> all</b> K clusters. All K clusters will be realized with probability 1, but only when \(N \rightarrow \infty \).
+    <br> How to handle need of new clusters? Select large K. But then the problem is solved only partially since any specific K might have problems and our belief in K could change as we observe more data points. Solution is thus to use K = \(\infty \) which is a non-parametric bayesian method. In reality this would mean letting the data "speak" how many clusters it needs. 
 </body>
 </html>
