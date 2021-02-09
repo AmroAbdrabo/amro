@@ -174,14 +174,14 @@ Some terminology:
    Thus the "latent variable form":
    <ul>
     <li> 
-        \(p(z = c) = \pi_c\)
+        \(p(z = c) = \pi_c \ \ \) <span>  probability of \(\mathbf{x}_i\) being assigned to mixture mode c</span>
     </li>
     <li>
       \(  p(x|z = c) = \mathcal{N}(x ; \mu_c, \sigma_c) \)
     </li>
    </ul>
    <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: 500px; padding-bottom: 10px; padding-right: 10px;">
-    <div style="font-weight: 600; text-align: center; width: 100%; padding-top: 10px; display: inline-block;">EM Algorithm </div> <br>
+    <div style="font-weight: 600; text-align: center; width: 100%; padding-top: 10px; display: inline-block;">Expectation Maximization Algorithm </div> <br>
     <ol>
         <li> E-step
             <ol>
@@ -189,7 +189,18 @@ Some terminology:
                 <li>For each datum \(\mathbf{x_i}\), compute \(\gamma_{\mathbf{x}c}\) the probability that it belongs to \(c\). For the case of GMM,  \(\gamma_{\mathbf{x_i}c} = \frac{\pi_c \mathcal{N}(\mathbf{x}_i; \  \mu_c, \sum_c) }{\sum_{c'}\pi_{c'} \mathcal{N}(\mathbf{x}_i; \  \mu_{c'}, \sum_{c'})  } \)</li>
             </ol>
         </li>
-        <li>Assign each \(\mathbf{x}\) to its closest prototype (i.e. define function \(c(\mathbf{x})\))</li>
+        <li> M-step 
+            <ol>
+                <li> <span> Update mixture weights </span> \( \pi_c = \frac{1}{|\mathcal{X}|}\displaystyle\sum_{\mathbf{x}\in \mathcal{X}} \gamma_{\mathbf{x}c} \)</li>
+                <li>
+                    <span>Update means </span> \( \mathbf{\mu}_c = \frac{\sum_{\mathbf{x} \in \mathcal{X}} \mathbf{x}\gamma_{\mathbf{x}c}  }{\sum_{\mathbf{x} \in \mathcal{X}} \gamma_{\mathbf{x}c} } \)
+                </li>
+                <li>
+                    <span>Update variances:</span> \(\sigma_c^2 = \frac{\sum_{\mathbf{x} \in \mathcal{X}} \gamma_{\mathbf{x}c}(\mathbf{x - \mu_c})^2 }{\sum_{\mathbf{x} \in \mathcal{X} } \gamma_{\mathbf{x}c} }\)
+                </li>
+            </ol>
+        </li>
+        <li>Repeat until convergence</li>
         
     </ol>
       
