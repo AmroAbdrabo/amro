@@ -126,14 +126,14 @@ Some terminology:
     \[ \mathbf{P}(R(\hat{c}_n) \leq \epsilon) \geq 1-\delta  \] <br>
     Thus, \(\mathcal{C} \) is PAC learnable. Moreover, \( \mathcal{C} \) is efficiently PAC learnable since computing \(r_{\min}^n\) is \(O(n)\) and we require at least \(\frac{1}{\epsilon}\log\frac{1}{\delta}\) instances, i.e. the proposed algorithm runs in time polynomial in \(\frac{1}{\epsilon} \text{ and } \frac{1}{\delta}\).
     <br>
-    <h2 style = "text-decoration: underline; "> Lecture 11: Non-parametic Bayesian Methods </h2>
+    <h2 style = "text-decoration: underline; "> Lecture 11: EM and Non-parametic Bayesian Methods </h2>
     <h3>
         <i>k</i> -Means Algorithm
     </h3>
     Given <i>d</i>-dimensional sample vectors \(\mathcal{X} = \{\mathbf{x_1},..., \mathbf{x_n}\} \) find an assignment function \[ \begin{gather*} c: \mathbb{R}^d \rightarrow \{1, ..., k\} \\ \mathbf{x} \mapsto c(\mathbf{x}) \end{gather*} \]
     such that \( \mathcal{R}^{k}(c, \mathcal{Y}) = \sum_{\mathbf{x} \in \mathcal{x}} ||\mathbf{x}-\mu_{c(\mathbf{x})}||^2  \) is minimized where \(\mathcal{Y} \) is the cluster protoypes (centroids) and \(\mu_c \in \mathcal{Y}, c\in \{1, ..., k\}\).
     <br> <br>
-    <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: 500px; padding-bottom: 10px;">
+    <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: 500px; padding-bottom: 10px; padding-right: 10px;">
     <div style="font-weight: 600; text-align: center; width: 100%; padding-top: 10px; display: inline-block;"><i>k</i>-Means Algorithm </div> <br>
     <ol>
         <li> Initialize prototypes to arbitrary values </li>
@@ -166,8 +166,33 @@ Some terminology:
            Estimate <span>\( \hat{\theta} \) such that it maximizes the likelihood of sample feature vectors \(\mathcal{X} = \mathbf{\{x_1, ..., x_n\}}, \ \ p(\mathcal{X}| \pi_1, ..., \pi_k,\theta_1, ..., \theta_k) = \displaystyle\prod_{\mathbf{x} \in \mathcal{X}}\displaystyle\sum_{c \leq k}\pi_cp(\mathbf{x}|\mathbf{\theta_c}) \)</span>
        </li>
        <li>
-           Log-likelihood  <span> is often computationally preferable: \( L(\mathcal{X}| \pi_1, ..., \pi_k, \mathbf{\theta_1, ..., \theta_k}) = \displaystyle\sum_{\mathbf{x} \in \mathcal{X}}\displaystyle\sum_{c \leq k}\pi_cp(\mathbf{x}|\mathbf{\theta_c})  \)</span> 
+           Log-likelihood  <span> is often computationally preferable: \( L(\mathcal{X}| \pi_1, ..., \pi_k, \mathbf{\theta_1, ..., \theta_k}) = \displaystyle\sum_{\mathbf{x} \in \mathcal{X}}\log\displaystyle\sum_{c \leq k}\pi_cp(\mathbf{x}|\mathbf{\theta_c})  \)</span> 
        </li>
    </ul>
+   However, direct maximization is intractable due to sum within logarithm; thus, we introduce latent (hidden) variables, \(z\), which correspond to (expected) data assignments.
+   <br>
+   Thus the "latent variable form":
+   <ul>
+    <li> 
+        \(p(z = c) = \pi_c\)
+    </li>
+    <li>
+      \(  p(x|z = c) = \mathcal{N}(x ; \mu_c, \sigma_c) \)
+    </li>
+   </ul>
+   <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: 500px; padding-bottom: 10px; padding-right: 10px;">
+    <div style="font-weight: 600; text-align: center; width: 100%; padding-top: 10px; display: inline-block;">EM Algorithm </div> <br>
+    <ol>
+        <li> E-step
+            <ol>
+                <li>Start with clusters: Mean \(\mu_c\), covariance \(\sum_c\), and size \(\pi_c\)</li>
+                <li>For each datum \(\mathbf{x_i}\), compute \(\gamma_{\mathbf{x}c}\) the probability that it belongs to \(c\). For the case of GMM,  \(\gamma_{\mathbf{x_i}c} = \frac{\pi_c \mathcal{N}(\mathbf{x}_i; \  \mu_c, \sum_c) }{\sum_{c'}\pi_{c'} \mathcal{N}(\mathbf{x}_i; \  \mu_{c'}, \sum_{c'})  } \)</li>
+            </ol>
+        </li>
+        <li>Assign each \(\mathbf{x}\) to its closest prototype (i.e. define function \(c(\mathbf{x})\))</li>
+        
+    </ol>
+      
+    </div>
 </body>
 </html>
