@@ -185,7 +185,7 @@ Some terminology:
     <ol>
         <li> E-step
             <ol>
-                <li>Start with clusters: Mean \(\mu_c\), covariance \(\sum_c\), and size \(\pi_c\)</li>
+                <li>Start with clusters: Mean \(\mu_c\), covariance \(\Sigma_c\), and size \(\pi_c\)</li>
                 <li>For each datum \(\mathbf{x_i}\), compute \(\gamma_{\mathbf{x}c}\) the probability that it belongs to \(c\). For the case of GMM,  \(\gamma_{\mathbf{x_i}c} = \frac{\pi_c \mathcal{N}(\mathbf{x}_i; \  \mu_c, \sum_c) }{\sum_{c'}\pi_{c'} \mathcal{N}(\mathbf{x}_i; \  \mu_{c'}, \sum_{c'})  } \)</li>
             </ol>
         </li>
@@ -196,7 +196,7 @@ Some terminology:
                     <span>Update means </span> \( \mathbf{\mu}_c = \frac{\sum_{\mathbf{x} \in \mathcal{X}} \mathbf{x}\gamma_{\mathbf{x}c}  }{\sum_{\mathbf{x} \in \mathcal{X}} \gamma_{\mathbf{x}c} } \)
                 </li>
                 <li>
-                    <span>Update variances:</span> \(\sigma_c^2 = \frac{\sum_{\mathbf{x} \in \mathcal{X}} \gamma_{\mathbf{x}c}(\mathbf{x - \mu_c})^2 }{\sum_{\mathbf{x} \in \mathcal{X} } \gamma_{\mathbf{x}c} }\)
+                    <span>Update variances:</span> \(\Sigma_c = \sigma_c^2\mathbb{I}, \  \sigma_c^2 = \frac{\sum_{\mathbf{x} \in \mathcal{X}} \gamma_{\mathbf{x}c}(\mathbf{x - \mu_c})^2 }{\sum_{\mathbf{x} \in \mathcal{X} } \gamma_{\mathbf{x}c} }\)
                 </li>
             </ol>
         </li>
