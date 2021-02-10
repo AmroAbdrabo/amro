@@ -215,5 +215,22 @@ Some terminology:
     <br><b>Latent clusters</b> <br>
     For a finite number of drawings <i>N</i>, we do not have to realize <b> all</b> K clusters. All K clusters will be realized with probability 1, but only when \(N \rightarrow \infty \).
     <br> How to handle need of new clusters? Select large K. But then the problem is solved only partially since any specific K might have problems and our belief in K could change as we observe more data points. Solution is thus to use K = \(\infty \) which is a non-parametric bayesian method. In reality this would mean letting the data "speak" how many clusters it needs. 
+    <br><br> However, recall that the cluster probabilities \( (\rho_1, ..., \rho_K) \sim \text{Dir}(\alpha_1, ..., \alpha_k) \) but we want infinitely large K and that we can not just sample infinitely many points from a dirichlet distribution. We therefore replace \((\rho_1, ..., \rho_K)\) with a probability distribution, which we get from a Dirichlet <b>process</b>.
+    <br><br> <b>Dirichlet Process</b>
+    <br> A Dirichlet process \(DP(\alpha, H)\) is a distribution over probability distributions on a space \(\Theta\). Here, 
+    <ul>
+        <li>
+            \(\alpha \in \mathbb{R}_{>0}\) is the concentration parameter
+        </li>
+        <li>
+        \(H\) is the base measure on \(\Theta\)
+        </li>
+    </ul>
+    Hence, a sample \(G \sim DP(\alpha, H)\) is a function \(G: \Theta \rightarrow \mathbb{R}_{\geq 0} \text{ s.t. } \int_{\Theta}G(\theta)d\theta = 1 \). The DP(\(\alpha, H\)) is defined by the following property: \[(G(T_1), ..., G(T_K) ) \sim Dir(\alpha H(T_1), ..., \alpha H(T_K))\] for every partition \((T_1, ..., T_K) \text{ of } \Theta\)
+    <br>
+    <br>
+    <b>Stick-Breaking Process</b>
+    <br>
+    Observation: sampling 
 </body>
 </html>
