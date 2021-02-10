@@ -21,6 +21,7 @@
             flex-direction: row;
             grid-column-gap: 20px;
         }
+        
 
     </style>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -231,6 +232,32 @@ Some terminology:
     <br>
     <b>Stick-Breaking Process</b>
     <br>
-    Observation: sampling 
+    Observation: sampling \((\rho_1, ..., \rho_K) \sim \text{Dir}(\alpha_1, ..., \alpha_K) \) is equivalent to sampling \(\rho_1 \sim \text{Beta}(\alpha_1, \alpha_2 \cdot \cdot \cdot \alpha_K)\) and \((\rho_2, ..., \rho_k) \sim \text{Dir}(\alpha_2, ..,, \alpha_K)\)
+<br> <br>
+<div>
+    <img src="img/sbreaking.png" alt="stick-breakng" style = "display: inline-flex; border: 1px solid black; float:left; margin-right: 10px;"> \(\begin{gather*}
+    \beta_1 \sim \text{Beta}(\alpha_1, \alpha_2\cdot \cdot \cdot \alpha_K) & \rho_1 &=& \beta_1 \\
+    \beta_2 \sim \text{Beta}(\alpha_2, \alpha_3\cdot \cdot \cdot \alpha_K) & \rho_2 &=& \beta_2(1 - \beta_1) \\
+    \beta_3 \sim \text{Beta}(\alpha_3, \alpha_4\cdot \cdot \cdot \alpha_K) & \rho_3 &=& \beta_3(1 - \beta_1)(1 - \beta_2) \\
+    ... & \rho_K &=& 1 - \sum_{i = 1}^{K-1}\rho_i
+    \end{gather*}
+    \)
+</div>
+    <br> <br> <br> <br> <br> <br>
+    Image shows symbolization of stick breaking where the colored bars represent the beta variables. Note though that \(\mathbf{\alpha} = (\alpha_1, ..., \alpha_K)\) is finite and so alternatively one may want to use the \(Beta(1, \alpha)\) distribution. Only change is that we define \(\rho_K = \beta_K(1 - \sum_{i=1}^{k-1}\rho_i)\). We now say that \(\rho\) is drawn according to GEM distribution, \(\rho \sim GEM(\alpha)\).
+<br>
+<br>
+    <b> Chinese Restaurant Process
+    </b>
+    <br>
+    <ul>
+        <li>Analogous to drawing samples from a DP</li>
+        <li>Customers are observations (data points) \( \theta^{(i)} \), tables are clusters are \(\theta_k\) </li>
+        <li>When a new customer arrives he can either: <ul>
+            <li>Join an existing table with probability \(\propto\) the number of people sitting there </li>
+            <li>Start a new table with probability \(\propto \alpha\) </li>
+        </ul></li>
+    </ul>
+
 </body>
 </html>
