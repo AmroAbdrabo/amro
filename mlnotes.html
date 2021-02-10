@@ -258,6 +258,11 @@ Some terminology:
             <li>Start a new table with probability \(\propto \alpha\) </li>
         </ul></li>
     </ul>
+    Thus, \[P(\text{customer } n+1 \text{ joins table } \tau |\mathcal{P} ) = \begin{cases} 
+    \frac{|\tau|}{\alpha + n} & \tau \in \mathcal{P} \\
+    \frac{\alpha}{\alpha +  n} & \text{otherwise} 
+ \end{cases}  \]
+ where \(\mathcal{P}\) can be for example \(\{\{1, 2, 4, 7\}, \{3, 6, 8\}, \{5, 9\}, \{10\}\}\) to denote that table \(t_1\) has 4 people, table \(t_2\) has 3 people, and so forth. 
 
 </body>
 </html>
