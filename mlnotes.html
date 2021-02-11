@@ -321,7 +321,7 @@ If \(f:[0,1]^n \rightarrow \mathbb{R} \) is continuous and \(\epsilon > 0\) then
     </li>
 </ol> 
 In words, a neural network with two layers can approximate any continuous non-linear function with arbitrary precision.
-
+<br> <br>
 <b>Theorem [Lu, 2017]</b>
 <br>
 Any Lebesgue-integrable function \(f: \mathbb{R}^n\rightarrow \mathbb{R}\) can be approximated by a fully connected network, with respect to the L1 (Manhattan) distance, as long as:
@@ -331,5 +331,7 @@ Any Lebesgue-integrable function \(f: \mathbb{R}^n\rightarrow \mathbb{R}\) can b
         The activation function is the ReLU
     </li>
 </ul> 
+
+For a binary classification model, the output unit is the sigmoid function \(\displaystyle\frac{1}{1+e^{-x}}\). For multiclass classification with <i>n</i> labels, the outputs are softmax functions \(y_i = \displaystyle\frac{\beta z_i}{\sum_{j \leq n}\exp{(\beta z_j)} }\) where \(z_1, ...,z_n\) are scores. 
 </body>
 </html>
