@@ -263,6 +263,25 @@ Some terminology:
     \frac{\alpha}{\alpha +  n} & \text{otherwise} 
  \end{cases}  \]
  where \(\mathcal{P}\) can be for example \(\{\{1, 2, 4, 7\}, \{3, 6, 8\}, \{5, 9\}, \{10\}\}\) to denote that table \(t_1\) has 4 people, table \(t_2\) has 3 people, and so forth. 
+The probability of this partition \(\mathcal{P}\) is thus \(P(\mathcal{P}) = \displaystyle \frac{\alpha}{\alpha}\left(\frac{1}{\alpha + 1}\right) \left(\frac{\alpha}{\alpha + 2}\right) \left(\frac{2}{\alpha + 3}\right) \left(\frac{\alpha}{\alpha + 4}\right) \left(\frac{1}{\alpha + 5}\right) \left(\frac{3}{\alpha + 6}\right) \left(\frac{2}{\alpha + 7}\right)\left(\frac{1}{\alpha + 8}\right)\left(\frac{\alpha}{\alpha + 9}\right)\)
+<br>
+<br>
+<b>Problem 2</b> from the HW: <br>
+Consider the following algorithm for sampling from the Dirichlet process with base distribution \(F_0\) and concentration parameter \(\alpha\).
+<ol>
+    <li  style = "color: black;">
+        Draw the first sample \(X_1 \sim F_0\)
+    </li>
+    <li  style = "color: black;">
+        For \(i=2, 3, ...\) draw \[ X_i | X_1, ..., X_{i-1}  = \begin{cases}
+            X \sim \hat{F}_{i-1} & \text{ with probability } p = \frac{i-1}{\alpha +i - 1} \\
+            X \sim F_0 & \text{ with probability } p = \frac{\alpha}{\alpha +i - 1}
+        \end{cases}
+        \] 
+        where \(F_i \) is the empirical distribution of \(X_1, ..., X_{i-1}\)
+        
+    </li>
+</ol>
 
 </body>
 </html>
