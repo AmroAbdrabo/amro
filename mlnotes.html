@@ -301,5 +301,35 @@ Neural nets can be represented as a composition of linear and non-linear pointwi
 </li>
 </ul>
 where \(\mathbf{x} = (x_1, ..., x_n)\) and \(NN(\mathbf{x}) = \alpha^{(d)}( L^{(d)}(... \alpha^{(2)}(L^{(2)}(\alpha^{(1)}(L^{(1)}(\mathbf{x})) )  ) ) )  = \alpha^{(d)}\circ L^{(d)} \circ ...\alpha^{(2)}\circ L^{(2)} \circ \alpha^{(1)} \circ L^{(1)}(\mathbf{x}) \) using the composition operator. 
+<br>
+<br>
+<img src="img/visu.png" alt="" style = "width: 400px; height: auto; border: 1px black solid;">
+<br>
+The three most common activation functions are the ReLU, the hyperbolic tangent, and the sigmoid. It is important to know their graphs.
+The reason ReLU is more common than the other two functions is because it suffers less from the problem of vanishing gradients (gradient approaches zero for large positive or extreme negative values). If the gradient is close to zero then you risk that gradient descent does not make progress. 
+<br>
+<br>
+<b>Theorem [Cybenko, 1989]</b>
+<br>
+If \(f:[0,1]^n \rightarrow \mathbb{R} \) is continuous and \(\epsilon > 0\) then there is a NN such that 
+<ol>
+    <li>
+       \( NN(\mathbf{x}) = \sum_{i \leq m} \alpha_i \sigma(w_i^T\mathbf{x}+b_i)  \)
+    </li>
+    <li>
+       \( \displaystyle\max_{\mathbf{x}} |f(\mathbf{x}) - NN(\mathbf{x})| < \epsilon \)
+    </li>
+</ol> 
+In words, a neural network with two layers can approximate any continuous non-linear function with arbitrary precision.
+
+<b>Theorem [Lu, 2017]</b>
+<br>
+Any Lebesgue-integrable function \(f: \mathbb{R}^n\rightarrow \mathbb{R}\) can be approximated by a fully connected network, with respect to the L1 (Manhattan) distance, as long as:
+<ul>
+    <li>Each layer has \(n+4\) units</li>
+    <li>
+        The activation function is the ReLU
+    </li>
+</ul> 
 </body>
 </html>
