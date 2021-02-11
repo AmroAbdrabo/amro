@@ -57,8 +57,8 @@ Some terminology:
     if \( A\) receives as input a sample \( Z\) of size \( n \geq poly(\frac{1}{\epsilon}, \frac{1}{\delta},\text{size}(c)) \) then \(A \) outputs \(\hat{c} \) such that 
     \[ \mathbf{P}_{Z \sim D^n} (R(\hat{c}) \leq \epsilon ) \geq 1 - \delta \]
 
-    A concept class \(C \) is PAC-learnable from a hypothesis class \( H\) if there is an alogrithm that can learn any concept in \(C \) using a hypothesis from \(H \).
-    <h3>Example: Axis-aligned rectangles are PAC-learnable</h3>
+    A concept class \(C \) is PAC learnable from a hypothesis class \( H\) if there is an alogrithm that can learn any concept in \(C \) using a hypothesis from \(H \).
+    <h3>Example: Axis-aligned rectangles are PAC learnable</h3>
     <div class="row">
         <img src="img/aarect.png" alt="Picture of axis-aligned rectangle with positive points in the interior, negative in the exterior">
         
@@ -76,7 +76,7 @@ Some terminology:
    which means that if the error area is to be larger that \( \epsilon \) then the learned rectangle cannot intersect all strips (otherwise the error area of the rectangle will be less than \( \epsilon \)). <br>
    \( 4\exp{(-m\epsilon/4)}  \leq \delta \Leftrightarrow  m \geq \frac{4}{\epsilon}\log{\frac{4}{\delta}} \) since log is subpolynomial then we can change the bound by replacing \( \log{\frac{4}{\delta}} \) to \( \frac{4}{\delta} \)  
    <h3>Universal concept class</h3>
-    The universal concept class, i.e. the concept class formed by all subsets of binary vectors of fixed length, is not PAC-learnable but the proof is hard. 
+    The universal concept class, i.e. the concept class formed by all subsets of binary vectors of fixed length, is not PAC learnable but the proof is hard. 
 
     <h3>Consistent hypothesis for finite hypothesis classes</h3>
     Let \( C\) be a finite concept class and assume that \( \mathcal{H} = C \). Let \( \mathcal{A} \) be an algorithm that returns a consistent hypothesis \( \hat{c} \) (i.e. \( \forall n < \infty: R_n(\hat{c}) =0 \)) for any target concept \( c \in \mathcal{C} \)
@@ -118,7 +118,7 @@ Some terminology:
  <br>
  2. Show that if \( n \geq \frac{1}{\epsilon}\log{\frac{1}{\delta}} \), then \(\mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) \leq \delta, \text{ for } \delta > 0 \). <br>
  Ans: Alternatively show the contrapositive: \( \mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) > \delta \Rightarrow n <  \frac{1}{\epsilon}\log{\frac{1}{\delta}}  \). We have \( (1-\epsilon)^n > \delta \Rightarrow e^{-n\epsilon} > \delta \Rightarrow n <  \frac{1}{\epsilon}\log{\frac{1}{\delta}}  \) <br>
- 3. Show that \( \mathcal{C} \) is efficiently PAC-learnable. <b> <i> Hint: show that \( \mathbf{P}(R(\hat{c}_n) \geq \epsilon) = \mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) \).
+ 3. Show that \( \mathcal{C} \) is efficiently PAC learnable. <b> <i> Hint: show that \( \mathbf{P}(R(\hat{c}_n) \geq \epsilon) = \mathbf{P}(r_{\min}^n \leq r_{\epsilon}^+) \).
 </i></b> <br>
  Ans: Observe that \[R(\hat{c}_n) = \mathbf{P}(\hat{c}_n(X_i) \neq c^{*}(X_i) ) = \mathbf{P}(r_{\min}^n < ||X_i||_2 \leq r*)  \]
  If \( r_{\min}^n \leq r_{\epsilon}^+ \), then by construction, 
@@ -278,10 +278,28 @@ Consider the following algorithm for sampling from the Dirichlet process with ba
             X \sim F_0 & \text{ with probability } p = \frac{\alpha}{\alpha +i - 1}
         \end{cases}
         \] 
-        where \(F_i \) is the empirical distribution of \(X_1, ..., X_{i-1}\)
-        
+        where \(\hat{F_{i-1}} \) is the empirical distribution of \(X_1, ..., X_{i-1}\)
+
     </li>
 </ol>
-
+Find the asymptotics of the number of discrete samples drawn, as a function of the total number of samples drawn: \(X_1, ..., X_n\); or equivalently, the number of occupied tables in the Chinese restaurant metaphor. 
+<br>
+Ans: Let the indicator random variable \(I_{e_i}\) signal the event that \(X_i\) is drawn from \(F_0\). Then clearly the anwer is given by \(1+\mathbb{E}[I_{e_2} + ...+I_{e_n} ] = 1+\sum_{i=2}^{n} \frac{\alpha}{\alpha+ i - 1} = \sum_{i=1}^{n} \frac{\alpha}{\alpha+ i - 1}  =S(n)\). To find the asymptotics of \(S(n)\), consider the integral \(I(n) = \int_{1}^{n+1}\frac{\alpha}{\alpha + x -1} dx\). After looking at the graph of function \(\frac{\alpha}{\alpha + x - 1}\), it is easy to see that the integral \(I(n)\) is bounded by the sum \(\sum_{i=1}^{n}\frac{\alpha}{\alpha + i -1} = S(n)\) from above and by \(\sum_{i=2}^{n+1}\frac{\alpha}{\alpha+i - 1} = S(n) - 1 + \frac{\alpha}{\alpha + n} \) from below, that is, \[S(n) - 1 +\frac{\alpha}{\alpha+n} \leq I(n) \leq S(n) \forall n > 1\]
+which can be reformulated equivalently as \[
+I(n) \leq S(n) \leq I(n) + 1 - \frac{\alpha}{\alpha + n} \forall n > 1
+\]
+then evaluate the integral to get that \(S(n) \sim \alpha \ln(n)\) as \(n \rightarrow \infty\)
+<h2 style = "text-decoration: underline; "> Lecture 9-10: Deep Learning </h2>
+<h3>Neural Networks</h3>
+Neural nets can be represented as a composition of linear and non-linear pointwise activation functions:
+<ul>
+<li>
+    <span>Linear functions: \(L: \mathbf{x} \mapsto W\mathbf{x} + \mathbf{b}\)</span>
+</li>
+<li>
+    <span>Activation functions: \(\mathbf{\alpha}: \mathbf{x} \mapsto (\alpha(x_1), ..., \alpha(x_n)  )  \)</span>
+</li>
+</ul>
+where \(\mathbf{x} = (x_1, ..., x_n)\) and \(NN(\mathbf{x}) = \alpha^{(d)}( L^{(d)}(... \alpha^{(2)}(L^{(2)}(\alpha^{(1)}(L^{(1)}(\mathbf{x})) )  ) ) )  = \alpha^{(d)}\circ L^{(d)} \circ ...\alpha^{(2)}\circ L^{(2)} \circ \alpha^{(1)} \circ L^{(1)}(\mathbf{x}) \) using the composition operator. 
 </body>
 </html>
