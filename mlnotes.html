@@ -357,5 +357,9 @@ do {
 until (test cost - train cost) increases
 </div>
 
+<b>Recap of Chain Rule</b>
+<br>
+For a function <span style = "margin-left: 40%; margin-right: 40%;"> \((x, y, z, u) \overset{M}{\longrightarrow} H(u, G(z, F(x,y)))\) </span> <br> which can be equivalently drawn as <br> <img src="img/mapping.png" alt="" style = "display: inline; width: 300px; height: auto;">
+we have \(\left.\displaystyle\frac{ \partial M}{\partial z} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial z}\right|_{\alpha, z} \) and \(\left.\displaystyle\frac{ \partial M}{\partial y} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial \alpha}\right|_{\alpha, z} \left.\displaystyle\frac{\partial F}{\partial y}\right|_{x, y}  \)
 </body>
 </html>
