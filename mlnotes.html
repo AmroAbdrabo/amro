@@ -333,5 +333,7 @@ Any Lebesgue-integrable function \(f: \mathbb{R}^n\rightarrow \mathbb{R}\) can b
 </ul> 
 
 For a binary classification model, the output unit is the sigmoid function \(\displaystyle\frac{1}{1+e^{-x}}\). For multiclass classification with <i>n</i> labels, the outputs are softmax functions \(y_i = \displaystyle\frac{\beta z_i}{\sum_{j \leq n}\exp{(\beta z_j)} }\) where \(z_1, ...,z_n\) are scores. 
+<h3>Training Neural Networks</h3>
+The problem consists of finding \(\displaystyle\min_{\theta} \sum_{i \leq n}  \underbrace{L(y_i, NN_{\theta}(x_i))}_{L(\theta)} \) where \(\theta\) is composed of weights \(W\) and intercepts \(b\) such that \(\theta = (W^1,b^1; W^2,b^2; W^3,b^3) \). Example of loss functions are cross entropy 
 </body>
 </html>
