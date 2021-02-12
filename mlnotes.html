@@ -251,14 +251,14 @@ Some terminology:
     </b>
     <br>
     <ul>
-        <li>Analogous to drawing samples from a DP</li>
-        <li>Customers are observations (data points) \( \theta^{(i)} \), tables are clusters are \(\theta_k\) </li>
-        <li>When a new customer arrives he can either: <ul>
-            <li>Join an existing table with probability \(\propto\) the number of people sitting there </li>
-            <li>Start a new table with probability \(\propto \alpha\) </li>
+        <li><span> Analogous to drawing samples from a DP </span></li>
+        <li><span>Customers are observations (data points) \( \theta^{(i)} \), tables are clusters are \(\theta_k\)</span>  </li>
+        <li><span>When a new customer arrives he can either: </span>  <ul>
+            <li> <span> Join an existing table with probability \(\propto\) the number of people sitting there </span> </li>
+            <li> <span> Start a new table with probability \(\propto \alpha\) </span></li>
         </ul></li>
     </ul>
-    Thus, \[P(\text{customer } n+1 \text{ joins table } \tau |\mathcal{P} ) = \begin{cases} 
+    Thus,  \[P(\text{customer } n+1 \text{ joins table } \tau |\mathcal{P} ) = \begin{cases} 
     \frac{|\tau|}{\alpha + n} & \tau \in \mathcal{P} \\
     \frac{\alpha}{\alpha +  n} & \text{otherwise} 
  \end{cases}  \]
@@ -334,6 +334,27 @@ Any Lebesgue-integrable function \(f: \mathbb{R}^n\rightarrow \mathbb{R}\) can b
 
 For a binary classification model, the output unit is the sigmoid function \(\displaystyle\frac{1}{1+e^{-x}}\). For multiclass classification with <i>n</i> labels, the outputs are softmax functions \(y_i = \displaystyle\frac{\beta z_i}{\sum_{j \leq n}\exp{(\beta z_j)} }\) where \(z_1, ...,z_n\) are scores. 
 <h3>Training Neural Networks</h3>
-The problem consists of finding \(\displaystyle\min_{\theta} \sum_{i \leq n}  \underbrace{L(y_i, NN_{\theta}(x_i))}_{L(\theta)} \) where \(\theta\) is composed of weights \(W\) and intercepts \(b\) such that \(\theta = (W^1,b^1; W^2,b^2; W^3,b^3) \). Example of loss functions are cross entropy 
+The problem consists of finding \(\displaystyle\min_{\theta} \sum_{i \leq n}  \underbrace{L(y_i, NN_{\theta}(x_i))}_{L(\theta)} \) where \(\theta\) is composed of weights \(W\) and intercepts \(b\) such that \(\theta = (W^1,b^1; W^2,b^2; W^3,b^3) \). Example of loss functions are cross entropy, L1 norm, and L2 norm. 
+We can write \(\theta = (w_1^{(1)}, ..., w_{row}^{(1)}; w_1^{(2)}, ..., w_{row}^{(2)}; w_1^{(3)}, ..., w_{row}^{(3)} )\) <br>
+<br>
+<img src="img/trainnn.png" alt="" style = "border: 1px solid black; width: 400px; height: auto;">
+<br>
+Since the loss function is analytically intractable but easy to differentiate we use gradient descent:
+<br>
+<b>Gradient Descent</b>
+<br>
+<div style = "border: 1px solid black; padding: 10px 10px; width: max-content;">
+\(k \leftarrow 0\) <br>
+\(b^{(l)} \leftarrow \mathbf{0} \) <br>
+\(w_r^{(l)} \leftarrow \text{Unif}\left([-\frac{1}{\sqrt{u}},\frac{1}{\sqrt{u}} ]\right) \) for \(l \leq d\) and \(r \leq \text{#rows } W^{(l)}\)
+<br>
+do {
+    <div style="padding-left: 1cm;">
+        \( w_{r}^{(l)} \leftarrow w_{r}^{(l)} - \eta(k)\nabla_{w_r^{(l)}} L(\theta) \) for \(l \leq d,\ r\leq \#rows\ W^{(l)}\) <br>
+        \( k \leftarrow k+1 \)
+    </div>
+} <br>
+until (test cost - train cost) increases
+</div>
 </body>
 </html>
