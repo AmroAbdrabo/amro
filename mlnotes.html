@@ -361,5 +361,7 @@ until (test cost - train cost) increases
 <br>
 For a function <span style = "margin-left: 40%; margin-right: 40%;"> \((x, y, z, u) \overset{M}{\longrightarrow} H(u, G(z, F(x,y)))\) </span> <br> which can be equivalently drawn as <br> <img src="img/mapping.png" alt="" style = "display: inline; width: 300px; height: auto;">
 we have \(\left.\displaystyle\frac{ \partial M}{\partial z} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial z}\right|_{\alpha, z} \) and \(\left.\displaystyle\frac{ \partial M}{\partial y} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial \alpha}\right|_{\alpha, z} \left.\displaystyle\frac{\partial F}{\partial y}\right|_{x, y}  \)
+<br> <br>
+To compute the gradient of \(L(\theta) = -\sum_{i\leq n}\text{CE}(y_i, NN(x_i; \theta))\) we follow the rule above and thus \(\displaystyle\left.\frac{\partial L}{\partial w_r^{(l)}}\right|_{\theta} = \sum_{i \leq n} - \left.\frac{\partial \text{CE}}{\partial w_r^{(l)}}\right|_{y_i, NN(x_i, \theta)}  \) 
 </body>
 </html>
