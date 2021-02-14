@@ -303,7 +303,7 @@ Neural nets can be represented as a composition of linear and non-linear pointwi
 where \(\mathbf{x} = (x_1, ..., x_n)\) and \(NN(\mathbf{x}) = \alpha^{(d)}( L^{(d)}(... \alpha^{(2)}(L^{(2)}(\alpha^{(1)}(L^{(1)}(\mathbf{x})) )  ) ) )  = \alpha^{(d)}\circ L^{(d)} \circ ...\alpha^{(2)}\circ L^{(2)} \circ \alpha^{(1)} \circ L^{(1)}(\mathbf{x}) \) using the composition operator. 
 <br>
 <br>
-<img src="img/visu.png" alt="" style = "width: 400px; height: auto; border: 1px black solid;">
+<!-- <img src="img/visu.png" alt="" style = "width: 400px; height: auto; border: 1px black solid;"> -->
 <br>
 The three most common activation functions are the ReLU, the hyperbolic tangent, and the sigmoid. It is important to know their graphs.
 The reason ReLU is more common than the other two functions is because it suffers less from the problem of vanishing gradients (gradient approaches zero for large positive or extreme negative values). If the gradient is close to zero then you risk that gradient descent does not make progress. 
