@@ -367,7 +367,7 @@ To compute the gradient of \(L(\theta) = -\sum_{i\leq n}\text{CE}(y_i, NN(x_i; \
 <br>
 then we obtain \(\displaystyle\frac{\partial NN}{\partial w_r^{(l)}} = \displaystyle\frac{\partial \alpha^{(d)}}{\partial z^{(d)}} \frac{\partial L^{(d)}}{\partial a^{(d)}}\frac{\partial \alpha^{(d-1)}}{\partial z^{(d-1)}}\cdot \cdot \cdot \frac{\partial L^{(1)}}{\partial w_r^{(1)}} = \displaystyle\frac{\partial NN^{(l+1)}}{\partial a^{(l+1)}}\frac{\partial \alpha^{(l)}}{\partial z^{(l)}} \)
 where \( NN^{(l+1)} \)  is the neural network whose input is \(a^{(l+1)}\) and whose output is the same as the original neural network. <br>
-<div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: max-content; padding-bottom: 10px; padding-right: 10px; padding-left: 10px;">
+<div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: max-content; padding-bottom: 10px; padding-right: 10px; padding-left: 10px; margin-bottom: 10px;">
    <h4 style = "text-align: center; padding-top: 10px;">Backprop Algorithm</h4>
     \(d\) = number of layers of the neural network <br>
     \(\displaystyle\frac{\partial NN^{(d+1)}}{\partial a^{(d+1)}} = I \) <br> <br>
@@ -378,7 +378,14 @@ where \( NN^{(l+1)} \)  is the neural network whose input is \(a^{(l+1)}\) and w
         \( \displaystyle\frac{\partial NN}{\partial w_r^{(l)}} = \displaystyle\frac{\partial NN^{(l+1)} }{\partial a^{(l+1)}  } \frac{\partial \alpha^{(l)}}{\partial z^{(l)}}\frac{\partial L^{(l)}}{\partial w_r^{(l)}} \)
       </div>
  </div>
+Observe that \( \displaystyle\frac{\partial \alpha^{(l)}}{\partial z^{(l)}} = \begin{bmatrix}
+\frac{\partial \alpha^{(l)}}{\partial z_{1}^{(l)}}   &  &   \\
+      &   \frac{\partial \alpha^{(l)}}{\partial z_{2}^{(l)}}   &  \\
+   &  & \ddots
+\end{bmatrix} 
+\) and \(  \displaystyle\frac{\partial L^{(l)}}{\partial a^{(l)}}  = W^{(l)}\) and \(\displaystyle\frac{\partial L^{(l)}}{\partial w_r^{(l)}} = \begin{bmatrix} \mathbf{0} \\ \vdots \\ \mathbf{a}^{(l)} \\ \vdots \\ \mathbf{0} \end{bmatrix}  \)
 
-
+<br>
+In batch gradient descent, the entire training set is used to compute the gradient of the loss, whereas in mini-batch (also called stochastic) GD only a subset (potentially one instance) of the training set is used to compute the gradient, the observation being \(\sum_{i\leq n} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \approx \sum_{i\in S} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \) where \(S \subset \{1,...,n\}\) 
 </body>
 </html>
