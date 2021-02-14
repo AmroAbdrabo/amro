@@ -341,7 +341,7 @@ We can write \(\theta = (w_1^{(1)}, ..., w_{row}^{(1)}; w_1^{(2)}, ..., w_{row}^
 <br>
 Since the loss function is analytically intractable but easy to differentiate we use gradient descent:
 <br>
-<div style = "width: max-content; background-color: rgba(37, 250, 0, 0.3); padding-left: 15px; padding-right: 15px; padding-bottom: 15px;">
+<div style = "width: max-content; background-color: rgba(37, 250, 0, 0.3); padding-left: 15px; padding-right: 15px; padding-bottom: 15px; font-family: sans-serif;">
     <h4 style = "text-align: center; padding-top: 10px; font-family: sans-serif;">Gradient Descent</h4>
     \(k \leftarrow 0\) <br>
     \(b^{(l)} \leftarrow \mathbf{0} \) <br>
@@ -369,8 +369,14 @@ then we obtain \(\displaystyle\frac{\partial NN}{\partial w_r^{(l)}} = \displays
 where \( NN^{(l+1)} \)  is the neural network whose input is \(a^{(l+1)}\) and whose output is the same as the original neural network. <br>
 <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: max-content; padding-bottom: 10px; padding-right: 10px; padding-left: 10px;">
    <h4 style = "text-align: center; padding-top: 10px;">Backprop Algorithm</h4>
-    Let the number of layers of the neural network be <i>d</i> then 
-      
+    \(d\) = number of layers of the neural network <br>
+    \(\displaystyle\frac{\partial NN^{(d+1)}}{\partial a^{(d+1)}} = I \) <br> <br>
+    for \(l = d- 1,...,1 \)
+      <div style = "margin-left: 1cm;">
+        \(   \displaystyle\frac{\partial NN^{(l+1)} }{\partial a^{(l+1)}  } =  \displaystyle\frac{\partial NN^{(l+2)} }{\partial a^{(l+2)}  } \frac{\partial \alpha^{(l+1)}}{\partial z^{(l+1)}  } \frac{\partial L^{(l+1)} }{\partial a^{(l+1)}}    \) <br>
+<br>
+        \( \displaystyle\frac{\partial NN}{\partial w_r^{(l)}} = \displaystyle\frac{\partial NN^{(l+1)} }{\partial a^{(l+1)}  } \frac{\partial \alpha^{(l)}}{\partial z^{(l)}}\frac{\partial L^{(l)}}{\partial w_r^{(l)}} \)
+      </div>
  </div>
 
 
