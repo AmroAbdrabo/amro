@@ -387,6 +387,22 @@ Observe that \( \displaystyle\frac{\partial \alpha^{(l)}}{\partial z^{(l)}} = \b
 
 <br>
 In batch gradient descent, the entire training set is used to compute the gradient of the loss, whereas in mini-batch (also called stochastic) GD only a subset (potentially one instance) of the training set is used to compute the gradient, the observation being \(\sum_{i\leq n} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \approx \sum_{i\in S} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \) where \(S \subset \{1,...,n\}\). Batch GD has better gradient precision, but it has larger generalization error, less ability to escape local minimum (SGD does better thanks to noise in the small samples), slower improvements, and can not handle large training sets well. 
-But the question remains whether we are guaranteed to find the minimum loss: \[ \begin{gather*} \min \sum_{i \leq n} L(y_i, NN_{\theta}(x_i)) \\ \Leftrightarrow \\ 0 = \sum_{i \leq n} \nabla_{\theta}L(y_i, NN_{\theta}(x_i)) = \mathbb{\hat{E}}_{X, Y}[\nabla_{\theta}L(y, NN_{\theta}(x))] \approx \mathbb{E}_{X, Y}[\nabla_{\theta}L(y, NN_{\theta}(x))] \end{gather*} \]. Hence we want to find \(\theta^*\) such that \(\mathbb{E}_{X,Y}[\left.\nabla_{\theta}L(y, NN_{\theta}(x))\right|_{\theta^*}] = 0 \)
+But the question remains whether we are guaranteed to find the minimum loss: \[ \begin{gather*} \min \sum_{i \leq n} L(y_i, NN_{\theta}(x_i)) \\ \Leftrightarrow \\ 0 = \sum_{i \leq n} \nabla_{\theta}L(y_i, NN_{\theta}(x_i)) = \mathbb{\hat{E}}_{X, Y}[\nabla_{\theta}L(y, NN_{\theta}(x))] \approx \mathbb{E}_{X, Y}[\nabla_{\theta}L(y, NN_{\theta}(x))] \end{gather*} \]. Hence we want to find \(\theta^*\) such that \(\mathbb{E}_{X,Y}[\left.\nabla_{\theta}L(y, NN_{\theta}(x))\right|_{\theta^*}] = 0 \). Robbins-Monro algorithm provides regularity conditions sufficient for gradient descent to converge. Assume we want \(\theta^*\) such that \(\mathbb{E}_Z[f(Z;\theta^*)]=0 \) then if the following conditions <ul>
+    <li>
+        \( \eta(k) \geq 0 \)
+    </li>
+    <li>
+       \( \sum_{k}\eta(k) = \infty \)
+    </li>
+    <li>
+       \(  \sum_{k}\eta^2(k) < \infty \)
+    </li>
+    <li>
+        \(\mathbb{E}_Z[f(Z;\theta^*)] < \mathbb{E}_Z[f(Z;\theta)]  \forall \theta>\theta^*\)
+    </li>
+    <li>
+        \(\mathbb{E}_Z[f(Z;\theta^*)] > \mathbb{E}_Z[f(Z;\theta)]  \forall \theta< \theta^*\)
+    </li>
+</ul>  
 </body>
 </html>
