@@ -341,26 +341,26 @@ We can write \(\theta = (w_1^{(1)}, ..., w_{row}^{(1)}; w_1^{(2)}, ..., w_{row}^
 <br>
 Since the loss function is analytically intractable but easy to differentiate we use gradient descent:
 <br>
-<b>Gradient Descent</b>
-<br>
-<div style = "border: 1px solid black; padding: 10px 10px; width: max-content;">
-\(k \leftarrow 0\) <br>
-\(b^{(l)} \leftarrow \mathbf{0} \) <br>
-\(w_r^{(l)} \leftarrow \text{Unif}\left([-\frac{1}{\sqrt{u}},\frac{1}{\sqrt{u}} ]\right) \) for \(l \leq d\) and \(r \leq \text{#rows } W^{(l)}\) and \(u\) =#units in previous layer
-<br>
-do {
-    <div style="padding-left: 1cm;">
-        \( w_{r}^{(l)} \leftarrow w_{r}^{(l)} - \eta(k)\nabla_{w_r^{(l)}} L(\theta) \) for \(l \leq d,\ r\leq \#rows\ W^{(l)}\) <br>
-        \( k \leftarrow k+1 \)
-    </div>
-} <br>
-until (test cost - train cost) increases
+<div style = "width: max-content; background-color: rgba(37, 250, 0, 0.3); padding-left: 15px; padding-right: 15px; padding-bottom: 15px;">
+    <h4 style = "text-align: center; padding-top: 10px; font-family: sans-serif;">Gradient Descent</h4>
+    \(k \leftarrow 0\) <br>
+    \(b^{(l)} \leftarrow \mathbf{0} \) <br>
+    \(w_r^{(l)} \leftarrow \text{Unif}\left([-\frac{1}{\sqrt{u}},\frac{1}{\sqrt{u}} ]\right) \) for \(l \leq d\) and \(r \leq \text{#rows } W^{(l)}\) and \(u\) =#units in previous layer
+    <br>
+    do {
+        <div style="padding-left: 1cm;">
+            \( w_{r}^{(l)} \leftarrow w_{r}^{(l)} - \eta(k)\nabla_{w_r^{(l)}} L(\theta) \) for \(l \leq d,\ r\leq \#rows\ W^{(l)}\) <br>
+            \( k \leftarrow k+1 \)
+        </div>
+    } <br>
+    until (test cost - train cost) increases
 </div>
 
+<br>
 <b>Recap of Chain Rule</b>
 <br>
-For a function <span style = "margin-left: 40%; margin-right: 40%;"> \((x, y, z, u) \overset{M}{\longrightarrow} H(u, G(z, F(x,y)))\) </span> <br> which can be equivalently drawn as <br> <img src="img/mapping.png" alt="" style = "display: inline; width: 300px; height: auto;">
-we have \(\left.\displaystyle\frac{ \partial M}{\partial z} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial z}\right|_{\alpha, z} \) and \(\left.\displaystyle\frac{ \partial M}{\partial y} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial \alpha}\right|_{\alpha, z} \left.\displaystyle\frac{\partial F}{\partial y}\right|_{x, y}  \)
+For a function <span> \((x, y, z, u) \overset{M}{\longrightarrow} H(u, G(z, F(x,y)))\) </span> <br> which can be equivalently drawn as <br> <img src="img/fcomp.png" alt="" style = "display: inline; width: 300px; height: auto;">
+<br> we have \(\left.\displaystyle\frac{ \partial M}{\partial z} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial z}\right|_{\alpha, z} \) and \(\left.\displaystyle\frac{ \partial M}{\partial y} \right|_w = \left.\displaystyle\frac{\partial H }{\partial \beta}\right|_{\beta, u} \left.\displaystyle\frac{\partial G}{\partial \alpha}\right|_{\alpha, z} \left.\displaystyle\frac{\partial F}{\partial y}\right|_{x, y}  \)
 <br> <br>
 To compute the gradient of \(L(\theta) = -\sum_{i\leq n}\text{CE}(y_i, NN(x_i; \theta))\) we follow the rule above. Thus \(\displaystyle\left.\frac{\partial L}{\partial w_r^{(l)}}\right|_{\theta} = \sum_{i \leq n} - \left.\frac{\partial \text{CE}}{\partial w_r^{(l)}}\right|_{y_i, NN(x_i, \theta)}  \) where \(\displaystyle\frac{\partial \text{CE}}{\partial w_r^{(l)}} = \displaystyle\frac{\partial \text{CE}}{\partial p_i}\frac{\partial NN}{\partial w_r^{(l)}} \) where \(p_i\) is the output of the neural network. If we represent 1-layer and 2-layer neural networks as <br>
 <img src="img/1nn.png" alt="" style = "border: 1px solid black; height: 225px; width: 300px;"> <img src="img/2nn.png" alt="" style = "width: 350px; border: 1px solid black; height: auto;">
@@ -368,7 +368,7 @@ To compute the gradient of \(L(\theta) = -\sum_{i\leq n}\text{CE}(y_i, NN(x_i; \
 then we obtain \(\displaystyle\frac{\partial NN}{\partial w_r^{(l)}} = \displaystyle\frac{\partial \alpha^{(d)}}{\partial z^{(d)}} \frac{\partial L^{(d)}}{\partial a^{(d)}}\frac{\partial \alpha^{(d-1)}}{\partial z^{(d-1)}}\cdot \cdot \cdot \frac{\partial L^{(1)}}{\partial w_r^{(1)}} = \displaystyle\frac{\partial NN^{(l+1)}}{\partial a^{(l+1)}}\frac{\partial \alpha^{(l)}}{\partial z^{(l)}} \)
 which leads to the following backpropagation algorithm <br>
 <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: max-content; padding-bottom: 10px; padding-right: 10px; padding-left: 10px;">
-    <div style="font-weight: 600; text-align: center; width: max-content; padding-top: 10px; display: inline-block; margin-right: 40px; margin-left: 40px; line-height: 2em;">Backpropagation Algorithm </div> <br>
+   <h4 style = "text-align: center; padding-top: 10px;">Backprop Algorithm</h4>
     Let the number of layers of the neural network be <i>d</i> then 
       
  </div>
