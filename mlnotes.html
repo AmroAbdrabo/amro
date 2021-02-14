@@ -366,7 +366,7 @@ To compute the gradient of \(L(\theta) = -\sum_{i\leq n}\text{CE}(y_i, NN(x_i; \
 <img src="img/1nn.png" alt="" style = "border: 1px solid black; height: 225px; width: 300px;"> <img src="img/2nn.png" alt="" style = "width: 350px; border: 1px solid black; height: auto;">
 <br>
 then we obtain \(\displaystyle\frac{\partial NN}{\partial w_r^{(l)}} = \displaystyle\frac{\partial \alpha^{(d)}}{\partial z^{(d)}} \frac{\partial L^{(d)}}{\partial a^{(d)}}\frac{\partial \alpha^{(d-1)}}{\partial z^{(d-1)}}\cdot \cdot \cdot \frac{\partial L^{(1)}}{\partial w_r^{(1)}} = \displaystyle\frac{\partial NN^{(l+1)}}{\partial a^{(l+1)}}\frac{\partial \alpha^{(l)}}{\partial z^{(l)}} \)
-which leads to the following backpropagation algorithm <br>
+where \( NN^{(l+1)} \)  is the neural network whose input is \(a^{(l+1)}\) and whose output is the same as the original neural network. <br>
 <div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: max-content; padding-bottom: 10px; padding-right: 10px; padding-left: 10px;">
    <h4 style = "text-align: center; padding-top: 10px;">Backprop Algorithm</h4>
     Let the number of layers of the neural network be <i>d</i> then 
