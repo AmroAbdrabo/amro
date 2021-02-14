@@ -386,6 +386,6 @@ Observe that \( \displaystyle\frac{\partial \alpha^{(l)}}{\partial z^{(l)}} = \b
 \) and \(  \displaystyle\frac{\partial L^{(l)}}{\partial a^{(l)}}  = W^{(l)}\) and \(\displaystyle\frac{\partial L^{(l)}}{\partial w_r^{(l)}} = \begin{bmatrix} \mathbf{0} \\ \vdots \\ \mathbf{a}^{(l)} \\ \vdots \\ \mathbf{0} \end{bmatrix}  \)
 
 <br>
-In batch gradient descent, the entire training set is used to compute the gradient of the loss, whereas in mini-batch (also called stochastic) GD only a subset (potentially one instance) of the training set is used to compute the gradient, the observation being \(\sum_{i\leq n} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \approx \sum_{i\in S} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \) where \(S \subset \{1,...,n\}\) 
+In batch gradient descent, the entire training set is used to compute the gradient of the loss, whereas in mini-batch (also called stochastic) GD only a subset (potentially one instance) of the training set is used to compute the gradient, the observation being \(\sum_{i\leq n} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \approx \sum_{i\in S} \frac{\partial L(y_i, NN_{\theta}(\mathbf{x_i})) }{\partial w_r^{(l)}}  \) where \(S \subset \{1,...,n\}\). Batch GD has better gradient precision, but it has larger generalization error, less ability to escape local minimum (SGD does better thanks to noise in the small samples), slower improvements, and can not handle large training sets well. 
 </body>
 </html>
