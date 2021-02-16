@@ -418,5 +418,10 @@ Recall that for binary classification using deep learning that the final layer b
         Robust: noisy perturbations in the measurement should not substantially affect the representation and vice versa
     </li>
 </ul>
+We begin with the first criteria, informartiveness.
+<br>
+<br>
+<b>The Infomax Principle (Linsker 1988)</b> <br>
+\(z = enc_{\theta}(x)\) must maximize the mutual information \(I(x; z)\), thus one must find \( \text{argmax}_{\theta} I(x;z)\). Note that the amount of information carried by a random variable is given by the entropy \(H(x) = \mathbb{E}_{x}[-\log{p(x)}]\) and that \(I(x;z)= \mathbb{E}_{X, Z}[\log(\frac{p(x,z)}{p(x)p(z)})]\). If \(x = rainy\) and \(z = cloudy\) then there is mutual information shared given by \(I(x;z)\).
 </body>
 </html>
