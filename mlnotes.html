@@ -428,5 +428,9 @@ Note however that informartiveness is not enough since we can trivially allow \(
 To train a variational autoencoder we define a prior distribution on \(\mathcal{Z}\) given by \(p_{\theta'}(z)\) then we define the likelihood \(p_{\theta}(x|z)\) which we maximize and finally using these two previous distributions we find \(p_{\theta, \theta'}(z|x) \approx q_{\phi}(z|x)\) where the approximate posterior is needed since solving for the exact posterior can be intractable if the likelihood is not a simple function. Note that the neural network given by \(dec_{\theta}\) models the likelihood and that the neural net given by \(enc_{\theta}\) models the posterior as shown here
 <br>
 <img src="img/encdec.png" style =" display: block; margin-left: auto; margin-right: auto; width: 40%; height: auto;" alt=""> 
+<b>Train a variational autoencoder</b>
+<br>
+To compute \(\underset{\phi}{\text{argmax}} \sum_{i \leq n} \log p_{\theta', \theta}(x_i) \), that is maximize the likelihood, observe that \( \log_{\theta', \theta} (x_i) = \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot | x_i)}[\log p_{\theta', \theta}(x_i) ] = \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i)}\left[\log \left( \displaystyle\frac{p_{\theta', \theta}(x_i, z)}{p_{\theta', \theta}(z|x_i) } \frac{q_{\phi}(z|x_i)}{q_{\phi}(z|x_i)} \right) \right] =\)
+\[ \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot | x_i)} \left[ \log \left( \frac{p_{\theta', \theta}(x_i, z)}{q_{\phi}(z|x_i)} \right) \right] + \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i) }\left[ \log \left(  \frac{q_{\phi}(z|x_i)}{p_{\theta', \theta}(z|x_i)}   \right) \right] \]
 </body>
 </html>
