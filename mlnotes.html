@@ -337,9 +337,9 @@ For a binary classification model, the output unit is the sigmoid function \(\di
 The problem consists of finding \(\displaystyle\min_{\theta} \sum_{i \leq n}  \underbrace{L(y_i, NN_{\theta}(x_i))}_{L(\theta)} \) where \(\theta\) is composed of weights \(W\) and intercepts \(b\) such that \(\theta = (W^1,b^1; W^2,b^2; W^3,b^3) \). Example of loss functions are cross entropy, L1 norm, and L2 norm. For reference, the binary cross entropy loss is defined as \(-\sum_{n=1}^N \{t_n\ln y_n + (1 - t_n)\ln{(1 - y_n)} \}, \ t_n \in \{0, 1\}\) and categorical CE loss as \( - \sum_{n=1}^N \sum_{i=1}^{U}t_{n, i}\cdot \ln{y_{n, i}} \) where U is the number of output nodes. 
 We can write \(\theta = (w_1^{(1)}, ..., w_{row}^{(1)}; w_1^{(2)}, ..., w_{row}^{(2)}; w_1^{(3)}, ..., w_{row}^{(3)} )\) with the following visualizaiton <br>
 <br>
-<img src="img/trainnn.png" alt="" style = "border: 1px solid black; width: 400px; height: auto;">
-<br>
-Since the loss function is analytically intractable but easy to differentiate we use gradient descent:
+<img src="img/newnn.png" alt="" style = "margin-left: auto; margin-right: auto; width: 37%; display: block; height: auto;">
+
+where the brown arrows represent \(W^{(2)}_3\). Since the loss function is analytically intractable but easy to differentiate we use gradient descent:
 <br>
 <div style = "width: max-content; background-color: rgba(37, 250, 0, 0.3); padding-left: 15px; padding-right: 15px; padding-bottom: 15px; font-family: sans-serif;">
     <h4 style = "text-align: center; padding-top: 10px; font-family: sans-serif;">Gradient Descent</h4>
