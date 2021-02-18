@@ -406,7 +406,7 @@ But the question remains whether we are guaranteed to find the minimum loss: \[ 
 </ul>  
 are fulfilled then \( P(\theta^{(k)} = \theta^*) \rightarrow 1 \) and \(\mathbb{E}[(\theta^k - \theta^*)^2] \rightarrow 0 \) hold for 1D theta as <i>k</i> tends to infinity.
 <h3>Variational Auto-Encoders</h3>
-Recall that for binary classification using deep learning that the final layer before the output gives an alternative representation, \(\mathbf{z}\), of the input \(\mathbf{x}\). So the question arises can we learn a meaningful representation without supervision? We assume a measurement space \(\mathcal{X}\) and an encoder, \(\text{enc}_{\theta}\), that maps the measurement space to a representation space \(\mathcal{Z}\). For example, assume \(\mathcal{X}\) consists of images of dogs and cats then the representation space can be all vectors of the form \( \begin{bmatrix} \text{fur color} \\ \text{ear pointiness} \\ \text{eye color}  \end{bmatrix} \). There are three criteria for a good representation <br>
+Recall that for binary classification using deep learning that the final layer before the output gives an alternative (compact) representation, \(\mathbf{z}\), of the input \(\mathbf{x}\). So the question arises can we learn a meaningful compact representation without supervision? We assume a measurement space \(\mathcal{X}\) and an encoder, \(\text{enc}_{\theta}\), that maps the measurement space to a representation space \(\mathcal{Z}\). For example, assume \(\mathcal{X}\) consists of images of dogs and cats then the representation space can be all vectors of the form \( \begin{bmatrix} \text{fur color} \\ \text{ear pointiness} \\ \text{eye color}  \end{bmatrix} \). There are three criteria for a good representation <br>
 <ul>
     <li>
         Informative: given a representation it should be easy to guess the measurement
@@ -432,6 +432,6 @@ To train a variational autoencoder we define a prior distribution on \(\mathcal{
 <br>
 To compute \(\underset{\phi}{\text{argmax}} \sum_{i \leq n} \log p_{\theta', \theta}(x_i) \), that is maximize the likelihood, observe that \( \log_{\theta', \theta} (x_i) = \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot | x_i)}[\log p_{\theta', \theta}(x_i) ] = \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i)}\left[\log \left( \displaystyle\frac{p_{\theta', \theta}(x_i, z)}{p_{\theta', \theta}(z|x_i) } \frac{q_{\phi}(z|x_i)}{q_{\phi}(z|x_i)} \right) \right] =\)
 \[ \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot | x_i)} \left[ \log \left( \frac{p_{\theta', \theta}(x_i, z)}{q_{\phi}(z|x_i)} \right) \right] + \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i) }\left[ \log \left(  \frac{q_{\phi}(z|x_i)}{p_{\theta', \theta}(z|x_i)}   \right) \right] \]
-The second term 
+The second term is the Kullback-Leibler divergence which indicates the efficiency with which an approximator distribution models a distribution, in this case \( \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i) }\left[ \log \left(  \frac{q_{\phi}(z|x_i)}{p_{\theta', \theta}(z|x_i)}   \right) \right] = KL(q_{\phi}(\cdot | x_i) | p_{\theta', \theta}(\cdot|x_i)) \). Note that the Kullback-Leibler is non-negative since it measures efficiency. Therefore, we get that the first term is a lower bound, called the ELBO (evidence lower bound). 
 </body>
 </html>
