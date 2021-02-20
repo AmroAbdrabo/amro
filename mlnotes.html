@@ -428,11 +428,42 @@ Note however that informartiveness is not enough since we can trivially allow \(
 To train a variational autoencoder we define a prior distribution on \(\mathcal{Z}\) given by \(p_{\theta'}(z)\) then we define the likelihood \(p_{\theta}(x|z)\) which we maximize and finally using these two previous distributions we find \(p_{\theta, \theta'}(z|x) \approx q_{\phi}(z|x)\) where the approximate posterior is needed since solving for the exact posterior can be intractable if the likelihood is not a simple function. Note that the neural network given by \(dec_{\theta}\) models the likelihood and that the neural net given by \(enc_{\theta}\) models the posterior as shown here
 <br>
 <img src="img/encdec.png" style =" display: block; margin-left: auto; margin-right: auto; width: 40%; height: auto;" alt=""> 
-<b>Train a variational autoencoder</b>
+<b>Training a variational autoencoder</b>
 <br>
 To compute \(\underset{\phi}{\text{argmax}} \sum_{i \leq n} \log p_{\theta', \theta}(x_i) \), that is maximize the likelihood, observe that \( \log_{\theta', \theta} (x_i) = \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot | x_i)}[\log p_{\theta', \theta}(x_i) ] = \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i)}\left[\log \left( \displaystyle\frac{p_{\theta', \theta}(x_i, z)}{p_{\theta', \theta}(z|x_i) } \frac{q_{\phi}(z|x_i)}{q_{\phi}(z|x_i)} \right) \right] =\)
 \[ \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot | x_i)} \left[ \log \left( \frac{p_{\theta', \theta}(x_i, z)}{q_{\phi}(z|x_i)} \right) \right] + \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i) }\left[ \log \left(  \frac{q_{\phi}(z|x_i)}{p_{\theta', \theta}(z|x_i)}   \right) \right] \]
 The second term is the Kullback-Leibler divergence which indicates the efficiency with which an approximator distribution models a distribution, in this case \( \mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i) }\left[ \log \left(  \frac{q_{\phi}(z|x_i)}{p_{\theta', \theta}(z|x_i)}   \right) \right] = KL(q_{\phi}(\cdot | x_i) | p_{\theta', \theta}(\cdot|x_i)) \). Note that the Kullback-Leibler is non-negative since it measures efficiency. Therefore, we get that the first term is a lower bound, called the ELBO (evidence lower bound). 
 Note that the ELBO can be rewritten as \(\underbrace{\mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot|x_i)} \left[ \log p_{\theta}(x_i | z) \right]}_{Infomax!} + \underbrace{\mathbb{E}_{\mathcal{Z} \sim q_{\phi}(\cdot | x_i)} \left[ \log \left(\frac{p_{\theta'}(z)}{q_{\phi}(z|x_i)}  \right) \right]}_{-KL(q_{\phi}(\cdot | x_i)\ |\ p_{\theta'}(\cdot) )} \) where the second term is a regularization term which helps produce disentangled representations (Chen et al 2018, <i>Isolating sources of disentanglement in VAEs</i>). By the choice of likelihood and prior we get a robust representation. 
+
+<h2 style = "text-decoration: underline; "> Lecture 8: Ensembles</h2>
+<b>Classification Tree</b>
+<br>
+A classification tree is a tree where the nodes of tree evaluate properties of examples in the data. These properties are usually inequalities in the form \(x_i \leq 25\), which are called decision stumps. Shallow trees have lower variance and higher bias whereas deep trees have lower bias and higher variance. Boosting, bagging, and random forests have less variance and less bias than classification trees (shallow and deep). In order for committees of models to make good estimates it is required that the models be diverse and independent. Notice that in the case of trees, diversity implies the need for the trees to be deep, otherwise there will be overal between the trees. 
+<br>
+<b>
+    Bagging
+</b>
+<br>
+Consists of taking bootstrap sets (sets that are drawn with replacement from the training set) and training several models one for each bootstrap set.   
+<div style = "background:rgba(37, 250, 0, 0.3); font-family: sans-serif; width: max-content; padding-bottom: 10px; padding-right: 10px; padding-left: 10px; margin-bottom: 10px;">
+    <h4 style = "text-align: center; padding-top: 20px;">Bagging: Bootstrap Aggregation</h4>
+    <ol>    
+        <li>
+          <span> Draw <i>M</i> bootstrap sets \(z^1_1, ..., z^1_M\)  </span>   
+        </li>
+        <li>
+          <span> Train M base models \(b^{(1)}, ..., b^{(M)}\) </span>  
+        </li>
+        <li>
+            <span>Aggregate: \( \overline{b} = \frac{1}{M} \sum_{t \leq M } b^{(t)}(x) \) for regression and \( majority(b^{(t)}(x)) \) for classification </span>
+        </li>
+    </ol>
+</div>
+
+When bagging deep trees, as the number of trees increases the generalization error stabilizes at a minimum error after a certain number of trees. <br>
+<b>Theorem</b>
+<br>
+For \(x \in \mathcal{X}\)
 </body>
+
 </html>
