@@ -493,6 +493,23 @@ Pictorial description of adaboost training procedure on the training set with la
 <img src="img/adaboos.png" style =" display: block; margin-left: auto; margin-right: auto; width: 40%; height: auto;" alt=""> 
 Misclassified examples are given higher weight and base models with higher accuracy are given larger weight. 
 
+<div style = "width: max-content; background-color: rgba(37, 250, 0, 0.3); padding-left: 15px; padding-right: 15px; padding-bottom: 15px; font-family: sans-serif;">
+    <h4 style = "text-align: center; padding-top: 20px; font-family: sans-serif;">Adaboost Algorithm</h4>
+    \(\overline{b^{(0)}} \leftarrow 0\) <br>
+    \(w_i \leftarrow \frac{1}{n} \) for \(i \leq n\) <br>
+    \(w_r^{(l)} \leftarrow \text{Unif}\left([-\frac{1}{\sqrt{u}},\frac{1}{\sqrt{u}} ]\right) \) for \(l \leq d\) and \(r \leq \text{#rows } W^{(l)}\) and \(u\) =#units in previous layer
+    <br>
+    for \(t = 1, ..., M\): 
+        <div style="padding-left: 1cm;">
+            [Train] \(b^{(t)} = \text{arg min}_b \underbrace{\sum_{i \leq n}w_i \mathbb{1}\{{b(x_i) \neq y_i}\}}_{L^{w}(b^{(t)})} \) <br>
+            [Eval] \(err_t = L^{w}(b^{(t)}) \) <br>
+            [Add] \(\overline{b^{(t)}} = \overline{b^{(t-1)}} + \alpha_t b^{(t)}  \) where \(\alpha_t = \log(\frac{1}{err_t}-1) \) <br>
+            [Reweight]  \(w_i \leftarrow w_i exp(\alpha_t \mathbb{1}\{b^{(t)}(x_i) \neq y_i  \}) \) for \(i \leq n\), then normalize \((w_1, ..., w_n)\)
+        </div>
+    end
+     <br>
+    
+</div>
 
 </body>
 </html>
