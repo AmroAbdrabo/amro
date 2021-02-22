@@ -455,7 +455,7 @@ Consists of taking bootstrap sets (sets that are drawn with replacement from the
           <span> Train M base models \(b^{(1)}, ..., b^{(M)}\) </span>  
         </li>
         <li>
-            <span>Aggregate: \( \overline{b} = \frac{1}{M} \sum_{t \leq M } b^{(t)}(x) \) for regression and \( majority(b^{(t)}(x)) \) for classification </span>
+            <span>Aggregate: \( \overline{b^{(M)}} = \frac{1}{M} \sum_{t \leq M } b^{(t)}(x) \) for regression and \( majority(b^{(t)}(x)) \) for classification </span>
         </li>
     </ol>
 </div>
@@ -463,7 +463,25 @@ Consists of taking bootstrap sets (sets that are drawn with replacement from the
 When bagging deep trees, as the number of trees increases the generalization error stabilizes at a minimum error after a certain number of trees. <br>
 <b>Theorem</b>
 <br>
-For \(x \in \mathcal{X}\)
+For \(x \in \mathcal{X}\), if range(\(y\)) := \(\max Y - \min Y < \infty \)  then there is sufficiently large M such that \[ \mathbb{E}_{Y|x}[(y - \overline{b^{(M)}}(x))^2] \leq \mathbb{E}_{Y|x}[(y - b(x))^2] \]
+<b>Sketch of Proof</b> <br>
+\(\mathbb{E}_{Y|x \wedge Z, Z'}[(y-b(x))^2] = \mathbb{E}_{Y|x \wedge Z, Z'}[(y - \mathbb{E}[b(x)] + \mathbb{E}[b(x)] -b(x))^2] = \underbrace{\mathbb{E}_{Y|x}[(y - \mathbb{E}[b(x)])^2]}_{ \approx \mathbb{E}_{Y|x}[(y - \overline{b^M}(x)) ]} + \underbrace{\mathbb{E}_{Z, Z'}[(\mathbb{E}[b(x)] -b(x) )^2]}_{\text{variance > 0}} + \underbrace{...}_{sum\ to\ zero} \) <br>
+There is no need to formally prove  \(  \mathbb{E}_{Y|x}[(y - \overline{b^M}(x)) ] \approx \mathbb{E}_{Y|x}[(y - \mathbb{E}[b(x)])^2] \) Just observe that 
+<ol>
+    <li>
+       <span> \(  \mathbb{E}[\overline{b^M}(x)] = \mathbb{E}[b(x)] \)  </span>
+    </li>
+    <li>
+        <span>For  \( \epsilon, \delta >0    \) and sufficiently large M: \( P(| \mathbb{E}[b(x)] - \overline{b^M}(x) | < \epsilon )> 1-\delta \) </span>
+    </li>
+
+</ol>
+Notice that the proof relies on diversity (for the variance) and independence, for the last 2 conditions to hold.
+Bagging (and boosting) decision stumps leads to poor generaliztion since the base models are not diverse. For independence to hold, the base models should be independent; however, bootstrap sets are not independent, but the correlation is small. 
+<br>
+<b>Random Forests</b>
+<br>
+To train a random forest, train an ensemble of trees via bagging. However, during the training of a tree, at each splitting step, choose \(m\) features at random and only do the splitting with one of these features. This helps reduce the correlation between trained base trees in the ensemble. 
 </body>
 
 </html>
