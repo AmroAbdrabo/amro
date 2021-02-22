@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root {
+    --gradient-color: linear-gradient(to right bottom, rgba(48, 120, 255, 0.45), rgba(48, 120, 255, 0));
+}
+html {
+    font-size: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+body {
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 1.6rem;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    height: 100vh; /* what comes after this ignore */
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    grid-row-gap: 7%;
+    padding: 0 0;
+    flex-direction: column;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 2px 0.8rem 1rem rgba(0,0,0, 0.1);
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.image-data {
+    height: 25rem;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    flex-basis: 220px;
+}
+
+.background-image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url("img/notes.jpg") center no-repeat; 
+    background-size: cover;
+    z-index: -1;
+    /*transition: transform 5s;*/
+}
+
+.card:hover .background-image{
+    transform: scale(1);
+}
+
+.publication-details {
+
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-color);
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #fff;
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 1rem;
+}
+
+.publication-details i {
+    margin-right: 1rem;
+}
+
+.author {
+    display: inline-block;
+    margin-bottom: .5rem;
+    transition: all 0.5s;
+}
+
+.author:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.date {
+    display: block;
+}
+
+.post-data {
+    background-color: white;
+    padding: 2rem 3rem;
+    position: relative;
+    flex-basis: 60%;
+}
+
+.title {
+    font-size: 2.4rem;
+    line-height: 1;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #a2a2a2;
+    margin: 1rem 0 1.5rem 0;
+}
+
+.description {
+    position: relative;
+}
+
+
+
+.description::first-letter {
+    margin-left: 0rem;
+}
+
+
+.description::before {
+    content: 'i';
+    color: rgba(0, 0, 0, 0);
+    font-size: 1.4rem;
+    overflow: hidden;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 2rem;
+    height: 2.5rem;
+    background-color: blue;
+    border-radius: 1rem;
+}
+
+.cta {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.cta a {
+    background: blue;
+    -webkit-background-clip: text;
+    color: transparent;
+    position: relative;
+}
+
+.cta a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.5rem;
+    width: 100%;
+    height: 3px;
+    background: blue;
+    transform: scaleX(1);
+}
+
+.heading {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 1)), url("img/waves.jpg");
+    width: 100vw;
+    min-height: 200px;
+    height: 50vh;
+    background-repeat: no-repeat;
+    background-position:top;
+    /*height: 25vh;*/
+    position: relative;
+    /*margin-top: -0.7%;*/
+    background-size: cover;
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
+    border-top: 0.5px solid white;
+  }
+  /* DEMO-SPECIFIC STYLES */
+  .typewriter h1 {
+    /*border: 1px solid red;*/
+    position: relative;
+    /*left: 38%;*/
+    left: 32vw;
+    color: rgba(119, 119, 119, 0.431);
+    font-size: 4vw;
+    font-family: monospace;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: 0.11em solid black; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 12% 0; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .1em; /* Adjust as needed */
+    width: 0;
+    animation: 
+      typing 3.5s steps(13, end) 2s forwards,
+      blink-caret .5s step-end 2s 7 forwards;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 37vw }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+  }
+
+  @media only screen and (min-width: 660px){
+    .card {
+        flex-direction: row;
+        max-width: 75rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .image-data {
+        flex-basis: 40%;
+        
+    }
+
+    .publication-details {
+        transform: translateX(-100%);
+        transition: transform .5s;
+    }
+
+    .card:hover .publication-details {
+        transform: translateX(0);
+    }
+
+
+    .post-data{
+        flex-basis: 60%;
+    }
+}
