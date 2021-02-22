@@ -479,9 +479,20 @@ There is no need to formally prove  \(  \mathbb{E}_{Y|x}[(y - \overline{b^M}(x))
 Notice that the proof relies on diversity (for the variance) and independence, for the last 2 conditions to hold.
 Bagging (and boosting) decision stumps leads to poor generaliztion since the base models are not diverse. For independence to hold, the base models should be independent; however, bootstrap sets are not independent, but the correlation is small. 
 <br>
+<br>
 <b>Random Forests</b>
 <br>
 To train a random forest, train an ensemble of trees via bagging. However, during the training of a tree, at each splitting step, choose \(m\) features at random and only do the splitting with one of these features. This helps reduce the correlation between trained base trees in the ensemble. 
-</body>
+<br>
+<br>
 
+<b>Adaboost</b>
+<br>
+Pictorial description of adaboost training procedure on the training set with labels (-1, +1, -1), where red represents psotivie example and blue negative. 
+<br>
+<img src="img/adaboos.png" style =" display: block; margin-left: auto; margin-right: auto; width: 40%; height: auto;" alt=""> 
+Misclassified examples are given higher weight and base models with higher accuracy are given larger weight. 
+
+
+</body>
 </html>
