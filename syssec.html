@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href = "syssec.css">
     <title>Document</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -32,10 +34,27 @@
     </div>
   </div>
   <main class="article">
+    <h2>Lecture 11: IoT Security</h2>
     <p>
-      <span class="first-letter">W</span>eb Typography obsessed me. As many others,
-      I fell in the trap of optimizing legibility. Definitly not an easy task.<br/>Among all the contenders for the best reading experience on the Web, a name is
-      always present and noteworthy: <strong>Medium.com</strong> .
+      <span class="first-letter">A</span>n example of a naive IoT protocol is that implemented by the Zigbee Light Link,
+      where a network switch enrypts a network key using a master ZLL key and sends the encrypted key to the light bulb for further communication using the encryption network key. For example, the 
+      switch can then send \( E_{network\ key}[On\ command] \) to switch on the bulb. The problem is that anyone can desolder the processor of the bulb and extract the master key shared by all light bulbs. The attacker who has this key can then change the network key, force a light bulb to blink for 18 hours, or factory reset. 
+      The attacker need not be in proximity of the victim bulb to perform this attack since an antenna suffices to attain the desired signal strength. 
+    </p>
+
+    <p>
+        Zigbee enables over-the-air updates which should be verified using asymmetric crypto, thereby having a different public key for each bulb. However, it was noticed that when the bulbs sent a request for updates from Philips servers, the servers responded with the same 
+        message (called firmware1.img on the slides) for the same update version of course. Thus, the servers encrypted the message with same global public key that was assigned to all bulbs. Asymmetric cyptography was clearly not used. Since the public encryption key is now known the last step is 
+        to extract the signing key for the firmware update. To extract this, we note that the <strong>private signing key is symmetric and stored on the device</strong> since asymmetric cryptography was not used. Applying different power analysis on the gateway's private signing key allows uncovering the key and hence sending
+        any update to the bulbs.  
+    </p>
+    <p>
+        IoT devices are prone to worms since they are vulnerable, have a radio, and can be infected via radio commands. Thus, IoT devices can infect other devices. To find how many devices are needed to infect all devices in a range is given by <b>percolation theory</b>. Assuming all the devices are uniformly randomly distributed  in an area <i>A</i> and that the 
+        radius of operation of each device is <i>R</i> then the number of <b>initially-infected</b> devices needed to spread to all other devices is: \[ N = 1.128 \frac{A}{\pi R^2}\]
+        Possible attacks include hardware bricking (physically destroying the hardware), 2.4 GHz jamming (other devices can no longer communicate in this frequency band), and triggering epileptic seizures. 
+    </p>
+    <p>
+        <b>Myth</b>: short range communication means no adversary can eavesdrop the communication if she is not nearby. With the appropriate antenna and amplifier, wireless signals can be eavesdropped or injected from large distances (more than a kilometer). 
     </p>
     <p>
       Looking for the arcane secrets that regulates good legibility, I immediately realized
