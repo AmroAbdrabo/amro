@@ -40,6 +40,47 @@
     <span class = "first-letter">C</span>ore question: how can we achieve integrity assurance for code execution on remote platforms if part of the system is untrusted? To validate the local system we can not rely on the local system to show us that the system is working OK, since the local system can be corrupted and display 
     no issues upon verification. We therefore depend on a trusted external verifier. We assume the local hardware is correct, i.e. the hardware is the <b>root of trust</b>. We assume a remote adversary. 
     </p>
+
+    <p>
+        Hardware-based backdoors like the type introduced <a href="https://www.bloomberg.com/news/features/2018-10-04/the-big-hack-how-china-used-a-tiny-chip-to-infiltrate-america-s-top-companies">here</a> are hard to defend against and require the use of specialized X-ray devices to compare, at the gate level, a normal 
+        chip versus a suspected chip. 
+    </p>
+
+    <p>
+        There are currently 3 approaches to achieve trustworthy execution (evaluated metric is size of TCB-trusted computing base):
+    </p>
+    <ul>
+        <li>
+            Program code in ROM
+        </li>
+        <li>
+            Secure boot
+        </li>
+        <li>
+            Virtual-machine-based isolation
+        </li>
+    </ul>
+    
+
+    <h2>Program code in ROM</h2>
+    <p>
+        This approach consists of keeping entire program in ROM.  <br>
+        <b>Advantages:</b>  simplicity and that the adversary cannot inject any additional software. <br> <b> Disadvantages: </b> software
+        cannot be updated without exchanging the ROM, adversary can use control-flow-attack (ROP), and the entire system is in TCB (no isolation).  Verdict: impractical since code needs to be updated.  
+    </p>
+
+    <h2>Secure or verified boot</h2>
+    <p>
+    The bootloader, which is in read only memory, loads other pieces of software and verifies digital signatures on each piece of software. <br>
+    <b>Advantages:</b> only approved software can be loaded. <br>
+    <b>Disadvantages:</b> Large OS almost certainly has vulnerability thus isolation amongst components not guaranteed \(\rightarrow \) entire system in TCB. The bootloader only verifies at 
+    <b>launch time</b> however at runtime a ROP attack may be going on.  
+    </p>
+    <p>
+        Note that signed code is not enough since the signing key may be compromised and an attacker thus signing his malicious software with a trusted signing key. Further,
+        rollback attacks to previous signed software which was found to be vulnerable need to be prevented \(\rightarrow\) append-only hash chain in NV-RAM. 
+    </p>
+
     <h2>Lecture 11: IoT Security</h2>
     <p>
       <span class="first-letter">A</span>n example of a naive IoT protocol is that implemented by the ZigBee Light Link,
