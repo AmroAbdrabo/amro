@@ -83,9 +83,32 @@
         Another data leakage despite encryption is auto-suggest which leaks character pressed, based on the size of the returned matches. To mitigate this, a website must make sure all auto-suggest packets are of the same length and that there is no detectable timing difference for characters that return long number of matches versus short number of matches. 
          
         GIFs, which use run-length compression, are prone to side channels. For example, an investment website which displays the percentage of investment funds by value on a pie chart GIF leaks information
-        about the percentages of the funds since the angles are leaked. Run-length compression is done on a line-by-line basis. 
+        about the percentages of the funds since the angles are leaked. Changes in angle are mapped to changes in stock prices, and the exact companies being invested in are thus found. Run-length compression is done on a line-by-line basis. 
         <img src="img/pie.png" alt="" style="width: 65%; height: auto; margin-left: auto; margin-right: auto; display: block;">
     </p>
+    
+    <p>
+        <strong>Case study: Device Pairing</strong> <br>
+        Pairing: the process of establishing a <span style="color: green;">security association</span> between two devices that <span style = "color: red;">share no prior knowledge</span>. Secure device pairing requires the pairing process to be resilient against a MITM attack.
+        There are two types of secure pairing: the first relies on a secondary channel called OOB (out of band) channel, and the other does not use OOB. The OOB channel has limited bandwidth capacity. 
+        <br>  Two types of OOB channels 
+    </p>
+        <ul>
+            <li><b>Human perceivable:</b>  Visible Light Communication, 
+                visual, infrared Data Association, audio, haptic, and sensing
+             </li>
+            <li>
+                <b>Physically-constrained</b> WiFi, Bluetooth 
+                (both not recommended due to amplification of signal with antennas and amplifiers), 
+                near-field communication (NFC), ultrasound
+            </li>
+        </ul> 
+       
+    
+    <p>
+        An example of haptic OOB channel is placing two phones in one's hand and shaking them. The accelerometer of the two phones show the same readings and these readings are used to make a shared DH key. 
+    </p>
+    
 
     
   </main>
