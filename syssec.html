@@ -36,14 +36,14 @@
   <main class="article">
     <h2>Lecture 11: IoT Security</h2>
     <p>
-      <span class="first-letter">A</span>n example of a naive IoT protocol is that implemented by the Zigbee Light Link,
+      <span class="first-letter">A</span>n example of a naive IoT protocol is that implemented by the ZigBee Light Link,
       where a network switch enrypts a network key using a master ZLL key and sends the encrypted key to the light bulb for further communication using the encryption network key. For example, the 
       switch can then send \( E_{network\ key}[On\ command] \) to switch on the bulb. The problem is that anyone can desolder the processor of the bulb and extract the master key shared by all light bulbs. The attacker who has this key can then change the network key, force a light bulb to blink for 18 hours, or factory reset. 
       The attacker need not be in proximity of the victim bulb to perform this attack since an antenna suffices to attain the desired signal strength. 
     </p>
 
     <p>
-        Zigbee enables over-the-air updates which should be verified using asymmetric crypto, thereby having a different public key for each bulb. However, it was noticed that when the bulbs sent a request for updates from Philips servers, the servers responded with the same 
+        ZigBee enables over-the-air updates which should be verified using asymmetric crypto, thereby having a different public key for each bulb. However, it was noticed that when the bulbs sent a request for updates from Philips servers, the servers responded with the same 
         message (called firmware1.img on the slides) for the same update version of course. Thus, the servers encrypted the message with same global public key that was assigned to all bulbs. Asymmetric cyptography was clearly not used. Since the public encryption key is now known the last step is 
         to extract the signing key for the firmware update. To extract this, we note that the <strong>private signing key is symmetric and stored on the device</strong> since asymmetric cryptography was not used. Applying different power analysis on the gateway's private signing key allows uncovering the key and hence sending
         any update to the bulbs.  
@@ -56,6 +56,18 @@
     <p>
         <b>Myth</b>: short range communication means no adversary can eavesdrop the communication if she is not nearby. With the appropriate antenna and amplifier, wireless signals can be eavesdropped or injected from large distances (more than a kilometer). 
     </p>
+
+    <p>
+        The IETF has tried to standardize IoT by creating a potential IoT protocol stack that is <b>interoperable</b> (unified for all devices) and <b>lightweight</b>: <img src="img/iotlayers.png" alt="" style = "width: 50%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+       <br> In reality however, IoT devices such as Bluetooth, ZigBee, WiFi, LoRa, all have different IoT stacks. Many IoT devices such as ZigBee use a <b>sort of</b> standardized stack such as <br> <img src="img/iotlay.png" alt="" style = "width: 30%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+       <br>where green indicates that a feature has security options. As many small devices are low power, it is uncertain whether they will ever be able to use the full IP protocol stack, hence the need for these IoT stacks. 
+    </p>
+    <p>
+        Encryption is not enough since for ZigBee, BLE, and WiFi the MAC address is in cleartext and events (such as switching on a IoT device) are marked by sharp rise in bitrate (B/s). For example, an attacker can infer a user's home activity from encrypted traffic by monitoring device MAC addresses as well as traffic volume: <br>  
+        <img src="img/events.png" alt="" style = "width: 50%; height: auto; margin-left: auto; margin-right: auto; display: block;"> <br>
+        This attack involves machine learning to derive the device state, and thus derive the user behavior.
+    </p>
+    
     <p>
       Looking for the arcane secrets that regulates good legibility, I immediately realized
       that I needed to follow in the footsteps of the masters. So I started dissecting the rules that
