@@ -110,7 +110,13 @@
     <p>
         The Trusted Computing Group (TCG) proposed a Trusted Platform Module (TPM) chip which is a low-cost passive device that provides platform identity, remote attestation, 
         sealed storage, and a secure counter. To simplify matters, we assume there is only a <b>public-private key pair per TPM</b> that is being used for all the operations. 
+        The TPM will store measurements (hashes) of code that has executed. These hashes represent <span style="color: blue;">platform configuration</span>. The question is how to securely store potentially infinitely long
+         list of hashes \(H_1, ..., H_n\) in finite list of registers? The solution is that the untrusted OS stores the actual list of hashes \(H_1, ..., H_n\) and <span style="color: blue;">PCR</span> inside TPM ensures integrity
+         of list by the following operations:
+         at time 0, \(\text{PCR}_{T0} \leftarrow 0; \) then at time T1,  \( \text{PCR}_{T1} \leftarrow \) \(  H(\text{PCR}_{T0} || H1) \) and so forth.   
     </p>
+
+
 
 
     <h2>Lecture 11: IoT Security</h2>
