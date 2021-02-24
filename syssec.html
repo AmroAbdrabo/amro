@@ -142,6 +142,38 @@
        </li>
    </ul>
 
+   <h2>Lecture 10: Dynamic Root of Trust - TCG 1.2-Style Attestation</h2>
+   <p>
+   <span class="first-letter">T</span>o achieve runtime assurance isolated execution environments (IEE) need to be created. We look at the following questions:
+    </p>
+    <ul>
+        <li>How to create IEE</li>
+        <li>How to remotely verify/attest IEE</li>
+        <li>How to establish a secure channel into IEE</li>
+        <li>
+            How to externally verify that output O is from S's computation on input I within IEE
+        </li>
+    </ul>
+
+    <p>
+        To create the IEE, a special atomic instruction (SKINIT on AMD and SENTER on Intel) is issued which does the following: resets the CPU state, resets dynamic PCRs, 
+        enables DMA protection for entire secure loader block (SLB), sends SLB contents to TPM, begins execution at SLB's entry point. 
+    </p>
+
+    <p>
+        To remotely verify or attest the IEE, a verifier sends a nonce to the TPM. The TPM receives the nonce and sends back a signed packet consisting of the hash of the SLB and the nonce. But how can the verifier know that the signing was genuinely done by the TPM and not the OS? 
+        The answer is that the public signing key of the TPM is signed by the TPM's manufacturer (IBM for example).  
+    </p>
+    <p>
+        To establish a secure channel, the same procedure as remote verification is done except this time the TPM generates a kay pair and sends the public key inside the signed packet that contains the nonce and SLB hash. The verifier then encrypts a secret symmetric key and sends this encrypted packet
+        back to the TPM. 
+    </p>
+
+    <p>
+        To externally verify that output O is from S's computation on input I within IEE, the TPM provides a hash of the input and of the output and sends back the signed packet to the verifier. 
+    </p>
+
+    
 
 
     <h2>Lecture 11: IoT Security</h2>
