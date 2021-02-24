@@ -173,7 +173,36 @@
         To externally verify that output O is from S's computation on input I within IEE, the TPM provides a hash of the input and of the output and sends back the signed packet to the verifier. 
     </p>
 
-    
+    <p>
+        Late launch, or DRTM, thus provides verifiable untampered code execution. The advantage of this approach is that it is no longer necessary to trust the OS. Only the application in question and the hardware need to be trusted. The 
+        drawbacks however is that memory is not encrypted (local physical attack vulnerable), no threads are allowed to execute except the thread that called SENTER/SKINIT, and there is no virtualization possible since otherwise a hypervisor (which manages the OS)
+        would be able to see and control the operations done by the isolated execution environment. 
+    </p>
+
+    <h2>The Flicker System</h2>
+    <p>
+        The Flicker System is an implementation of a DRTM where the TCB is the hardware and a security-sensitive piece of code called S and a small piece of code called Shim. 
+        <ol>
+            <li>
+                The app, which wants to execute S, invokes a module in the OS
+            </li>
+            <li>
+                The module then saves the execution state of the whole system and then calls the SKINIT operation so the OS stops running
+            </li>
+            <li>
+                The CPU then resets the dynamic PCRs in the TPM and starts executing the Shim which sets up an execution environment for S
+            </li>
+            <li>
+                When S is done computing, the Shim recreates the execution state of the entire system, passes control back to the OS, and returns the result computed by
+                S to the app
+            </li>
+        </ol>
+    </p>
+
+    <p>
+        <b>A local application can not obtain any assurance for a locally executed piece of code.</b> Why? Since in the case of a malicious OS, the OS can analyze the code of the local verifier 
+        and simply move the instruction pointer to the point in the code of the local verifier that shows success.
+    </p>
 
 
     <h2>Lecture 11: IoT Security</h2>
