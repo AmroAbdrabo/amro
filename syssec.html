@@ -121,6 +121,26 @@
         secret-dependent execution time during signature generation.  
     </p>
 
+    <h2>Attested Boot - TCG 1.1-Style Attestation</h2>
+    <p>
+        Attested boot works in a chain-like fashion by having a static root of trust measure a bootloader and then executes the bootloader. Then, the bootloader measures the OS kernel, the OS kernel runs. The OS kernel
+        measures the apps and then runs them, and so forth. <b>Only measured content can be executed</b>. Attested boot defines Integrity Measurement Architecture, represented as, 
+        <img src="img/IMA.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+        The verifier checks that all the hashes are in its database of trusted application hashes, and makes sure the PCR contains the correct value corresponding to the list of these hash values. 
+    </p>
+
+   <p> <b> Shortcomings of Attested Boot </b> </p> 
+   <ul>
+       <li>
+           Programs only measured at launch time, not run time \(\rightarrow\) cannot detect dynamic attacks (e.g. memory reset attack)
+       </li>
+       <li>
+           TCB includes the entire system since there is no isolation between programs
+       </li>
+       <li>
+            There is no guarantee of execution 
+       </li>
+   </ul>
 
 
 
