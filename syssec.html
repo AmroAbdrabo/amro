@@ -38,7 +38,7 @@
     <h2>Lecture 9: Designing Secure Systems based on Trustworthy Computing and Attestation  </h2>
     <p>
     <span class = "first-letter">C</span>ore question: how can we achieve integrity assurance for code execution on remote platforms if part of the system is untrusted? To validate the local system we can not rely on the local system to show us that the system is working OK, since the local system can be corrupted and display 
-    no issues upon verification. We therefore depend on a trusted external verifier. We assume the local hardware is correct, i.e. the hardware is the <b>root of trust</b>. We assume a remote adversary. 
+    no issues upon verification. We therefore depend on a trusted external verifier. We assume the local hardware is correct, i.e. the hardware is the <b>root of trust</b>. We assume a remote adversary (launches network-based attacks). 
     </p>
 
     <p>
@@ -80,6 +80,38 @@
         Note that signed code is not enough since the signing key may be compromised and an attacker thus signing his malicious software with a trusted signing key. Further,
         rollback attacks to previous signed software which was found to be vulnerable need to be prevented \(\rightarrow\) append-only hash chain in NV-RAM. 
     </p>
+
+    <h2>Virtual-machine-based isolation</h2>
+    <p>
+        Consists of isolating applications by executing them inside different virtual machines. <br>
+        <b>Advantages:</b> VMM (VM monitor) smaller than OS and assumed to be secure, smaller TCB, isolation between applications.
+        <br> <b>Disadvantages:</b> VMM usually still large and part of TCB, relatively complex for the average user, and complicates interaction between applications.
+
+    </p>
+    <p>
+        A verifier can be thought of as a reference to a "golden" database of expected software. A verifier sends a nonce to a system it wants to verify and receives from the system Sig(nonce, code).  
+    </p>
+    <p>
+        Given that systems need to be compatible with legacy vulnerable software the only approach is to achieve security for small subset of the system. The approach has 3 steps:
+    </p>
+
+    <ol>
+        <li>
+            Establish isolated execution environment (EE) through hardware
+        </li>
+        <li>
+            Externally validate correctness of EE via remote attestation
+        </li>
+        <li>
+            Enable secure local execution and fetching of secret data through sealed storage
+        </li>
+    </ol>
+
+    <p>
+        The Trusted Computing Group (TCG) proposed a Trusted Platform Module (TPM) chip which is a low-cost passive device that provides platform identity, remote attestation, 
+        sealed storage, and a secure counter. To simplify matters, we assume there is only a <b>public-private key pair per TPM</b> that is being used for all the operations. 
+    </p>
+
 
     <h2>Lecture 11: IoT Security</h2>
     <p>
