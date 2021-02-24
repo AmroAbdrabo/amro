@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href = "syssec.css">
-    <title>Document</title>
+    <title>Sys. sec</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -108,12 +108,17 @@
     </ol>
 
     <p>
-        The Trusted Computing Group (TCG) proposed a Trusted Platform Module (TPM) chip which is a low-cost passive device that provides platform identity, remote attestation, 
-        sealed storage, and a secure counter. To simplify matters, we assume there is only a <b>public-private key pair per TPM</b> that is being used for all the operations. 
+        The Trusted Computing Group (TCG) proposed a Trusted Platform Module (TPM) chip which is a low-cost passive device that provides platform identity, remote attestation (via PCRs + AIK-attestation identity key to sign PCR), 
+        sealed storage (via SRK-storage root key), and a secure counter. To simplify matters, we assume there is only a <b>public-private key pair per TPM</b> that is being used for all the operations. 
         The TPM will store measurements (hashes) of code that has executed. These hashes represent <span style="color: blue;">platform configuration</span>. The question is how to securely store potentially infinitely long
          list of hashes \(H_1, ..., H_n\) in finite list of registers? The solution is that the untrusted OS stores the actual list of hashes \(H_1, ..., H_n\) and <span style="color: blue;">PCR</span> inside TPM ensures integrity
          of list by the following operations:
-         at time 0, \(\text{PCR}_{T0} \leftarrow 0; \) then at time T1,  \( \text{PCR}_{T1} \leftarrow \) \(  H(\text{PCR}_{T0} || H1) \) and so forth.   
+         at time 0, \(\text{PCR}_{T0} \leftarrow 0; \) then at time T1,  \( \text{PCR}_{T1} \leftarrow \) \(  H(\text{PCR}_{T0} || H1) \) and so forth. Note that PCR10 is usually used since it is non-resetable to 0 except by reboot.   
+    </p>
+
+    <p>
+        TPM is neither tamper-responsive nor tamper-proof and the private key can be read using scanning electron microscope. A famous attack on TPM is TPM-Fail where there is 
+        secret-dependent execution time during signature generation.  
     </p>
 
 
