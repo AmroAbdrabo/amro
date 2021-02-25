@@ -215,11 +215,17 @@
 
     <p>We now take a look at secure channel establishment protocols. First (flawed) protocol: 
 
-        <img src="img/p1.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+        <img src="img/p1.png" alt="" style = "width: 59%; height: auto; margin-left: auto; margin-right: auto; display: block;">
 
-        LP is the local party and RH is the remote host where untrusted App and OS is running. Even though not explicit, PCR17 gets extended with the hash of the IEE before IEE starts executing. Quoting is the attestation process.  The flaw in this protocol is that the untrusted App already has the private key of the IEE.  
-        The next protocol is <br> <span style="color: blue; padding-left: 35%; font-size: smaller;"> RH generates RSA</span>
+        LP is the local party and RH is the remote host where untrusted App and OS is running. Even though not explicit, PCR17 gets extended with the hash of the IEE before IEE starts executing. Quoting is the attestation process.  The flaw is that the untrusted App already has the private key of the IEE.  
+        The corrected protocol is <br> <span style="color: blue; padding-left: 35%; font-size: smaller;"> RH generates RSA key</span>
          <img src="img/p2.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+         <br>
+         The next protocol is flawed:
+         <img src="img/p3.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+         The flaw is that there is no guarantee that the IEE actually generated K and not the OS. The fix is to extend IEE's secret key into PCR18 so if the OS chooses its own K the verifier will get a different PCR18:
+         <br> <span style="color: blue; padding-left: 35%; font-size: smaller;"> LP generates RSA key</span>
+         <img src="img/p4.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
     </p>
 
 
