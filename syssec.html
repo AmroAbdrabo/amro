@@ -213,7 +213,14 @@
         Malware cannot simulate SKINIT/SENTER instructions by extending desirable H(code) into a dynamic PCR because dynamic PCRs have an initial value of -1, that can only be set to 0 via SKINIT/SENTER. 
     </p>
 
-    <p>We now take a look at secure channel establishment protocols. First (flawed) protocol: </p>
+    <p>We now take a look at secure channel establishment protocols. First (flawed) protocol: 
+
+        <img src="img/p1.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+
+        LP is the local party and RH is the remote host where untrusted App and OS is running. Even though not explicit, PCR17 gets extended with the hash of the IEE before IEE starts executing. Quoting is the attestation process.  The flaw in this protocol is that the untrusted App already has the private key of the IEE.  
+        The next protocol is <br> <span style="color: blue; padding-left: 35%; font-size: smaller;"> RH generates RSA</span>
+         <img src="img/p2.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+    </p>
 
 
     <h2>Lecture 11: IoT Security</h2>
