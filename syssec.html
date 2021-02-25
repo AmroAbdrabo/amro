@@ -228,6 +228,14 @@
          <img src="img/p4.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
     </p>
 
+    <p>
+        The problem with attestations is that <i>a</i> TPM vouches for a software state, but not <i>which</i> TPM. Thus, if an adversary controls the TPM of the remote host then the adversary can let the remote host perform the attestation, unsign using RH's public signing key, and
+        then sign it using a different TPM's private signing key. The local host only knows that the remote host is using a certified TPM but not which TPM exactly.
+        <br> <span style="color: blue; padding-left: 35%; font-size: smaller;"> The Cuckoo Attack</span>
+        <img src="img/cuckoo.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;"> <br>
+        The are two solutions for this. First is to physically imprint a QR code encoding the hash of the public key of the TPM inside the device (known as seeing-is-believing), and the other solution is to reboot and trust BIOS to output public key via existing interface. However, this last 
+        approach is not secure since malware can spoof the reboot process and output its own corrupted TPM public key. 
+    </p>
 
     <h2>Lecture 11: IoT Security</h2>
     <p>
