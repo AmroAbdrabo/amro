@@ -226,6 +226,12 @@
          The flaw is that there is no guarantee that the IEE actually generated K and not the OS. The fix is to extend IEE's secret key into PCR18 so if the OS chooses its own K the verifier will get a different PCR18:
          <br> <span style="color: blue; padding-left: 35%; font-size: smaller;"> LP generates RSA key</span>
          <img src="img/p4.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+
+         The final protocol is based on Diffie-Hellman. The flawed variant is given first:
+         <img src="img/p5.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+         The problem is that there is a circular dependency on the key K. We need K to unseal but we also need to unseal K. The corrected protocol is 
+         <br> <span style="color: blue; padding-left: 35%; font-size: smaller;"> Diffie-Hellman </span>
+         <img src="img/p6.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
     </p>
 
     <p>
