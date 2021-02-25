@@ -204,6 +204,17 @@
         and simply move the instruction pointer to the point in the code of the local verifier that shows success.
     </p>
 
+    <p>For the case of external verifier however, the verification is: 
+        <img src="img/flicker.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+        where the blue flicker layer is the Shim layer.
+    </p>
+
+    <p>
+        Malware cannot simulate SKINIT/SENTER instructions by extending desirable H(code) into a dynamic PCR because dynamic PCRs have an initial value of -1, that can only be set to 0 via SKINIT/SENTER. 
+    </p>
+
+    <p>We now take a look at secure channel establishment protocols. First (flawed) protocol: </p>
+
 
     <h2>Lecture 11: IoT Security</h2>
     <p>
