@@ -106,6 +106,27 @@
     transform: scale(1.0);
     opacity: 0.6;
   }
+  .honeycomb-cell:hover {
+    -webkit-animation:rescale 3s 1;
+    animation: rescale 3s 1;
+  }
+
+  #myself:hover {
+    -webkit-animation:rescale 3s 0;
+    animation: rescale 3s 0;
+  }
+
+  @-webkit-keyframes rescale{
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+    
+  }
+  
+  @keyframes rescale{
+    0% {transform:rotate(0deg);}
+    100% {transform:rotate(360deg);}
+  }
+
   .honeycomb-cell::after
   {
     background: #0b319b;
