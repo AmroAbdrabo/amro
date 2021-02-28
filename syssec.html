@@ -85,7 +85,17 @@
 
     <p>
         To deploy an application into the SW the app needs to be vetted by the device manufacturer; otherwise, the trusted OS would have to enforce isolation between trusted apps. 
+        
     </p>
+
+    <p>
+        Recall in SGX that remote attestation was built and consisted in checking CPU is legitimate and enclave code as expected. In TZ remote attestation can be implemented as follows
+        <img src="img/rematt.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">
+
+        where SK_dev is the device specific key only accessible in the SW. 
+    </p>
+
+    
 
     <h2>Lecture 9: Designing Secure Systems based on Trustworthy Computing and Attestation  </h2>
     <p>
