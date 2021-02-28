@@ -123,6 +123,17 @@
     Rate-limit password/PIN attempts to slow down offline attacks. The challenge is that off-chip non-volatile memory is susceptible to replay attacks (rate limit bypassed), and NVRAM is not always available on-chip.    
     </p> 
 
+    <p>
+        In hardware-backed key store, the goal is to protect the secrets of third party applications against malicious software in the NW. One approach is that we can expose a key store API to all third party smartphone applications that gives functions like a create a key, export a public key, sign the 
+        private key, etc. 
+        The key idea is that the interface should be designed in such a way that the private key never leaves the secure world. The problem is that untrusted OS can sign arbitrary content with the stored key (almost as good having as the private key). 
+
+    </p>
+
+    <p>
+        Finally, an advantage of TZ over SGX is that TZ includes touchscreen drivers to TEE kernel. However, it is hard for the user to distinguish between a UI drawn by TEE kernel vs a normal world UI. 
+    </p>
+
     
 
     <h2>Lecture 9: Designing Secure Systems based on Trustworthy Computing and Attestation  </h2>
