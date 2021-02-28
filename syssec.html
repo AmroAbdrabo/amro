@@ -64,7 +64,27 @@
     <p>
         The first security mechanism we consider is the Trusted Execution Environment. To use the SW as a TEE, we can either provide a fixed ``TEE service" or provide a TEE kernel plus trusted apps. The latter option increases the size of the TCB but is much more flexible and hence is the option
         applied in practice. <img src="img/teearch.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">   
-        As seen from this figure, the interaction between the SW and NW is mediated by the untrusted OS. The User App passes pointer to memory address where input parameters reside. 
+        As seen from this figure, the interaction between the SW and NW is mediated by the untrusted OS. The User App passes pointer to memory address where input parameters reside. The TEE kernel/Trusted OS needs to provide 5 functionalities:
+        <ol>
+            <li>Enable easy trusted app development</li>
+            <li>
+                Secure storage 
+            </li>
+            <li>
+                Device access (fingerprint, SIM card)
+            </li>
+            <li>
+                Message passing and sanitization
+            </li>
+            <li>
+                Cryptographic libraries
+            </li>
+        </ol>
+        
+    </p>
+
+    <p>
+        To deploy an application into the SW the app needs to be vetted by the device manufacturer; otherwise, the trusted OS would have to enforce isolation between trusted apps. 
     </p>
 
     <h2>Lecture 9: Designing Secure Systems based on Trustworthy Computing and Attestation  </h2>
