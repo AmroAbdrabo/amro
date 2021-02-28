@@ -104,10 +104,16 @@
                 <ul> <li> Code that executes first needs to be <b>integrity-protected</b>, eg. stored in the on-chip ROM) </li></ul>
             </li>
             <li>
-                Verify boot-loader 
+                Verify boot-loader
+                <ul>
+                  <li>     
+                    Immutable signature verification routine checks that the hash of the boot loader matches with \( K^{\text{pub}} ( K^{\text{priv}}  (H(\text{code}))) \) where the public key is burned into the on-chip ROM, as well as the signed hash   
+                </li>
+                </ul>
             </li>
             <li>
                 Pass control to NW and boot loader
+                <ul><li>Boot loader can verify the integrity of the rest of the OS</li></ul>
             </li>
         </ol> 
     </p>
