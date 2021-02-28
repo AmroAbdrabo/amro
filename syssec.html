@@ -62,7 +62,9 @@
 
     <h2>Part 2: TZ-based Security Services</h2>
     <p>
-        The first security mechanism we consider is the Trusted Execution Environment. To use the SW as a TEE, we can either provide a fixed ``TEE service" or provide a TEE kernel plus trusted apps. The latter option increases the size of the TCB  
+        The first security mechanism we consider is the Trusted Execution Environment. To use the SW as a TEE, we can either provide a fixed ``TEE service" or provide a TEE kernel plus trusted apps. The latter option increases the size of the TCB but is much more flexible and hence is the option
+        applied in practice. <img src="img/teearch.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;">   
+        As seen from this figure, the interaction between the SW and NW is mediated by the untrusted OS. The User App passes pointer to memory address where input parameters reside. 
     </p>
 
     <h2>Lecture 9: Designing Secure Systems based on Trustworthy Computing and Attestation  </h2>
