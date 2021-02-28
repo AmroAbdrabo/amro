@@ -43,12 +43,28 @@
     <span class="first-letter">S</span>oC are a characteristic of ARM devices. The CPU is not on a separate chip but shares a chip with a 4G/5G modem, memory, Bluetooth and so on.   
         There are <b> two protection domains</b> in ARM TrustZone: <span style="color: red;">Normal world</span>, and <span style="color: green;"> secure world</span>. 
         <img src="img/arm.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;" >
-        The secure monitor call allows controlled entry to the secure world. The CPU runs exclusively in one world, dependent on the NS bit, which can be read from the SCR - System Control Register.  
+        The secure monitor call allows controlled entry to the secure world. The CPU runs exclusively in one world, dependent on the NS bit, which can be read from the SCR - System Control Register. 
+
     </p>
 
     <p>
+        To enable memory protection, TrustZone partitions the memory via the following mechanisms: An address space controller (TZASC) controls access to on-chip memory. A memory adapter (TZMA) controls access to off-chip memory, or main memory. Finally, there are separate translations in the MMU, and cache tags have extra bit to indicate world. To enable the trusted part of an app to communicate with its untrusted component, there are memory partitions that are accessible by both. 
+    </p>
+
+    <p>
+        To enable device/peripheral access, a TZ Protection Controller (TZPC) controls access to peripherals. To prevent DoS by <span style="color: red;">NW</span>, accesses by the <span style="color: green;">SW</span> are given priority. 
 
     </p>
+
+    <p>
+        A different TZ architecture is present in IoT and embedded low power devices, since the SMC is expensive to perform. Instead, to transition into SW, the NW code calls the Secure Gateway (SG) instruction and the BXNS and BLXNS allow switching back and forth.   
+    </p>
+
+    <h2>Part 2: TZ-based Security Services</h2>
+    <p>
+        The first security mechanism we consider is the Trusted Execution Environment. To use the SW as a TEE, we can either provide a fixed ``TEE service" or provide a TEE kernel plus trusted apps. The latter option increases the size of the TCB  
+    </p>
+
     <h2>Lecture 9: Designing Secure Systems based on Trustworthy Computing and Attestation  </h2>
     <p>
     <span class = "first-letter">C</span>ore question: how can we achieve integrity assurance for code execution on remote platforms if part of the system is untrusted? To validate the local system we can not rely on the local system to show us that the system is working OK, since the local system can be corrupted and display 
