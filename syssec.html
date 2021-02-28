@@ -95,6 +95,23 @@
         where SK_dev is the device specific key only accessible in the SW. 
     </p>
 
+    <p>
+        Secure boot is necessary for brand protection (e.g. iPhone runs only iOS), ensuring only the intended OS accesses security relevant features such as radio settings, andpermission based OS-level access control for 3rd party apps. 
+        The process follows:
+        <ol>
+            <li>
+                Boot in SW supervisor mode 
+                <ul> <li> Code that executes first needs to be <b>integrity-protected</b>, eg. stored in the on-chip ROM) </li></ul>
+            </li>
+            <li>
+                Verify boot-loader 
+            </li>
+            <li>
+                Pass control to NW and boot loader
+            </li>
+        </ol> 
+    </p>
+
     
 
     <h2>Lecture 9: Designing Secure Systems based on Trustworthy Computing and Attestation  </h2>
