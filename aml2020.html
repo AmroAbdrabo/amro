@@ -7,7 +7,9 @@
     <style>
         * {
             /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
-            font-family: 'Times New Roman', Times, serif;
+            /*font-family: 'Times New Roman', Times, serif;*/
+            font-family:   'Open Sans', 'Helvetica Neue', sans-serif;
+           
         }
         body {
             padding-left: 20px;
@@ -63,11 +65,27 @@
          assume that in this region the function (given by the sum of the regularizer and residual squares) is convex then we can increase \( \lambda\) enough to make it non-convex within this region. 
         </li>
         <li>
-
+            
+            This optimization problem is equivalent to minimizing the unregularized least squares error \( \sum_{i=1}^n (y_i - \sum_{j=1}^d x_{i, j}\beta_j )^2 \) subject to the constraint \( \sum_{j=1}^d |\beta_j|^2 \leq \mu \) for an appropriate value of the paramter \(\mu\) <br> <br>
+            <b>Answer:</b> True. Lecture 8 on Convex Optimization by Stephen Boyd on YouTube goes into detail as to how the dual of this constrained optimization problem, with \(\mu = 0 \), is equivalent to solving the unconstrained problem. 
         </li>
     </ul>
     
     </div> 
+
+    <div class="question"> <h2>Question 2: LASSO regression as MAP regression</h2> 
+    Consider a data set \(\mathcal{D} = \{(\mathbf{x}_i, y_i) | i=1,...n \}  \subset \mathbb{R}^d \times \mathbb{R}\). Assume that the distribution from which \(\mathcal{D}\) is sampled has the property that for every \(\mathbf{x} \in  \mathbb{R}^d\), the conditional distribution of the target is Gaussian, i.e. 
+    \[  Y | (X = \mathbf{x}, \beta ) \sim \mathcal{N}(\mathbf{x}^T \beta, \sigma^2) \] 
+    for some known fixed \(\sigma > 0\). Here \(Y\) and \(X\) denote the random variables of which the \(\mathbf{x}_i, y_i\) are realizations. Recall that performing LASSO regression means solving the optimization problem 
+    \[\hat{\beta} =  \text{arg min}_{\beta} \left\{ \sum_{i=1}^n(y_i - \beta^T \mathbf{x_i})^2  +\lambda \sum_{j=1}^d|\beta_j|  \right\} \] 
+
+    In this problem, the goal is to show that LASSO regression is equivalent to finding the maximum a posteriori (MAP) estimate in the Bayesian setting in which we assume that the weights \(\beta_j\)have i.i.d Laplacian prior distributions: 
+    \[ p(\beta_j) = \frac{1}{2b} \exp{  (-\frac{|\beta_j|}{b}) } \text{ for all } j \in \{1, .., d\}\] 
+
+    Hint: for simplicity, you may assume that the data set \(\mathcal{D}\) is centered in the following
+    
+    </div>
+
     
 </body>
 </html>
