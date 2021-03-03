@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2020 AML</title>
+    <style>
+        * {
+            /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;*/
+            font-family: 'Times New Roman', Times, serif;
+        }
+        body {
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+        }
+        .question {
+          width: 80%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          border-radius: 1px solid black;
+          text-align: left;
+        }
+        h1, h2{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+        }
+        </style>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <h1>Exam 2020</h1>
+    <div class="question"> <h2>Question 1: Linear regression</h2> 1. Let \(\mathbf{X}\) be a centered \(n \times d\)  matrix whose rows are the input vectors \(\mathbf{x}_i \in \mathbb{R}^d\)
+    of a training set \(\mathcal{D} = \{ (\mathbf{x}_i, y_i) | i=1, ...,n  \} \subset \mathbb{R}^d \times \mathbb{R} \), and let \( \mathbf{y} \in \mathbb{R}^n = (y_1,..., y_n) \)
+
+    <ul>
+        <li>
+            If a closed form linear regression solution \( \hat{f} (\mathbf{x}) = \mathbf{x}^T (\mathbf{(X^TX)^{-1}X^Ty} ) \) exists then \( \hat{f}(\mathbf{x}) \) is the projection of \(x\) onto a hyperplane that intersects the origin 
+            <br> <br>
+            <b>Answer</b>: True since this is the least squares solution of the regression problem from homework 1 which consists of finding a projection plane that minimizes the residual sum of squares error. There is no bias term and thus the plane passes by the origin. 
+        </li>
+
+        <li>
+            Linear ridge regression does not have a closed form solution if \(n < d\)
+            <br> <br>
+            <b>Answer</b>: False. Linear ridge regression either has no solution or a unique solution from the expression for the parameters \( \hat{\beta} = (\mathbf{X^TX} + \lambda \mathbb{I})^{-1} \mathbf{X}^T \mathbf{y} \) so the unique solution depends on the invertibility of \( \mathbf{X^tX} + \lambda \mathbb{I} \). See the StatQuest video on ridge for more info. Note that in the case of normal linear regression, when \( 
+                n < d\) then \( rank(\mathbf{X}) = \min(n, d) = n\) and so \( rank(X^TX) \leq \min(rank(X), rank(X^T))= rank(X) \) since \(rank(X^T) = rank(X)\) therefore since \(rank(X^TX) \neq d\) we have that \(X^TX\) is not invertible.  
+        </li>
+
+    </ul>
+
+    2. Consider now the regularized least squares optimization problem given by \[  \hat{\beta}=\text{arg min}_{\beta} \left\{ \sum_{i=1}^{n}(y_i  - \sum_{j=1}^{d}x_{i,j}\beta_j  )^2 + \lambda \sum_{j=1}^{d}|\beta_j|^q \right\} \] 
+    <ul>
+        <li>
+            This optimization problem is convex for every \(q>0\)
+            <br><br>
+
+        <b>Answer</b>: False. Let \(q < 1\); for example, \(q= \frac{1}{2}\) then clearly the function \(\sum_{j=1}^{d}\sqrt{|\beta_j|}  \) is not convex since the square root function for single variable is not convex and for multivariable we fix all variables except one variable to see that the curved traced
+         by the intersection of the (hyper)plane with the function is not convex. 
+        </li>
+        <li>
+
+        </li>
+    </ul>
+    
+    </div> 
+    
+</body>
+</html>
