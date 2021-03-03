@@ -82,7 +82,7 @@
     In this problem, the goal is to show that LASSO regression is equivalent to finding the maximum a posteriori (MAP) estimate in the Bayesian setting in which we assume that the weights \(\beta_j\)have i.i.d Laplacian prior distributions: 
     \[ p(\beta_j) = \frac{1}{2b} \exp{  (-\frac{|\beta_j|}{b}) } \text{ for all } j \in \{1, .., d\}\] 
 
-    Hint: for simplicity, you may assume that the data set \(\mathcal{D}\) is centered in the following
+    <b>Hint</b>: for simplicity, you may assume that the data set \(\mathcal{D}\) is centered in the following
 
     <br><br>
     1. Write down the natural logarithm of the <i>un-normalized</i> posterior distribution of \(\beta\). Do not stop at a symbolic formulation, but actually plug in the explicit probability density functions for the data points. "Un-normalized" means you do not have to worry about the evidence but only compute a term that is proportional to the posterior. 
@@ -105,6 +105,22 @@
     <div class="question"><h2>Question 3: Bootstrapping </h2>
     Recall that the naïve Bootstrapping estimate of the error of a classifier is defined as \[ \widehat{Err}_{boot} = \frac{1}{B}\frac{1}{N} \sum_{b=1}^B \sum_{i=1}^N L(y_i, \overset{\wedge *b}{c}(x_i))  \]
     where \(B\) is the number of training sets (each of the same size \(N\) as the original data set), and \(  \overset{\wedge *b}{c}(x_i) \) is the value at \(x_i\) prediced by the model fitted to the \(b\)th bootstrap set. 
+    Here \(L\) is the 0/1 Loss, i.e. \(L(y, c(x)) = 1_{c(x)\neq y}\).
+    <br> <br>
+    Consider now a 1-nearest neighbor classifier applied to a two-class classification problem with the same number of observations in each class, in which the features and class labels are <i>independent</i>.
+    <br>
+    <br>
+    1. Compute the true error rate of the 1-nearest neighbor classifier. <br> <br>
+    <b>Answer:</b> Since the label is independent of the features the Bayes error rate is 50% (coin flip). By definition, the Bayes classifier minimizes the probability of misclassification and thus any other classifier will achieve 50% asymptotic error.  It cannot achieve a smaller error probability than 50% since it is bound below by Bayes classifier and also it cannot 
+    attain a higher error probability than 50% since simply computing its negation will give us an error probability less than 50%. 
+
+    <br> <br>
+    2.  Give an expression in terms of \(N\) for the error estimated by \(\widehat{Err}_{boot}\) as \( N \rightarrow \infty \). <br>
+    <b>Hint</b>: for a data point \(x_i\), compute the probability that \(x_i\) is contained in a given bootstrap data set. 
+
+    <br> <br>
+    <b>Answer:</b>
+
     </div>
     
 </body>
