@@ -40,7 +40,7 @@
 
     <ul>
         <li>
-            If a closed form linear regression solution \( \hat{f} (\mathbf{x}) = \mathbf{x}^T (\mathbf{(X^TX)^{-1}X^Ty} ) \) exists then \( \hat{f}(\mathbf{x}) \) is the projection of \(x\) onto a hyperplane that intersects the origin 
+            If a closed form linear regression solution \( \overset{\wedge}{f} (\mathbf{x}) = \mathbf{x}^T (\mathbf{(X^TX)^{-1}X^Ty} ) \) exists then \( \overset{\wedge}{f}(\mathbf{x}) \) is the projection of \(x\) onto a hyperplane that intersects the origin 
             <br> <br>
             <b>Answer</b>: True since this is the least squares solution of the regression problem from homework 1 which consists of finding a projection plane that minimizes the residual sum of squares error. There is no bias term and thus the plane passes by the origin. 
         </li>
@@ -48,13 +48,13 @@
         <li>
             Linear ridge regression does not have a closed form solution if \(n < d\)
             <br> <br>
-            <b>Answer</b>: False. Linear ridge regression either has no solution or a unique solution from the expression for the parameters \( \hat{\beta} = (\mathbf{X^TX} + \lambda \mathbb{I})^{-1} \mathbf{X}^T \mathbf{y} \) so the unique solution depends on the invertibility of \( \mathbf{X^tX} + \lambda \mathbb{I} \). See the StatQuest video on ridge for more info. Note that in the case of normal linear regression, when \( 
+            <b>Answer</b>: False. Linear ridge regression either has no solution or a unique solution from the expression for the parameters \( \overset{\wedge}{\beta} = (\mathbf{X^TX} + \lambda \mathbb{I})^{-1} \mathbf{X}^T \mathbf{y} \) so the unique solution depends on the invertibility of \( \mathbf{X^tX} + \lambda \mathbb{I} \). See the StatQuest video on ridge for more info. Note that in the case of normal linear regression, when \( 
                 n < d\) then \( rank(\mathbf{X}) = \min(n, d) = n\) and so \( rank(X^TX) \leq \min(rank(X), rank(X^T))= rank(X) \) since \(rank(X^T) = rank(X)\) therefore since \(rank(X^TX) \neq d\) we have that \(X^TX\) is not invertible.  
         </li>
 
     </ul>
 
-    2. Consider now the regularized least squares optimization problem given by \[  \hat{\beta}=\text{arg min}_{\beta} \left\{ \sum_{i=1}^{n}(y_i  - \sum_{j=1}^{d}x_{i,j}\beta_j  )^2 + \lambda \sum_{j=1}^{d}|\beta_j|^q \right\} \] 
+    2. Consider now the regularized least squares optimization problem given by \[  \overset{\wedge}{\beta}=\text{arg min}_{\beta} \left\{ \sum_{i=1}^{n}(y_i  - \sum_{j=1}^{d}x_{i,j}\beta_j  )^2 + \lambda \sum_{j=1}^{d}|\beta_j|^q \right\} \] 
     <ul>
         <li>
             This optimization problem is convex for every \(q>0\)
@@ -77,7 +77,7 @@
     Consider a data set \(\mathcal{D} = \{(\mathbf{x}_i, y_i) | i=1,...n \}  \subset \mathbb{R}^d \times \mathbb{R}\). Assume that the distribution from which \(\mathcal{D}\) is sampled has the property that for every \(\mathbf{x} \in  \mathbb{R}^d\), the conditional distribution of the target is Gaussian, i.e. 
     \[  Y | (X = \mathbf{x}, \beta ) \sim \mathcal{N}(\mathbf{x}^T \beta, \sigma^2) \] 
     for some known fixed \(\sigma > 0\). Here \(Y\) and \(X\) denote the random variables of which the \(\mathbf{x}_i, y_i\) are realizations. Recall that performing LASSO regression means solving the optimization problem 
-    \[\hat{\beta} =  \text{arg min}_{\beta} \left\{ \sum_{i=1}^n(y_i - \beta^T \mathbf{x_i})^2  +\lambda \sum_{j=1}^d|\beta_j|  \right\} \] 
+    \[\overset{\wedge}{\beta} =  \text{arg min}_{\beta} \left\{ \sum_{i=1}^n(y_i - \beta^T \mathbf{x_i})^2  +\lambda \sum_{j=1}^d|\beta_j|  \right\} \] 
 
     In this problem, the goal is to show that LASSO regression is equivalent to finding the maximum a posteriori (MAP) estimate in the Bayesian setting in which we assume that the weights \(\beta_j\)have i.i.d Laplacian prior distributions: 
     \[ p(\beta_j) = \frac{1}{2b} \exp{  (-\frac{|\beta_j|}{b}) } \text{ for all } j \in \{1, .., d\}\] 
@@ -102,7 +102,9 @@
     
     </div>
 
-    <div class="question"><h2>Question 3: Bootstrapping </h2></div>
+    <div class="question"><h2>Question 3: Bootstrapping </h2>
+    Recall that the naïve Bootstrapping estimate of the error of a classifier is defined as \[ \widehat{Err}_{boot} = \frac{1}{B}\frac{1}{N} \sum_{b=1}^B \sum_{i=1}^N L(y_i, \overset{\wedge *b}{c}(x_i))  \]
+    </div>
     
 </body>
 </html>
