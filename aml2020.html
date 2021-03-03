@@ -95,7 +95,7 @@
     \[ =\sum_{j=1}^d \log p(\beta_j)  + \sum_{n=1}^N \log \mathcal{N}(\mathbf{x_n}^T\beta, \sigma^2) = -\frac{1}{2} \sum_{n=1}^N (y_n - \mathbf{x_n}^T\beta)^2 - \frac{1}{b}\sum_{j=1}^d |\beta_j| + const\] 
 
     <br> <br>
-    2. Show that maximization with respect to \(\beta \) of the term we derived in a) for a given value of \(b\) is equivalent to minimization of the LASSO objective in equation (1) for a value \( \lambda \equiv \lambda(b) \). Derive the fomrula describing how \(\lambda(b)\) depends on \(b\). 
+    2. Show that maximization with respect to \(\beta \) of the term we derived in a) for a given value of \(b\) is equivalent to minimization of the LASSO objective in equation (1) for a value \( \lambda \equiv \lambda(b) \). Derive the formula describing how \(\lambda(b)\) depends on \(b\). 
     <br>
     <br>
     <b>Answer:</b> Maximizing the negative of a function is equivalent to minimizing the function. Therefore, we see that \(\lambda = -\frac{1}{b}\).
@@ -104,6 +104,7 @@
 
     <div class="question"><h2>Question 3: Bootstrapping </h2>
     Recall that the naïve Bootstrapping estimate of the error of a classifier is defined as \[ \widehat{Err}_{boot} = \frac{1}{B}\frac{1}{N} \sum_{b=1}^B \sum_{i=1}^N L(y_i, \overset{\wedge *b}{c}(x_i))  \]
+    where \(B\) is the number of training sets (each of the same size \(N\) as the original data set), and \(  \overset{\wedge *b}{c}(x_i) \) is the value at \(x_i\) prediced by the model fitted to the \(b\)th bootstrap set. 
     </div>
     
 </body>
