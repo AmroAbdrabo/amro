@@ -135,7 +135,47 @@
 
         <br> <br>
         1. Write the terms for the likelihood, prior, posterior, and evidence <br> <br>
-        <b>Answer:</b> 
+        <b>Answer:</b> Respectively \(  p(y | \beta), p(\beta), p(\beta | y), p(y)  \)
+
+        <br> <br>
+        2. write the expression for the evidence in terms of the likelihood and prior <br> <br>
+        <b>Answer:</b> \( p(y) =  \sum_{\beta} p(y| \beta )p(\beta) \)
+        <br> <br>
+        3. write the expression for the posterior in terms of the likelihood, prior, and evidence <br> <br>
+        <b>Answer:</b> \( p(\beta | y) =  \displaystyle\frac{p(y | \beta)p(\beta)}{p(y)}  \)
+        <br> <br>
+        4. Write the expression for \( p (y^{*}|y)  \) needed for predicting the values of unseen data \(y^{*}\) given the observed data \(y\)
+        <br> <br>
+        <b>Answer</b>: \(  p (y^{*}|y) = \displaystyle\sum_{\beta} \underbrace{p(y^* | \beta, y)}_{p(y^* | \beta \text{ fitted on } y)} p(\beta | y)  =\frac{1}{p(y)} \displaystyle\sum_{\beta} p(y^* | \beta, y) p(y | \beta)p(\beta) \)
+    </div>
+
+    <div class="question">  <h2>Question 5: MAP and MLE</h2> 
+        The Poisson distribution is a commonly used distribution for modelling count data. Its density is given by 
+        \[  \text{Poisson}(x | \lambda) = \frac{\lambda^x e^{-\lambda}}{x!} \]
+        where \( x \in \mathbf{N}_0  \) and \( \lambda \in \mathbf{R}_{+}\). Assume \(x_1, ..., x_n\) are i.i.d samples from a Poisson distribution with parameter \(\lambda\).
+
+        <br> <br>
+        1. Write the log likelihood of \(x_1, ..., x_n\)
+        <br> <br>
+        <b>Answer:</b> \(P(x_1, ..., x_n|\lambda) = \displaystyle\prod_{i=1}^n p(x_i | \lambda) \) (by independence) = \( \displaystyle\frac{e^{-n\lambda} \lambda^{x_1+...+x_n}}{x_1 ! \times ...\times x_n!} \) taking the log gives 
+        \(  -n\lambda + (\sum_i x_i)\log \lambda - \sum_i \log x_i! \) 
+        <br> <br>
+        2. Compute the maximum likelihood estimate of \( \lambda \) <br> <br>
+        <b>Answer:</b> Taking gradient with respect to \(\lambda \) and setting to zero gives \(-n + \frac{\sum_i x_i}{\lambda} = 0\) we have \( \lambda = \frac{\sum_i x_i}{n}\). We know for fact this \(\lambda\) maximizes since the objective function tends to \(-\infty\) for \(\lambda \rightarrow 0\) and \(\lambda \rightarrow \infty\)
+    </div>
+
+    <div class="question"><h2>Question 6: Multiclass classification</h2>
+    
+    Suppose that you are given a classifier with the following confusion matrix 
+    <img src="img/q6.png" alt="" style="display: block; margin-left: auto; margin-right: auto; width: 30%;">
+    1. What is the accuracy of this classifier? Please write your answer using two decimal places, e.g. 0.23.
+    <br> <br>
+    <b>Answer:</b> \( \frac{1+42+3}{1+10+16+12+42+1+7+8+3} = 0.46 \)
+        <br> <br>
+    2. What is the balanced accuracy of this classifier? Balanced accuracy is defined as the average of recall obtained on each class, and recall for a given class is \(TP/(TP+FN)\)
+    with \(TP=\) true positives and \(FN = \) false negatives. Please write your answer using two decimal places. 
+    <br> <br>
+    <b>Answer:</b> For class 1, 
     </div>
     
 </body>
