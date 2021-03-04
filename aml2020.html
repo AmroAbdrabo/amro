@@ -48,7 +48,7 @@
         <li>
             Linear ridge regression does not have a closed form solution if \(n < d\)
             <br> <br>
-            <b>Answer</b>: False. Linear ridge regression either has no solution or a unique solution from the expression for the parameters \( \overset{\wedge}{\beta} = (\mathbf{X^TX} + \lambda \mathbb{I})^{-1} \mathbf{X}^T \mathbf{y} \) so the unique solution depends on the invertibility of \( \mathbf{X^tX} + \lambda \mathbb{I} \). See the StatQuest video on ridge for more info. Note that in the case of normal linear regression, when \( 
+            <b>Answer</b>: False. Linear ridge regression either has no solution or a unique solution from the expression for the parameters \( \overset{\wedge}{\beta} = (\mathbf{X^TX} + \lambda \mathbb{I})^{-1} \mathbf{X}^T \mathbf{y} \) so the unique solution depends on the invertibility of \( \mathbf{X^TX} + \lambda \mathbb{I} \). See the StatQuest video on ridge for more info. Note that in the case of normal linear regression, when \( 
                 n < d\) then \( rank(\mathbf{X}) = \min(n, d) = n\) and so \( rank(X^TX) \leq \min(rank(X), rank(X^T))= rank(X) \) since \(rank(X^T) = rank(X)\) therefore since \(rank(X^TX) \neq d\) we have that \(X^TX\) is not invertible.  
         </li>
 
@@ -119,8 +119,23 @@
     <b>Hint</b>: for a data point \(x_i\), compute the probability that \(x_i\) is contained in a given bootstrap data set. 
 
     <br> <br>
-    <b>Answer:</b>
+    <b>Answer:</b> The probability that \(x_i\) is not sampled in a given bootstrap is \(\left(\frac{N-1}{N}\right)^N = \left( 1 - \frac{1}{N} \right)^N \) which as \(N \rightarrow \infty\) tends to \(\frac{1}{e} \approx \frac{1}{3}\). The probability it is not contained in any of the bootstrap sets is thus 
+    \(\left( \frac{1}{3} \right)^B \). The probability of misclassification is thus \(p(c(x_i) \neq y_i) = p(x_i \text{ not picked })p(\text{nearest neighbor is different}) = \left( \frac{1}{3} \right)^B \frac{1}{2} \) which is clearly less than 0.5 mentioned earlier. 
+    <br>
+    <br>
+    2. Give a reason why \(\widehat{Err}_{boot} \) does not provide a good estimate for the true prediction error. 
+    <br> <br>
+    <b>Answer</b>: since the error rate is less than the Bayes classifier, we arrive at a contradiction. The "error" was computed to be this low because we introduced a correlation between test and train data as we let \(N\) approach infinity. 
 
+    </div>
+
+    <div class="question">
+        <h2>Question 4: Bayesian Modeling</h2>
+        Consider a Bayesian model with data \(y\) and parameters \(\beta\). Using the terms \( p(y), p(\beta), p(y | \beta), \) and \( p(\beta | y)\), ...
+
+        <br> <br>
+        1. Write the terms for the likelihood, prior, posterior, and evidence <br> <br>
+        <b>Answer:</b> 
     </div>
     
 </body>
