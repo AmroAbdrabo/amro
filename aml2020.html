@@ -175,7 +175,48 @@
     2. What is the balanced accuracy of this classifier? Balanced accuracy is defined as the average of recall obtained on each class, and recall for a given class is \(TP/(TP+FN)\)
     with \(TP=\) true positives and \(FN = \) false negatives. Please write your answer using two decimal places. 
     <br> <br>
-    <b>Answer:</b> For class 1, 
+    <b>Answer:</b> For class 1, \( \frac{1}{1+12+7} \), for class 2, \( \frac{42}{42+10+8}\) and class 3, \(\frac{3}{3+1+16} \) thus the average is the sum of these divided by 3, which is 0.30.
+
+    </div>
+
+    <div class="question"><h2>Question 7: Linear discriminators</h2>
+    1. Write down the formula \( \mathcal{L}(y, z) \) for each of the loss functions listed below, where \( y\in \mathbb{R}\) is the prediction output by a discriminant function and \( z \in \{-1, +1\}\) is the true label. 
+
+    <br> <br>
+    <ul>
+        <li>
+            Hinge loss: \( \mathcal{L}(y,z) = \max(0, 1-yz)\) used in SVM
+        </li>
+        <li>
+            Exponential loss: \( \mathcal{L}(y,z) = \exp{(-yz)}  \) used in Adaboost (HW6)
+        </li>
+        <li>
+            Logistic loss: \( \mathcal{L}(y,z) = -( z'\log y' + (1-z')\log {(1-y')} )\) where \( y' = f(y) = \frac{1+y}{2} \) and \(z' = f(z)\) used in Logistic regression
+        </li>
+    </ul>
+
+     2. Which of these loss functions is not everywhere differentiable?
+     <ul>
+         <li>
+            Hinge loss: True
+         </li>
+
+         <li>
+            Exponential loss: False
+         </li>
+
+         <li>
+            Logistic loss: True
+         </li>
+     </ul>
+
+     3. Assume \( y = \mathbf{w}^T \mathbf{x}\), where \(\mathbf{x}\in \mathbb{R}^k\) is the feature vector and \( \mathbf{w} \in \mathbb{R}^k\) is the weight vector, and the exponential loss function is used.
+     Compute the update rule for \(\mathbf{w}\) using Newton's method. (Write down the necessary steps for deriving your solution.) 
+     <br> <br>
+     <b>Answer:</b> From page 207 of Bishop, the formula for iterative optimization using Newton-Rhapson is 
+     \[  \mathbf{w}^{new} = \mathbf{w}^{old} - H^{-1} \nabla E(\mathbf{w}) |_{\mathbf{w}^{old}}\]
+     where \( \nabla E(\mathbf{w}) \) is the gradient of the error function with respect to \(\mathbf{w}\) and \(H\) is the Hessian matrix whose elements comprise the second derivatives of \(E(\mathbf{w})\) with respect to the components of \(\mathbf{w}\).
+     
     </div>
     
 </body>
