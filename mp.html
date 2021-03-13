@@ -54,7 +54,16 @@
             we can learn the XOR using a multi-layered perceptron using the function \( f(\mathbf{x}; W, \mathbf{c}, \mathbf{w}, b) = \mathbf{w}^T\max \{ 0, XW+\mathbf{c}\} + b \) with \(b=0, \mathbf{w} = [1, -2]^T, \mathbf{c} = [0, -1]^T, \text{ and } W =\begin{bmatrix}
             1 & 1\\
             1 & 1
-            \end{bmatrix} \) 
+            \end{bmatrix} \).
+        </p>
+        <p>
+            <b>Universal Approximation Theory</b>
+            <br>
+            Given that \(\sigma \in C^{\infty}(\mathbb{R}) \) is non-linear (e.g. sigmoid) what type of functions can we learn. We can learn continuous functions. Given enough hidden units, one layer is enough in theory. In practice, deeper net is better. Using a MLP, we have 
+            \[
+            \exists g(x) \text{ as NN}, g(x) \approx f(x), \text{ and } |g(x) - f(x)| < \epsilon 
+            \]
+            To prove the universal approximation theory, one shows that a two-layer NN can model a bump, and that the more hidden units there are the more bumps we achieve. Of course, these bumps represent the localized approximations to the function \(f(x)\). 
         </p>
 
     
