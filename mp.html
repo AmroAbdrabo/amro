@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "syssec.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>Machine Perception</title>
+</head>
+<body>
+
+
+    <div class="topnav">
+        <a class="active" href="index.html">Home</a>
+      </div>
+      
+     
+   
+<script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+<div class="container" style = "grid-template-rows: 310px auto 150px;">
+  <div class="meta"> 
+   
+    <div class="info" style="width: 100vw;"> 
+      <h1>Machine Perception </h1>
+      <p class="subtitle">Homework and Lecture Notes</p>
+      <div class="author" >
+        <div class="authorImage"></div>
+        <div class="authorInfo">
+          <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
+          <div class="authorSub">Mar. 4 <span class="median-divider"> </span> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="article">
+
+    <h1 style="font-size: 2.2em; font-family: Calibri;">Lecture 1: Training Neural Networks </h1>
+    <p class="subtitle">presented by Siyu Tang</p>
+    <p>
+        <span class="first-letter">T</span>he perceptron can be represented as \[y =  \sigma(w^Tx+b) \]
+        where \(w = [w_0, w_1, ..., w_n]\) is a set of weights, and \(x = [x_0, x_1, ..., x_n]\) is the feature vector, and the bias is a vector \(\mathbf{b}\).
+        We need to prove that activation functions can only approximate linear functions: to show we use induction. The base case is easy \[ \mathbf{x^{(1)}} = W^{(1)} \mathbf{x}+b^{(1)} \Rightarrow \mathbf{z^{(1)}}  = \sigma(\mathbf{x}^{(1)}) = A^{(1)}\mathbf{x}+B^{(1)}  \]
+        By induction, assume that \(\mathbf{z}^{(l)} = A^{(l)}\mathbf{x}+ B^{(l)} \) we prove that \(\mathbf{z}^{(l+1)} = A^{(l+1)}\mathbf{x}+ B^{(l+1)}\). Note that \(\mathbf{z}^{l+1} = \sigma(\mathbf{x}^{l+1}) = \alpha \mathbf{x}^{(l+1)}+\beta I  \) by linearity of \(\sigma\). 
+        Now \(\mathbf{x}^{(l+1)} = W^{(l+1)} \mathbf{z}^{l} + \mathbf{b}^{(l+1)} = W^{(l+1)}(A^{(l)}\mathbf{x}+ B^{(l)})+ \mathbf{b}^{(l+1)} \) which means that \[\mathbf{z}^{(l+1)} = \alpha (W^{(l+1)}(A^{(l)}\mathbf{x}+ B^{(l)})+ \mathbf{b}^{(l+1)})+\beta I\]
+        by simplifying further we prove the claim. 
+     
+      
+    </p>
+    
+
+    
+
+
+
+
+
+</main>
+
+</div>
+    
+</body>
+</html>

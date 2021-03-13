@@ -18,13 +18,13 @@
      
    
 <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
-<div class="container">
+<div class="container" style = "grid-template-rows: 310px auto 150px;">
   <div class="meta"> 
-    <div class="image"></div>
-    <div class="info"> 
+   
+    <div class="info" style="width: 100vw;"> 
       <h1>Principles of Distributed Computation </h1>
       <p class="subtitle">Lecture Notes</p>
-      <div class="author">
+      <div class="author" >
         <div class="authorImage"></div>
         <div class="authorInfo">
           <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
@@ -35,6 +35,45 @@
   </div>
   <main class="article">
 
+    <h1 style="font-size: 2.2em; font-family: Calibri;">Lecture 2: Coloring for General Graphs </h1>
+    <p>
+      <span class="first-letter">T</span>he set up is a network \(G=(V, E)\) and the task is to assign colors to nodes in \(V\) such that no two neighboring nodes have the same color. 
+      We have \(\Delta  \equiv \) maximum degree in the graph. Ideally we want a \((\Delta + 1)\) coloring. 
+
+      <h2>Linial's One-round Coloring</h2>
+      <p>
+        In one round, each neighbor can <i>only</i> know the identities of its neighbors. We show that Linial's algorithm can provide coloring using \(k' = O(\Delta^2 \log N)\) colors. First, 
+        we introduce the concept of cover-free families. We call a collection \(f\) of sets \(S_1, S_2, S_3, ..., S_N \subseteq \{1, ..., k'\}\) a \(\Delta-\)cover free family if and only if for any indices
+        \(i_0, i_1, ...,i_{\Delta} \in \{1, ..., N\}\) then \(S_{i_0} \not\subseteq \cup_{j=1}^{\Delta} S_{i_j} \). Intuitively, this means that each set has something that none of the other "neighboring" sets has. Notice that given an algorithm to find these sets, then 
+        whatever the graph topology is we can construct the coloring for that graph, provided of course the number of sets is the same as the vertex count of the graph. 
+        <br>
+        <br>
+        <b>Claim:</b> There exists sets \(S_1, ..., S_N \subseteq {1, ..., k'} \) for \(k' = O(\Delta^2 \log N)\) that form a \(\Delta-\)cover free family. This implies a single-round coloring algorithm with \(O(\Delta^2 \log N)\) colors. 
+
+      </p>
+
+      <p>
+        We provide a probabilistic proof:
+        <br>
+        <br>
+        <b>Proof:</b>
+        <br>
+        <ul>
+          <li>
+            We want to build sets \(S_1, ..., S_N \subseteq \{1, ..., k'\} \) with \(k' = O(\Delta^2 \log N)\) that form a \(\Delta\)-cover free family.
+          </li>
+          <li>
+            We build \(S_1, ..., S_N\) randomly and show that they satisfy the desired property with positive probability so they must exist. 
+          </li>
+          <li>
+            For each set \(S_i\), include each element \(\{ 1, ..., k' \}\) in it randomly with probability \(\frac{1}{\Delta}\), and independently.  
+          </li>
+        </ul>
+        
+        
+      </p>
+      
+    </p>
     
 
     
