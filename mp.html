@@ -47,7 +47,15 @@
      
       
     </p>
-    
+
+        <p>
+            Now we want to model the XOR function linearly, then we use the normal equation \( \beta = (X^T X)^{-1} \cdot (X^Ty) \) note that we let the first element of the feature vector be 1 to 
+            represent the bias. Using this equation we get that least squares solution is \(\mathbf{w} = 0\) and \(b=\frac{1}{2}\). Since XOR is not linearly separable we need to map \((x_1, x_2)\) to \((h_1, h_2)\) in the hyperspace. It turns out 
+            we can learn the XOR using a multi-layered perceptron using the function \( f(\mathbf{x}; W, \mathbf{c}, \mathbf{w}, b) = \mathbf{w}^T\max \{ 0, XW+\mathbf{c}\} + b \) with \(b=0, \mathbf{w} = [1, -2]^T, \mathbf{c} = [0, -1]^T, \text{ and } W =\begin{bmatrix}
+            1 & 1\\
+            1 & 1
+            \end{bmatrix} \) 
+        </p>
 
     
 
