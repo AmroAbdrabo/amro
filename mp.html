@@ -100,7 +100,75 @@
             \( \frac{1}{h_2}\sigma(c_1c_2 + h_1)(1 - \sigma(c_1c_2 +h_1))c_2 (1 - \tanh^2(\sum_{j=1} ... ))w_2  \) as the derivative of the branch that passes through \(c_1\). Note the derivative of \(\tanh\) is \(1-\tanh^2\), and the derivative of \(\sigma(u)\) is \(\sigma(u)(1- \sigma(u))\)
         </p>
 
-    
+        <h1 style="font-size: 2.2em; font-family: Calibri;">Lecture 4: Recurrent Neural Networks </h1>
+        <p class="subtitle">Sequence modelling with neural nets. Presented by Sergey Prokudin</p>
+        <h2>
+          Sequence processing as a dynamical system
+        </h2>
+        <p style="margin-top: 1cm;">
+          <img src="img/seqprocessing.png" alt="" style = "width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block;">  
+          where \(  \mathbf{x^0}, ...\mathbf{x^{t}} \) is the input sequence and \(\mathbf{s^0}, ..., \mathbf{s^t}\) is the sequence of hidden states (memory), and \(\mathbf{y^0},...,\mathbf{y^t}\) is the sequence of model outputs, and finally
+          \(f_{W}(\mathbf{x^t}, \mathbf{s^t})\) our NN with parameters <i>W</i>.  Note \(f_W: \mathbf{x^t}\times \mathbf{s^t} \rightarrow \mathbf{y^t}\times \mathbf{s^{t+1}}\)
+        </p>
+        <p>
+          The goal is to find \(W^* = \text{arg min}_{W} \sum_{t=1}^T \mathcal{L}(y_{gt}^t, y^t) \)
+        </p>
+        
+        <h2>Modelling \(f_{W}\): Vanilla RNN</h2>
+        <p>
+          \(f_{W}: x^t \times s^t \rightarrow y^t \times s^{t+1} \), and weights \(\{W_s, W_x, W_y\}\) where biases are omitted for clarity and we have the basic RNN
+          \( s^{t+1} = \tanh (W_s s^{t}  + W_x x^t ) \) and \( y^t  =W_y s^t \)
+        </p>
+
+        <h2>Backpropagation</h2>
+        <p>Dramatically simplified scenario: generating a sequential output from a single initial input, no internal state and no activation functions </p>
+        <p>
+          <img src="img/simpexample.png" alt="" style = "width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block;">  
+          \(\mathbf{y}^0 = W\mathbf{x^0}; \mathbf{y^1} = W\mathbf{y^0}=WW\mathbf{x^0},..., \mathbf{y^2} = W\mathbf{y^1};... \mathbf{y^t} =W\mathbf{y^{t-1}} = W^{t+1}\mathbf{x^0}  \)
+          <br>
+
+          and \( \mathcal{L}(\mathbf{y_gt^t}, \mathbf{y^t}) = || \mathbf{y_gt^t} - \mathbf{y^t} ||_2^2 \)
+        </p>
+        <p>
+          For simpicity assume that \(\mathbf{y^t} \in \mathbb{R}, W \in \mathbb{R}, \mathbf{x^0} \in \mathbb{R}\) then 
+          <img src="img/rnnback.png" alt="" style = "width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block;">  
+          so we see we have a problem of vanishing and exploding gradients based on \(|W| < 1\). Same idea applies to higher dimensional \(W\) via eigenvalues. 
+        </p>
+        <h2>Solution: Long Short Term Memory </h2>
+        <p>
+          <b>Main idea</b>: have more control over hidden state updates by learning what to keep and what to forget. Compared to vanilla RNNs, this means slightly more complicated internal state update, resulting in better training dynamics. 
+        </p>
+
+        <h2 style="color: cyan; margin-top: 0cm;"> LSTM - S recursion</h2>
+        <p style="border: 2px solid cyan; font-size: larger; width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block; text-align: center;">
+          \( \mathbf{s}^{t} = \mathbf{f}^{t} \circ \mathbf{s}^{t-1} + \mathbf{u}^t \circ \mathbf{s}_{new}^{t}  \), 
+        </p>
+        <p>
+           \(\circ\) denotes element-wise multiplication
+        </p>
+
+        <p>
+          <ul>
+            <li>
+              Forget gate: \(\mathbf{f}^t = \sigma( W_{fs} \mathbf{s}^{t-1} + W_{fx} \mathbf{x}^{t-1} )\)  elementwise between 0 and 1 - how much of the previous state information do we want to forget <br>
+
+            </li>
+            <li>
+              Update gate: \(\mathbf{u}^t = \sigma(W_{us} \mathbf{s}^{t-1} + W_{ux}\mathbf{x}^{t-1})\) elementwise between 0 and 1 - how much of the new state to keep 
+            </li>
+            <li>
+              State update: \(\mathbf{s}_{new}^t = \tanh ( W_{ss}\mathbf{s}^{t-1} + W_{sx}\mathbf{x}^{t-1})\)
+            </li>
+          </ul>
+          
+        </p>
+
+        <h2 style="color: cyan; margin-top: 0cm;"> LSTM - Y</h2>
+        <p style="border: 2px solid cyan; font-size: larger; width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block; text-align: center;">
+          \( \mathbf{y}^{t} = \sigma(W_{ys} \mathbf{s}^{t} + W_{yx} \mathbf{x}^t )\circ \tanh \mathbf{s}^t \)
+        </p>
+        
+
 
 
 
