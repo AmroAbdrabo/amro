@@ -34,238 +34,33 @@
     </div>
   </div>
   <main class="article">
-    <h2> Lecture 7: Software-only Root of Trust (Software-based Attestation) </h2>
-    <br>
-    <br>
-    <h2 class= "subtitle">
-        How can you perform trustworthy executions on untrustworthy platforms (without HW support)?
-    </h2>
-   
-    <p>
-    Desired property: external entity can verify code execution even if there is malicious OS operating. <br> <br>
-    Advantages to hardware-based attestation: <ul>  <li> <b> Legacy devices</b> supported </li>
-    <li> <b> Perform attestation</b> if TPM/SGX flawed </li>
-    <li> <b> No secrets</b> required </li>
-    </ul>
-    </p>
-   
-    <p style = "font-size: 1.4em"> <b> Approaches
-            </b>
-   
-    </p>
-   
-    <p>
-    <ul>
-       
-        <li>
-            Only allowed software stored in ROM to execute. <br> Problems <br>
-            <ul>
-                <li>  Need to exchange ROM to update SW </li>
-               
-                <li>  ROP attacks only need to modify pointers on the stack, not the code </li>
-            </ul>
-            </li>
-       
-        <li>
-            Bootloader (in ROM) loads SW to execute, reboot each time
-            <br> Problems <br>
-            <ul>
-                <li>
-                    Remote cannot be remotly verified, and it is impractical
-                    </li>
-                </ul>
-            </li>
-        <li>
-            Secure multi-party computation is computationally expensive
-            </li>
-        </ul>
-    </p>
-   
-    <p style = "font-size: 1.4em"> <b> Initial setting
-    </b>
-    </p>
-   
-    <p>
-    An untrusted device D, and a trusted verifier V which knows the expected memory contents of D.
-    V wants to obtain proof of D's memory content. V sends a challenge to D, and D then executes (a potentially) malicious) verification function which returns the expected result.
-    </p>
-   
-    <p style = "font-size: 1.4em"> <b> Naïve approach: strawman verification function
-       </b>
-       </p>
 
+    <h1 style="font-size: 2.3em">Lecture 1 and 2: Interactive Proofs</h1>
     <p>
+    <span class="first-letter">T</span>he two esired properties of interactive proofs are soundness and completeness:
         <ul>
             <li>
-                <b>Approach 1:</b> Verifier asks device to compute a hash function over memory. Malicious code pre-computes and replays correct 
-                hash value. 
+                <span style="color: blue;">Completeness</span>: if the statement is true [i.e. the prover knows the claimed information] then the correct verifier will always accept the proof by the correct prover.
             </li>
-
             <li>
-                <b>Approach 2: </b> Verifier sends a random challenge K and the device then computes MAC over the memory using challenge as key.
-                Malicious code computes correct checksum over expected memory content. 
+                <span style="color: blue;">Soundness</span>: if the statement is false [i.e. the prover does not know the claimed information] then the correct verifier accept the proof <strong>only with negligible probability</strong>, independent of the prover's strategy
             </li>
         </ul>
     </p>
 
-    <p style = "font-size: 1.4em"> <b> First (non-implemented) approach: reflection
-    </b>
-</p>
-<p>
-    Fill memory with pseudo-random content, clear system state, disable interrupts, compute hash over entire memory, and return hash and system state. 
-    Verifier checks duration of computation, hash, and system state. 
-</p>
+    <p>
+        Examples of interactive proofs are graph isomorphism and the Fiat-Shamir protocol:
+    </p>
 
-<p style = "font-size: 1.4em"> <b> Second approach: Alien vs Quine
-</b>
-</p>
-<p>
-A verification function executes before SW is executed. The verification function must be measurable in terms of time, which means that processors 
-with frequencies in the MHz are allowed (as microseconds can be measured), however processors with GHz with lead to uncertain time measurements as the duration will be 
-on the order of nanoseconds. Assumption is that the verification function executes immediately after reboot. If a malicious code executes, it will introduce a time overhead which is detected. 
-</p>
-
-<p style = "font-size: 1.4em"> <b> Third approach: SWATT (Software-based ATTestation for Embedded Devices)
-</b>
-</p>
-<p>
-Verifier sends nonce to device, which is then used for pseudo-random memory traversal to compute memory checksum. Verifier times checksum computation and verifies checksum. 
-Malicious code must verify each memory access to replace memory reads of changed memory locations with expected content, resulting in a time overhead. 
-<br>
-Steps:
-<ol>
-    <li>
-        Pseudo-random generation (using seed from verifier)
-    </li>
-    <li>
-        Address generation
-    </li>
-
-    <li>
-        Memory read and compute transformation
-    </li>
-    <li>
-        Compute checksum and rewind to first step
-    </li>
-</ol>
-</p>
-
-<p>
-    The advantage in SWATT lies in its fast exeuction: If an attacker were to check if a byte belongs to the malicious software, that would require an if statement which would require 3 more cycles per iteration (+13% increase per iteration).
-</p>
-
-<p style = "font-size: 1.4em"> <b> SWATT Assumptions
-</b>
-<ul> 
-
-    <li>
-        Verifier knows hardware configuration of device (clock speed in particular)
-    </li>
-
-    <li>
-        No proxy attack (where device contacts faster host)
-    </li>
-    <li>   
-        Attacker can change SW but not HW
-    </li>
-    <li>
-        Verification/checksum function cannot be optimized algebraically or code-wise
-    </li>
-</ul>
-</p>
-
-<p>
-    Drawback of the SWATT system is that the checksum is computed over entire memory, which does not scale to large memory sizes. Further, memory 
-    may contain dynamic data, or secrets. Solution is to design verification code that checks small part of the memory which contains checksum-computing code (partial memory verification). 
-    However, now the attacker can compute checksum over correct copy of memory. To prevent this memory copy attack, we need to include program counter and data pointer in the checksum. 
-</p>
-
-<p style = "font-size: 1.4em"> <b> Fourth approach: Pioneer
-</b>
-</p>
-
-<p>
-    Pioneer was designed for the Intel Pentium 4 microarchitecture:
-    <img src="img/xeon.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
-    Notice that the trace cache can only handle 3 \( \mu \)ops per cycle, and so the idea is to design software-based attestation in such a way 
-    that no additional resources are available to perform additional (potentially malicious) operations without introducing a time overhead. 
-</p>
-
-<p>
-    The approach consists of these steps: <br>
-    <ol>
-        <li>
-            Verify verification code (hash function + checksum code) integrity through SW-only-root-of-trust attestation
-        </li>
-        <li>
-            Set-up untampered code execution environment
-        </li>
-        <li>
-            Execute target code
-        </li>
-    </ol>
-    <img src="img/pioneer.PNG" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
-</p>
-
-<p>
-This approach opens the way to two types of attacks:
-<ul>
-    <li> Execution tampering attacks
-        <ul>
-            <li>
-                Running malicious OS/VMM at higher privilege level
-            </li>
-            <li>
-                Getting control through interrupts and exceptions
-            </li>
-        </ul>
-    </li>
-
-    <li>
-        Checksum forgery attacks
-        <ul>
-            <li>
-                Memory copy attacks
-            </li>
-            <li>
-                Code optimization
-            </li>
-            <li>
-                Parallel execution
-            </li>
-            <li>
-                Exploiting superscalar architecture
-            </li>
-        </ul>
-    </li>
-</ul>
-</p>
-
-<p>
-    One of these attacks (getting control through interrupts and exceptions) merits special attention as an attacker can install malicious exception and interrupt handlers.
-    A naive solution would be to replace the interrupt handlers at some point in the execution of the checksum code. The problem is that the attacker can save cycles by skipping the code 
-    to replace the interrupt handlers. Or, if the checksum replaces the handlers after the computation is done, the attacker can insert a debug breakpoint that prevents execution. 
-    The solution is a "trick" which consists of writing the checksum to the address of the stack pointer. Once an interrupt is generated, the stack is reset with the values of the PC and flags thereby 
-    forcing the attacker to have to simulate the entire checksum computation and losing time. 
-</p>
-
-<p>
-    <b>Drawbacks</b>. Despite achieving code integrity and launch point integrity, Pioneer is not immune against proxy and overcloking attacks, nor does it provide control flow integrity. 
-</p>
-
-
-
-    <h2>Lecture 8: Hardware-assisted security in ARM</h2>
     <h2>
-        Part 1: ARM TrustZone Architecture
+        Graph isomorphism
     </h2>
-    <p>
-    <span class="first-letter">S</span>oC are a characteristic of ARM devices. The CPU is not on a separate chip but shares a chip with a 4G/5G modem, memory, Bluetooth and so on.   
-        There are <b> two protection domains</b> in ARM TrustZone: <span style="color: red;">Normal world</span>, and <span style="color: green;"> secure world</span> 
-        <img src="img/arm.png" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;" >
-        The secure monitor call allows controlled entry to the secure world. The CPU runs exclusively in one world, dependent on the NS bit, which can be read from the SCR - System Control Register. 
 
+    <p>
+        
     </p>
+
+
 
     <p>
         To enable memory protection, TrustZone partitions the memory via the following mechanisms: An address space controller (TZASC) controls access to on-chip memory. A memory adapter (TZMA) controls access to off-chip memory, or main memory. Finally, there are separate translations in the MMU, and cache tags have extra bit to indicate world. To enable the trusted part of an app to communicate with its untrusted component, there are memory partitions that are accessible by both. 
