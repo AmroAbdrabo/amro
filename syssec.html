@@ -34,6 +34,151 @@
     </div>
   </div>
   <main class="article">
+
+    <h2> Lecture 6: Microarchitectural attacks </h2>
+    <br>
+    <br>
+    <h2 class= "subtitle">
+        Leveraging microarchitecture for cache side channel attacks
+    </h2>
+
+    <h2>
+        Part 1: Background
+    </h2>
+    <p>
+        <b> Architecture </b> is an abstract model, with an instruction set architecture that specifies the interface between software and hardware. ISA 
+        examples include x86, RISC-V, ARM.  Architectural state includes registers, and main memory. 
+    </p>
+    <p>
+        <b>Microarchitecture</b>  is the actual implementation of the architecture. It follows ISA specification. Examples are Intel Core i7 (Haswell), AMD Ryzen, ARM Cortex-A53. The 
+        microachitectural state must not be readable by applications.  The state comprises cache, reorder buffer, and branch prediction history.  
+    </p>
+
+    <p style = "font-size: 1.4em"> <b> Cache
+    </b>
+    </p>
+
+    <p>
+        Cache misses require around 8 times more cycles than cache hits. To hide memory latency, processors rely on pipelining, branch prediction, out-of-order execution, and prefetching.
+
+    </p>
+
+    <p> 
+        In basic microachitectures, pipelined instructions consist of 5 phases: Instruction fetch (IF), instruction decode (ID), execute (EXE), memory access (MEM), and register write back (WB). Refer to video lecture for an example of OoO execution.
+
+    </p>
+    <h2>
+        Part 2: Cache side channel attacks
+    </h2>
+
+    <p>
+        Caches are shared across all applications on a processor. Cache misses/hits leak information. Attacker must control an application on the same processor/system. 
+    </p>
+    <p style = "font-size: 1.4em"> <b> Cache side channels
+    </b>
+    </p>
+
+    <p>
+        <b>Flush and reload.</b> This attack relies on shared memory. The attacker flushes the cache, then accesses an address. If the address is loaded fast, then the victim accessed it. Otherwise, the victim did not access it.
+    </p>
+
+
+    <p>
+        <b>Prime and probe</b> This attack <b>does not rely</b> on shared memory. The attacker fills the cache with his own data (prime), then accesses (probes) his data. If a piece of data is loaded slowly, then we know which cache block the victim accessed.
+    </p>
+    <p style = "font-size: 1.4em"> <b> Meltdown
+    </b>
+    </p>
+
+    <p> 
+        First, let's begin with an introduction to virtual memory. Each process operates on its own separate virtual memory. 
+        <ul>
+            <li>
+                From the point of view of a process, it is the only one using the system memory.
+            </li>
+            <li>
+                This also creates isolation among processes: it is impossible for a process to reference the virtual address of a different process.
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        On a 64-bit OS the virtual memory address is 64-bit long; in practice, only 48 bits (\( \Rightarrow \) illusion of 256 TiB of memory!) are used. Therefore, if a process uses more memory than is available on main memory, some of
+        its memory must be swapped to disk, or the process must be killed. For efficiency reaons, the OS <b> maps kernel addresses inside the virtual address space </b> of each process. 
+    </p>
+
+    <p>
+        Virtual address to physical address translation is via page tables:
+    </p>
+
+    <img src="img/pagetable.PNG" alt="" style = "width: 100%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+
+    <p>
+        A page table entry contains permission bits for a page: read-only page, executable page, or supevisor (kernel) page. 
+    </p>
+    <p>
+        Crucial to Metldown is the microachitectural implementation of a memory access:
+        <ol>
+            <li>
+                Check if address is cached (if yes, jump to 3)
+            </li>
+            <li>
+                If not cached, obtain physical address by walking page tables
+            </li>
+            <li>
+                Issue request for physical address
+            </li>
+            <li>
+                Wait for reply
+            </li>
+            <li>
+                Save value in <span style="color: red;"> temporary register</span> and cache the page walk translation
+            </li>
+            <li>
+                Retire instruction:
+                <ul>
+                    <li>
+                        Check if permissions are met (check PTE bits)
+                    </li>
+                    <li>
+                        If yes, save value in the reigster <span style="font-family: monospace;">(eax)</span>; otherwise, flush pipeline and call OS exception handler
+                    </li>
+                </ul>
+            </li>
+        </ol>
+    </p>
+
+    <p>
+        The attack consists in these two lines of code:
+    </p>
+     
+        <p style="font-family: monospace;"> 
+            <ol style="font-family: monospace;">
+                <li style="font-family: monospace;">
+                    mov eax, [kernel address]
+                </li>
+                <li style="font-family: monospace;">
+                    mov ebx, [probe_array + 4096*eax]
+                </li>
+            </ol>
+        </p>
+
+    <p>
+
+        Even though the first instruction will generate an exception, the CPU will still prefetch data for the second 
+        instruction. Also note that each page is 4 KiB and that we fetch using only page start addresses (assuming
+         <span style="font-family: monospace;">probe_array</span> is page-aligned, i.e. points to the start of a page). This is because Intel x86 architectures do not prefetch across 
+         memory page boundaries.
+    </p>
+
+    <p>
+                We then retrieve data from the <span style="font-family: monospace;">probe_array</span> using a page-aligned index. If the data is loaded fast, then we know what values <span style="font-family: monospace;">eax</span> stored.
+                We execute the code repetitively until we find an address that is loaded fast, from which we can find the value of <span style="font-family: monospace;"> eax </span>.    
+     </p>
+
+           
+    
+
     <h2> Lecture 7: Software-only Root of Trust (Software-based Attestation) </h2>
     <br>
     <br>
