@@ -83,6 +83,10 @@ code {
   padding: 3px 5px;
 }
 
+.subtopic {
+  font-size: 1.4em;
+  font-weight: bold;
+}
 .highlighted {
   background: #7DFFB3;
 }

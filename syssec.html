@@ -35,9 +35,216 @@
   </div>
   <main class="article">
 
+    <h2> Lecture 4: Introduction to Security on Commodity Systems (laptops, smartphones) </h2>
+    <br>
+    
+    <h2 class= "subtitle">
+        Guaranteeing security with trusted OS and untrusted peripherals
+    </h2>
+    
+    <p class="subtopic">
+        Application Security Requirements
+    </p>
+    <p>
+        <ul>
+            <li>
+                <span style="color: blue;"> Launch-time integrity</span>: pristine/correct application was started or loaded (Prop 1). Required functionality: integrity (e.g. hash) verification of initial code, data
+            </li>
+            <li>
+               <span style="color: blue;"> Run-time isolation </span>: no interference from malicious software, peripherals (Prop 2). Required functionality: prevention of unauthorized modification of app code and data, and prevention of runtime attack (e.g. code injection) that modify execution flow. 
+            </li>
+            <li>
+                <span style="color:blue"> Secure persistent storage </span> (Prop 3). Required functionality: confidentiality, integrity protection of persistent data. 
+            </li>
+        </ul>
+    </p>
+    <p>
+        An application can be roughly split into code (requires Prop 1 and 2), volatile data (Prop 1 and 2), and persistent data (Prop 3).
+    </p>
+
+    <p class="subtopic">
+        Intel Platform Overview
+    </p>
+
+    <p>
+        At its core, an Intel platform consists of 
+        <ul>
+            <li>
+                <span style="color: blue;"> Processor: </span> contains one or more CPUs (henceforth called cores)
+            </li>
+            <li>
+                <span style="color: blue">Chipset:</span> connects the processor to RAM and peripherals
+            </li>
+            <li>
+                <span style="color: blue;"> Peripherals:</span> connect via various bus-interfaces to the chipset
+            </li>
+        </ul>
+    </p>
+
+    <p class="subtopic">
+        OS-based Security: Privilege Rings
+    </p>
+
+    <p>
+        <b>Goal:</b> limit access to privileged instructions, I/O ports. CPU tracks current privilege level using 
+        2 register bits. In order of decreasing privilege the rings are: ring 0 (kernel), ring 1 and 2 (device drivers), ring 3 (applications).Today, only
+        privilege levels 0 and 3 are used as the device drivers are part of the kernel. 
+
+    </p>
+
+    <p class="subtopic">
+        OS-based Security:  Memory Management Unit
+    </p>
+
+    <p>
+        The MMU, inside the CPU, is responsible for translating virtual addresses to physical ones. It allows only the kernel to modify the CR3 register and page tables. 
+        It ensures that each application has page tables designated for that app, and that no app can modify the CR3 reg. nor page tables.   
+    </p>
+
+
+    <p class="subtopic">
+        OS-based Security:  Paging-based Security
+    </p>
+    <p>
+        In each page table entry, there are 4 bits: supervisor bit (if set, page only accessible in ring 0), RW bits (read-write access), execution disable (ED) bit (prevents runtime code injection attack).
+        <img src="img/pagingsec.PNG" alt="" style = "width: 100%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+    
+    </p>
+
+
+    <p class="subtopic">
+        Firewire DMA Attack
+    </p>
+
+    <p>
+        Key idea: access to RAM is tightly controlled by the CPU, but this can be <b> circumvented through DMA </b>.  The attacker uses a Firewire cable to connect to a (locked) PC and issue a DMA request to fetch the contents of RAM. 
+        The CPU is not in control of the data transfer operation. 
+    </p>
+    <p>
+        Attack mitigations are destroying/sealing the port (drastic), or disabling it from the OS. However, if there is a Thunderbolt port one can use a Thunderbolt-to-Firewire cable and achieve the attack.  
+    </p>
+
+    <p class="subtopic">
+        OS-based Security: DMA Remapping
+    </p>
+    <p>
+        <img src="img/dmaremap.PNG" alt="" style = "width: 100%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+    
+    </p>
+
+    <p>
+        The IOMMU maps device addresses to physical addresses and controls DMA access to physical memory. In the picture immediately above, it prevents a malicious Network Interface Card from copying data into the page table and kernel secrets. 
+        Thanks to the IOMMU, malicious peripherals can no longer tamper or steal data from applications. 
+    </p>
+
+    <p class="subtopic">
+        Physical Access Attacks
+
+    </p>
+    <p>
+        These attacks are harder to defend. One can simply remove the hard drive from a machine left unattended, or boot from USB key and copy the data out/change the passwords. 
+    </p>
+
+    <p>
+        <b> BIOS protection</b> Protecting the BIOS with a password is a myth as one can reset the BIOS using CLEAR, CLRPWD, etc. Removing the battery for around 5 minutes also resets the BIOS. 
+    </p>
+
+    <p>
+        <b>Disk encryption</b> The attacker cannot easily recover data from disk, and cannot boot from USB and change/see the data. The attacker can still erase the data.
+        Disk encryption comes into two flavours. The first involves encrypting the disk using a key which is itself encrypted using the user's password. The encrypted key is stored with the disk.
+        Note though that the attacker can brute force an <i>extracted </i> disk. The second approach is to use the password to encrypt the TPM's key, which is itself used to encrypt/decrypt the disk. This approach,
+         while more secure, makes migrating the encrypted disk to another platform more difficult (need to migrate TPM as well).
+         Note that in both approaches the OS keeps the key in memory in order to decrypt data from the disk on-the-fly, which leads to DRAM-based disk attacks.  
+    </p>
+
+    <p class="subtopic">
+        Cold Boot Attack
+    </p>
+    <p>
+        The DRAM is implemented using capacitors. These capacitors of a DRAM are the memory "cells" of the DRAM. DRAM must be periodically 
+        refreshed in order for the charge to not decay. However, failure to refresh DRAM does not mean charge is lost immediately. The attacker still has 60 seconds 
+        to extract the DRAM and read its content; if the DRAM is cooled once unpluggged, then she has tens of minutes to do so. 
+    </p>
+
+    <p>
+        There exist several counter-measures to the cold boot attack. They are 
+        <ul>
+            <li>
+                Erase key from memory on every (controlled) suspend
+                <ul>
+                    <li>
+                        User needs to type the password more often
+                    </li>
+                    <li>
+                        Does not help sudden power loss
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Prevent booting from external media 
+                <ul>
+                    <li>
+                        Does not prevent physically transferring DRAM 
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Physical protection 
+                <ul>
+                    <li>
+                        Responds to opening or low temperatures (expensive for commodity systems)
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Avoid placing the key in memory (requires architectural changes)
+            </li>
+        </ul>
+    </p>
+
+    <p class = "subtopic">
+        OS-based Security: TPM Support for Launch-time Integrity
+    </p>
+        <p>
+            The BIOS (assumed trusted) measures the bootloader, which measures the OS, which measures the application thereby creating a chain of trust:
+            <img src="img/secboot.PNG" alt="" style = "width: 100%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+    
+
+        </p>
+
+        <p class = "subtopic">
+            Storage Protection on Smartphones
+        </p>
+            <p>
+                At boot, the OS asks PIN from user. The PIN is given to the CPU, and the CPU derives storage key from PIN and processor key. This prevents 
+                brute-forcing of <i>extracted</i> storage (storage must be decrypted on the same device where the CPU is).
+            </p>
+
+            <p>
+                Throttling is often used to prevent brute force attacks on PIN. On the iPhone 5, 5 incorrect attempts result in 5 second waiting time, 6 incorrect attempts result in 1 minute waiting time, 7 results in 5 minute waiting time, and so forth for 8, 9, and 10 incorrect attempts.
+                The number of attempts is thus stored in a counter in the NVRAM, which is NAND mirrored. For a 4-number PIN, the search space is not large and can be exhausted in 40 hours; however, throttling 
+                drastically slows down the attack. The idea here is then to remove the NVRAM after 6 attempts, copy from another NVRAM which has counter set to zero, and reconnect the modified NVRAM to the iPhone 5, which believes there has been no incorrect attempts.  
+
+            </p>
+
+
+
+
+
+    <h2> Lecture 5: Trusted execution environments </h2>
+    <br>
+    
+    <h2 class= "subtitle">
+        Guaranteeing security with untrusted OS and peripherals (hardware trusted)
+    </h2>
+
+
+   
+
+
     <h2> Lecture 6: Microarchitectural attacks </h2>
     <br>
-    <br>
+    
     <h2 class= "subtitle">
         Leveraging microarchitecture for cache side channel attacks
     </h2>
@@ -181,7 +388,7 @@
 
     <h2> Lecture 7: Software-only Root of Trust (Software-based Attestation) </h2>
     <br>
-    <br>
+    
     <h2 class= "subtitle">
         How can you perform trustworthy executions on untrustworthy platforms (without HW support)?
     </h2>
