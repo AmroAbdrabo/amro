@@ -237,8 +237,7 @@
     <h2 class= "subtitle">
         Guaranteeing security with untrusted OS and peripherals (hardware trusted)
     </h2>
-
-
+  
    
 
 
@@ -333,7 +332,7 @@
                 If not cached, obtain physical address by walking page tables
             </li>
             <li>
-                Issue request for physical address
+                Issue request for data at physical address
             </li>
             <li>
                 Wait for reply
@@ -380,7 +379,7 @@
 
     <p>
                 We then retrieve data from the <span style="font-family: monospace;">probe_array</span> using a page-aligned index. If the data is loaded fast, then we know what values <span style="font-family: monospace;">eax</span> stored.
-                We execute the code repetitively until we find an address that is loaded fast, from which we can find the value of <span style="font-family: monospace;"> eax </span>.    
+                We execute the code repetitively until we find an address that is loaded fast, from which we can find the value of <span style="font-family: monospace;"> eax</span>.    
      </p>
 
            
@@ -410,7 +409,7 @@
     <ul>
        
         <li>
-            Only allowed software stored in ROM to execute. <br> Problems <br>
+            Only allow software stored in ROM to execute. <br> Problems <br>
             <ul>
                 <li>  Need to exchange ROM to update SW </li>
                
@@ -419,11 +418,11 @@
             </li>
        
         <li>
-            Bootloader (in ROM) loads SW to execute, reboot each time
+            ROM Bootloader loads SW to execute, reboot each time
             <br> Problems <br>
             <ul>
                 <li>
-                    Remote cannot be remotly verified, and it is impractical
+                    Reboot cannot be remotly verified, and it is impractical
                     </li>
                 </ul>
             </li>
@@ -604,6 +603,19 @@ This approach opens the way to two types of attacks:
 <p>
     <b>Drawbacks</b>. Despite achieving code integrity and launch point integrity, Pioneer is not immune against proxy and overcloking attacks, nor does it provide control flow integrity. 
 </p>
+
+<p class="subtopic">
+    Sensor Network Key Establishment
+</p>
+
+<p>
+    How to establish a shared secret?
+</p>
+<p>
+    Using the Guy Fawkes protocol for authenticated communication, we can derive this ICE key exchange protocol (A verifies B)
+    <img src="img/icekey.PNG" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+</p>
+
 
 
 
