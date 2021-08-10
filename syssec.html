@@ -612,7 +612,7 @@ This approach opens the way to two types of attacks:
     How to establish a shared secret?
 </p>
 <p>
-    The idea is to use a short lived secret to establish a long-lived secret. The checksum is used as a short lived secret. Anyone in the network can compute the same secret but the point is to use the node's silicon ID as part of the computation so if a node wants to cheat and runs different code then it will be slower than the legimitate node which has the correct silicon ID value. The correct device will compute the checksum faster than any other node in the network. Using the Guy Fawkes protocol for authenticated communication, we can derive this ICE key exchange protocol (A verifies B)
+    The idea is to use a short lived secret to establish a long-lived secret. The checksum is used as a short lived secret. Anyone in the network can compute the same secret but the point is to use the node's silicon ID as part of the computation so if a node wants to cheat and runs different code then it will be slower than the legitimate node which has the correct silicon ID value. Basing ourselves on the Guy Fawkes protocol for authenticated communication, we can derive this ICE key exchange protocol (A verifies B)
     <img src="img/icekey.PNG" alt="" style = "width: 60%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
 </p>
 
