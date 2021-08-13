@@ -938,16 +938,16 @@ This approach opens the way to two types of attacks:
 
     <p>
         ZigBee enables over-the-air updates which should be verified using asymmetric crypto, thereby having a different public key for each bulb. However, it was noticed that when the bulbs sent a request for updates from Philips servers, the servers responded with the same 
-        message (called firmware1.img on the slides) for the same update version of course. Thus, the servers signed the message with same global public key that was assigned to all bulbs. Asymmetric cyptography was clearly not used. 
+        message (called firmware1.img on the slides) for the same update version of course. Thus, the servers signed the message with same symmetric key that was assigned to all bulbs. Asymmetric cyptography was clearly not used. 
     </p>
     <p>
         Since the public signing and encryption key is symmetric we 
-        can extract it by applying differential power analysis on the bulb's processor which allows uncovering the key and hence sending
-        any update to the bulbs.  
+        can extract it by applying differential power analysis on the bulb's SoC which allows uncovering the key and hence sending
+        any update to the bulbs.  Further, using a bug in the Atmel ZLL stack, we can circumvent proximity checks and make the bulb join a non ZLL network as ZLL spec mandates compatibility with non ZLL networks. 
     </p>
     <p>
         IoT devices are prone to worms since they are vulnerable, have a radio, and can be infected via radio commands. Thus, IoT devices can infect other devices. To find how many devices are needed to infect all devices in a range is given by <b>percolation theory</b>. Assuming all the devices are uniformly randomly distributed  in an area <i>A</i> and that the 
-        radius of operation of each device is <i>R</i> then the number of <b>initially-infected</b> devices needed to spread to all other devices is: \[ N = 1.128 \frac{A}{\pi R^2}\]
+        radius of operation of each device is <i>R</i> then the number of devices needed to spread to almost all other devices is: \[ N = 1.128 \frac{A}{\pi R^2}\]
         Possible attacks include hardware bricking (physically destroying the hardware), 2.4 GHz jamming (other devices can no longer communicate in this frequency band), and triggering epileptic seizures. 
     </p>
     <p>
@@ -965,12 +965,12 @@ This approach opens the way to two types of attacks:
         This attack involves machine learning to derive the device state, and thus derive the user behavior.
     </p>
     <p>
-        This type of attack is caused by an <strong>existential leakage</strong> based on the time of transmission of a <b>single message</b>, as opposed to <strong>statistical leakage</strong> which is based on <b>changes in the sending rate over an interval.</b> The former can not be fully eliminated as it requires sending messages at the application's time resolution (not possible with battery-powered device), whereas the latter can be eliminated, albeit costly.  
+        This type of attack is caused by an <strong>existential leakage</strong> based on the time of transmission of a <b>single message</b>, as opposed to <strong>statistical leakage</strong> which is based on <b>changes in the sending rate over an interval.</b> The former can not be fully eliminated as it requires sending dummy messages at the application's time resolution (not possible with battery-powered device), whereas the latter can be eliminated by discretizing time into intervals and maintaining roughly the same rate in each interval.  
         Unfortunately, hiding transmission times alone does not secure information. 
     </p>
     <p>
         In VoIP (voice over IP), sound signals are compressed using <span style = "color: blue"> variable-bit-rate</span> codecs and compressed using <span style="color: blue;">length-preserving</span> stream ciphers. As such, the length of the encrypted packet leaks information about the phonemes. 
-        An illustration of the process is shown <img src="img/voip.png" alt="" style = "width: 50%; height: auto; margin-left: auto; margin-right: auto; display: block;"> note that phoneme segmenation is achieved by ML at 94% accuracy and phoneme classification is at 45% accuracy. Recovered sentences are then METEOR-scored. 
+        An illustration of the process is shown <img src="img/voip.png" alt="" style = "width: 50%; height: auto; margin-left: auto; margin-right: auto; display: block;"> note that phoneme segmenation is achieved by ML at 94% precision (tp/(tp+fp)) and phoneme classification is at 45% accuracy. Recovered sentences are then METEOR-scored. 
     </p>
 
     <p>
@@ -980,11 +980,15 @@ This approach opens the way to two types of attacks:
         about the percentages of the funds since the angles are leaked. Changes in angle are mapped to changes in stock prices, and the exact companies being invested in are thus found. Run-length compression is done on a line-by-line basis. 
         <img src="img/pie.png" alt="" style="width: 65%; height: auto; margin-left: auto; margin-right: auto; display: block;">
     </p>
+
+    <p>
+        Note that these timing-and-packet-length attacks are realizable even if the victim is using a VPN, unless the VPN happens to regularize the flow rate of packets as well as unify their size.  
+    </p>
     
     <p>
         <strong>Case study: Device Pairing</strong> <br>
         Pairing: the process of establishing a <span style="color: green;">security association</span> between two devices that <span style = "color: red;">share no prior knowledge</span>. Secure device pairing requires the pairing process to be resilient against a MITM attack.
-        There are two types of secure pairing: the first relies on a secondary channel called OOB (out of band) channel, and the other does not use OOB. The OOB channel has limited bandwidth capacity. 
+        There are two types of secure pairing: the first relies on a secondary channel called OOB (out of band) channel, and the other does not use OOB. The OOB channel has limited bandwidth capacity as it is used for authentication purposes only (for example, public key transmitted on in-band channel and hash of it trans. on OOB). The OOB, unlike the in-band channel, is assumed to guarantee authenticity against MITM. 
         <br>  Two types of OOB channels 
     </p>
         <ul>
@@ -1000,7 +1004,29 @@ This approach opens the way to two types of attacks:
        
     
     <p>
-        An example of haptic OOB channel is placing two phones in one's hand and shaking them. The accelerometer of the two phones show the same readings and these readings are used to make a shared DH key. 
+        An example of haptic physically-constrained OOB channel is placing two phones in one's hand and shaking them. The accelerometer of the two phones show the same readings and these readings are used to make a shared DH key. 
+    </p>
+
+    <p class="subtopic">
+        Bluetooth Low Energy (Human Perceivable)
+    </p>
+
+    <p> 
+        BLE supports four modes 
+        <ul>
+            <li>
+                Just Works: provides no authentication (old version not secure against passive, new version secure only against passive)
+            </li>
+            <li>
+                Passkey entry mode: a 6-digit PIN is displayed on one device, and the user inputs the PIN to the other
+            </li>
+            <li>
+                Numeric comparison mode: both devices display a 6-digit PIN, and the user checks that both match
+            </li>
+            <li>
+                Out-of-band: is directly provided with a shared key and assumes the key has been securely established via an alternative OOB channel
+            </li>
+        </ul>
     </p>
 
 
