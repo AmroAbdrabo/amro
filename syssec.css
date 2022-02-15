@@ -150,6 +150,7 @@ code {
   background: url("img/study.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+  margin-bottom: 1 cm;
 }
 
 .info {
