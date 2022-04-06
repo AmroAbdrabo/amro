@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "syssec.css">
+    <title>Program Analysis</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+    <div class="topnav" style = "background-color: rgb(46, 24, 172);">
+        <a class="active" href="index.html" style = "background-color: rgb(146, 135, 211);">Home</a>
+      </div>
+      
+     
+   
+<script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+<div class="container">
+  <div class="meta"> 
+    <div class="image" style = "background: url('img/speedometer.jpg'); background-size: contain; background-repeat: no-repeat;"></div>
+    <div class="info"> 
+      <h1>Deep Learning for Autonomous Driving </h1>
+      <p class="subtitle">Course by Amro Abdrabo</p>
+      <div class="author">
+        <div class="authorImage"></div>
+        <div class="authorInfo">
+          <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
+          <div class="authorSub">Feb. 15 <span class="median-divider"> </span> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="article">
+
+    <h2 style = "margin-top: 0;"> Lecture 1: Fundamental Architecture of Self-driving (SD) Systems </h2>
+    <br>
+    
+    <h2 class= "subtitle">
+        Components of a self driving system 
+    </h2>
+    
+    <p>
+     At its core, there are three main functionalities to SD systems. The first is sensing, which means collecting data via <b> LiDAR </b> (a sort of "light" radar), <b> camera</b>, and <b>GPS/IMU</b>. This sensing component
+     is responsible for the collection of raw data about the surrounding (Camera, LiDAR) or the geographic position (GPS/IMU). The second functionality is perception which consists of interpreting the data provided by the sensing component for 
+     <b> localization</b>, <b>object recognition</b>, and <b> object tracking</b>. The final layer is decision which relates to <b>path planning</b>, <b>action prediction</b>, and <b>obstacle avoidance</b>. We discuss the components one-by-one.
+    </p>
+
+    <p class="subtopic">
+        Sensing
+    </p>
+
+    <p>
+        Autonmous cars have multiple sensors that they combine to form estimates of their position. These sensors include:
+    </p>
+
+    <p>
+        <ul>
+            <li>
+                <span style="color: blue">IMU/GPS</span>: The GPS provides an accurate estimate of the position of the car; however, it can only do so at a rate of 10 Hz. A low-precision high-frequency (200 Hz) component called the IMU (Inertial measurement unit) measures the acceleration of a car. 
+                As such, the position it calulates has an error which accumulates quadratically with time. Using both GPS and IMU one can, both accurately and with a very high frenquency, estimate the position of the car. 
+            </li>
+
+            <li>
+                <span style="color: blue">LiDAR</span>: is used for mapping, obstacle localization and avoidance. It emits a ray and measures the time of reflection to determine distance. 
+                LiDAR produces HD maps, localizes a moving vehicle using the map. It operates at a frequency of 10 Hz.  
+            </li>
+            <li>
+                <span style="color: blue">Camera</span>: an autonomous car has eight 1080p cameras mounted in front, behind, and to the sides of the car. Each camera runs at 60 Hz. It is used to detect pedestrians, traffic lights, and lanes. 
+            </li>
+            <li>
+                <span style="color: blue">Radar and sonar</span>: does not flow through the computation pipeline, as it is required to be low-latency, and is a last line of defense against collision. Measures distance and velocity from nearest object in vehicle's path. 
+            </li>
+        </ul>
+    </p>
+
+    <p class="subtopic">
+        Perception
+    </p>
+
+    <p>
+        With the sensor data, one can perform localization, object detection, and object tracking. To combine the GPS and IMU, a Kalman Filter is used as follows 
+        <img src="img/kf.PNG" alt="" style = "width: 100%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+
+    </p>
+
+   
+  </main>
+</div>
+</body>
+</html>

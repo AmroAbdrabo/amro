@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security blog</title>
     <link rel="stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href = "ml.css">
+    <style>
+        .typewriter h1 {
+    /*border: 1px solid red;*/
+    position: relative;
+    
+    left: 32vw;
+    margin: auto;
+    color: rgb(119, 119, 119);
+    font-size: 4vw;
+    font-family: monospace;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: 0.11em solid black; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin:  12% 0;  /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .1em; /* Adjust as needed */
+    width: 0;
+    animation: 
+      typing 3.5s steps(13, end) 2s forwards,
+      blink-caret .5s step-end 2s 4 forwards;
+  }
+        </style>
 </head>
 <body>
     <div class="heading">
@@ -62,6 +85,33 @@
             </p>
             <div class ="cta"> 
                 <a href="zkp.html">Read more &rarr;</a>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+
+    <div class = "card">
+        <div class = "image-data">
+            <div class="background-image" style="background: url('img/ether.jpg') center no-repeat" ></div>
+            <div class="publication-details">
+                <a href = "about.html" class="author"> 
+                    <i class = "fas fa-user">
+                    </i>
+                    Amro Abdrabo
+                </a>
+                <span class = "date"></span><i class ="fas fa-calendar-alt"></i> April 5, 2022</span>
+            </div>
+          
+        </div>
+        <div class="post-data">
+            <h1 class = "title"> Program Analysis for Reliability and Security </h1>
+            <h2 class ="subtitle">  ETHZ course</h2>
+            <p class ="description"> Smart contracts, static verification, ML for program inspection, etc.
+            </p>
+            <div class ="cta"> 
+                <a href="pass.html">Read more &rarr;</a>
             </div>
         </div>
     </div>

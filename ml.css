@@ -184,15 +184,17 @@ body {
   .typewriter h1 {
     /*border: 1px solid red;*/
     position: relative;
-    /*left: 38%;*/
-    left: 40vw;
+    left: 38vw;
+    /*right: 50%;*/
+    /*left: 37vw;*/
+    margin: auto;
     color: rgb(119, 119, 119);
     font-size: 4vw;
     font-family: monospace;
     overflow: hidden; /* Ensures the content is not revealed until the animation */
     border-right: 0.11em solid black; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
-    margin: 12% 0; /* Gives that scrolling effect as the typing happens */
+    margin:  12% 0;  /* Gives that scrolling effect as the typing happens */
     letter-spacing: .1em; /* Adjust as needed */
     width: 0;
     animation: 
