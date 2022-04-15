@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "syssec.css">
+    <title>In-memory compute</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+    <div class="topnav" style = "background-color: rgb(49, 16, 59);">
+        <a class="active" href="index.html" style = "background-color: rgb(146, 135, 211);">Home</a>
+      </div>
+      
+     
+   
+<script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+<div class="container">
+  <div class="meta"> 
+    <div class="image" style = "background: url('img/resistor.jpg'); background-size: contain; background-repeat: no-repeat;"></div>
+    <div class="info"> 
+      <h1>Inside memory, compute!</h1>
+      <p class="subtitle">Notes from CICC ES4-3, Dr. Dave Fick and Dr. Laura Fick</p>
+      <div class="author">
+        <div class="authorImage"></div>
+        <div class="authorInfo">
+          <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
+          <div class="authorSub">April 2022 <span class="median-divider"> </span> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="article">
+
+
+    <blockquote>
+        Sometimes it is better to create additional compute at the memory than to move data from the memory to the main compute
+    </blockquote>
+    
+   
+    <p>
+        Here better refers to faster/more efficient. 
+    </p>
+
+    <p>
+        Consider the standard memory layout
+        <img src="img/vonneu.png" alt="" style="width: 65%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+        when we say compute "in-memory" we don't mean computing inside L1, since that is already part of the CPU. But we would compute 
+        inside the L2, L3, DRAM, and so forth. 
+    </p>
+
+    <p>
+        The current memory structure and replacement policy are built on the assumptions of
+        <ul>
+            <li>
+                Temporal locality: If at one point a particular memory location is referenced, then it is likely the same location will be 
+                referenced again the near future. 
+            </li>
+            <li>
+                Spatial locality: If a particular storage location is referenced at a particular time, then it is likely that nearby memory locations will be referenced 
+                in the near future. 
+            </li>
+        </ul>
+    </p>
+
+    <p>
+        A typical access pattern is the following. The working set of the process (memory accessed by process frequently) typically resides in the cache. 
+        <img src="img/accpattern.PNG" alt="" style="width: 65%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+    </p>
+
+    <p>
+        However, some applications are more memory-intensive (e.g. cycle through a large amount of memory) and require the following access pattern:
+        <img src="img/accpattern2.PNG" alt="" style="width: 65%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+    </p>
+
+    <p>
+        However, compute in-memory is not a one-fits-all type of problem (like student housing in Zurich, where it is assumed every student tolerates rowdy partying until 5 AM). For applications that don't occupy 90% or more of the total system runtime, then there will be no 10x speedup. Additionally,
+        for apps with a small working set, it will be very difficult to get an improvement over the traditional architecture. 
+    </p>
+
+    <h2>
+        Samsung case study: compute in-SSD (accelerator) list intersection
+    </h2>
+
+    <p>
+        Modern SSDs have high internal bandwidth than the host interface bandwidth, making them useful for in-memory compute since it is faster to move data inside the SSD than 
+        it is to move data across the SSD-host interface. The algorithm is run inside a dedicated firmware layer:
+        <img src="img/firmssd.PNG" alt="" style="width: 65%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+    
+    </p>
+
+    <p>
+        The host system sends only metadata to the smart SSD such as addresses and length of lists, where the load lists are stored in the SSD:
+        <img src="img/ssdlist.PNG" alt="" style="width: 65%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+    
+    </p>
+
+    <p>
+        For entry sizes above 256 bytes, the smart SSD outperforms the regular SSD and is more energy efficient for entry sizes 64 bytes and beyond. As seen from the following graph, if the total list size is very small,
+        copying data to SSD becomes too expensive relative to doing the computation in cache. 
+
+        <img src="img/ssdcomp.PNG" alt="" style="width: 55%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+    In conclusion, for large uniformly-accessed work loads (wide-access pattern), in-memory SSD is definitely better.  
+    </p>
+
+
+    
+   
+  </main>
+</div>
+</body>
+</html>
