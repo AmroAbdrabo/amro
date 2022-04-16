@@ -67,52 +67,8 @@ h1:after {
    If we assume then that \( g(u, v_0) < g(u, v) \) or \( (f(u)+f(v_0))(d+\delta_2) < (f(u)+f(v))d \) which means that \(d(f(v)-f(v_0)) > \delta_2(f(u)+f(v_0)) > \delta_2(f(u_0)+f(v_0)) \) contradiction. <br>
    We use this result as well as its contrapositive to make the following solution: <br>
    <h3>Code</h3>
-   <div style="background: rgb(230, 230, 230); width: 34em; margin-bottom: 40px; margin-right: 10px;">
-    <pre>
-   <code  class="language-pascal">
-    #include &ltbits/stdc++.h&gt 
-    #include &ltiostream&gt
-    #include &ltcstdio&gt
-    typedef long long ll;
-    const int N=1e6+5;
-     
-    int a1[N],a2[N], h[N];
-    ll ans;
-    using namespace std;
-    #define func(p) (1ll*(h[a1[mid]]+h[a2[p]])*(a2[p]-a1[mid]))
-    ll solve(int l1,int r1,int l2,int r2)
-    {
-    	if(l1>r1) return 0;
-        int mid=l1+r1>>1,pos=l2;
-        ll temp = -1;
-    	for(int i=l2+1; i<=r2; ++i)
-    		if(func(i)>func(pos)) pos=i;
-    	temp=max(temp,func(pos));
-        ll res1 = solve(l1,mid-1,pos,r2);
-        ll res2 = solve(mid+1,r1,l2,pos);
-        ans = max(res1, max(res2, temp));
-        return ans;
-    }
-     
-    int main()
-    {
-        ios::sync_with_stdio(false);
-        int n;
-        cin >> n;
-    	for(int i=1; i<=n; ++i) cin >> h[i];
-    	int cnt1=1,cnt2=1; a1[1]=1, a2[1]=n;
-    	for(int i=2; i<=n; ++i)
-    		if(h[i]>h[a1[cnt1]]) a1[++cnt1]=i;
-    	for(int i=n-1; i; --i)
-    		if(h[i]>h[a2[cnt2]]) a2[++cnt2]=i;
-        ll ans = solve(1,cnt1,1,cnt2);
-        printf("%lld\n",ans);
-     
-    	return 0;
-    }
-   </code>
-   </pre>
-</div>
-   
+   <div style = "width: min(15cm, 95vw); margin-right: auto; margin-left: 0;">
+   <script src="https://gist.github.com/AmroAbdrabo/448207b72e43cc3adef092d6a95038b4.js" style = "width: 4cm;"></script>
+   </div>
 </body>
 </html>
