@@ -106,7 +106,28 @@
     In conclusion, for large uniformly-accessed work loads (wide-access pattern), in-memory SSD is definitely better.  
     </p>
 
+    <h2>
+        Case study: Self-calibrating GPS accelerator using analog calculation
+    </h2>
 
+    <p>
+        GPS localization relies on an algorithm called triangulation, which states that given you know your location from 3 2D points you can 
+        calculate your position as the intersection of three circles. This principles generalizes to 3D space with more points and using spheres: 
+        <img src="img/gpstri.PNG" alt="" style="width: 55%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+        We must solve these four equations (in 4 scalar unknowns) to get the location: 
+        <img src="img/gpseq.PNG" alt="" style="width: 45%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+        however in order to estimate the time of arrival the receiver must match its reference preamble (think of it as a header that's always constant) signal with the one coming
+        from the satellite: 
+        <img src="img/sigacq.PNG" alt="" style="width: 30%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+        The timing offset is calculated through correlation by doing thousands of 2-bit vector multiply and thousands of results to accumulate since the pattern is very long and very weak (as it is a spread signal). The distance from the satellite is 
+        \(T\cdot c\).
+        <img src="img/sources.PNG" alt="" style="width: 55%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+        For the GPS, the most expensive functionality is addition so we use current addition. To do 4096 2-bit number additions digitally we need a 15 stage tree and 8168 full adders; however, if done using current, we sum currents only once: 
+        <img src="img/adder.png" alt="" style="width: 75%; height: auto; margin-left: auto; margin-right: auto; display: block; margin-bottom: 0.7cm; margin-top: 0.7cm;">
+        The main drawback of this approach is the noise, however, as the number of inputs increase the noise decreases (similar to bagging, whereby averaging reduces the variance, the "noise" in this analogy). It turns out that for 3-bit quantization (i.e. each RF signal sample is mapped onto a digital 3-bit value),
+        the noise from the analog chain and cell current variation is 10x lower than the quantization error (difference between real and digital signals). We get 340-27000x performance increase, 67x energy efficiency increase, and scalability. 
+        
+    </p>
     
    
   </main>
