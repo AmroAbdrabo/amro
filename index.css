@@ -30,9 +30,9 @@
   align-items: center;
   max-width: 1800px;
   background-position: center;
-    margin-bottom: 0in;
-    margin-left: 0in;
-    margin-right: 0in;
+  margin-bottom: 0in;
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
   
   .honeycomb-cell
