@@ -195,17 +195,17 @@ body {
     border-right: 0.11em solid black; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     margin:  12% 0;  /* Gives that scrolling effect as the typing happens */
-    letter-spacing: .1em; /* Adjust as needed */
+    letter-spacing: .0em; /* Adjust as needed */
     width: 0;
     animation: 
-      typing 3.5s steps(13, end) 2s forwards,
-      blink-caret .5s step-end 2s 4 forwards;
+        typing 0.5s steps(40, end),
+        blink-caret .75s step-end infinite;
   }
   
   /* The typing effect */
   @keyframes typing {
     from { width: 0 }
-    to { width: 37vw }
+    to { width: 35vw }
   }
   
   /* The typewriter cursor effect */
