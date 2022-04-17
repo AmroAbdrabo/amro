@@ -4,9 +4,15 @@
     margin: 0;
     padding: 0;
   }
+html {
+  min-height: 100vh;
+  position: relative;
+  
+}
 body {
     background: #fff;
     padding-top: 0em;
+    padding-bottom: 0%;
     
     /*justify-content: center;*/
     
@@ -89,6 +95,7 @@ body {
     background-repeat: no-repeat;
     /*height: 25vh;*/
     position: relative;
+    margin-top: -0.1cm;
     /*margin-top: -0.7%;*/
     background-size: cover;
     border-bottom: 1px solid rgba(255, 255, 255, 1);
