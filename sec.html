@@ -27,25 +27,45 @@
    
   }
     
-        .typewriter h1 {
+    .typewriter h1 {
     /*border: 1px solid red;*/
-    position: relative;
-    
-    left: 32vw;
-    margin: auto;
-    color: rgb(119, 119, 119);
-    font-size: 4vw;
-    font-family: monospace;
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: 0.11em solid black; /* The typwriter cursor */
-    white-space: nowrap; /* Keeps the content on a single line */
-    margin:  12% 0;  /* Gives that scrolling effect as the typing happens */
-    letter-spacing: .1em; /* Adjust as needed */
-    width: 0;
-    animation: 
-      typing 3.5s steps(13, end) 2s forwards,
-      blink-caret .5s step-end 2s 4 forwards;
-  }
+        position: relative;
+        
+        left: 32vw;
+        margin: auto;
+        color: rgb(119, 119, 119);
+        font-size: 4vw;
+        font-family: monospace;
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        border-right: 0.11em solid black; /* The typwriter cursor */
+        white-space: nowrap; /* Keeps the content on a single line */
+        margin:  12% 0;  /* Gives that scrolling effect as the typing happens */
+        letter-spacing: .1em; /* Adjust as needed */
+        width: 0;
+        animation: 
+            typing 3.5s steps(13, end),
+            blink-caret 0.27s step-end 0s 12 forwards;
+    }
+
+    @keyframes typing { /*cd ~/compsec/ */
+        /*from { width: 0 }
+        to { width: 35vw }*/
+
+        0%   {width: 0}
+        7.69%  {width: 2.69vw}   /*c*/
+        15.384% {width: 5.3846vw}  /*d*/
+        23.077% {width: 8.07692307vw}  /* */
+        30.769% {width: 10.7692vw}  /*~*/
+        38.4615% {width: 13.4615vw} /*/*/
+        46.1538% {width: 16.1538vw} /*c*/
+        53.84615% {width: 18.8461vw} /*o*/
+        61.53846% {width: 21.538vw} /*m*/
+        69.2307% {width: 24.2307vw} /*p*/
+        76.92308% {width: 26.923vw} /*s*/
+        84.6153% {width: 29.6153vw} /*e*/
+        92.30769% {width: 32.30769vw}
+        100% {width: 35vw}
+    }
         </style>
 </head>
 <body>
