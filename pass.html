@@ -10,15 +10,16 @@
 </head>
 <style>
   code {
-  font-size: 16px;
+  font-size: 0.8rem;
   background: rgba(0,0,0,0);
   border-radius: 0px;
   padding: 0px 0px;
 }
 pre{
-  font-size: 16px;
+  font-size: 1rem;
   border-style: solid; 
   border-radius: 0.5cm; 
+  width: min(90vw, 690px);
   border-color: blueviolet;
   overflow: auto;
 }
@@ -32,31 +33,30 @@ pre{
       
      
    
-<script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
-<div class="container">
-  <div class="meta"> 
-    <div class="image" style = "background: url('img/ether.jpg'); background-size: cover; background-repeat: no-repeat;"></div>
-    <div class="info"> 
-      <h1>Program Analysis for System Security and Reliability </h1>
-      <p class="subtitle">ETH course by Prof. Dr. Vechev</p>
-      <div class="author">
-        <div class="authorImage"></div>
-        <div class="authorInfo">
-          <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
-          <div class="authorSub">April 2022 <span class="median-divider"> </span> </div>
+      <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+      <div class="container">
+        <div class="meta"> 
+          <div class="image" style="background: url(img/ether.jpg); background-size:cover; width: 95%; background-position: center;"></div>
+          <div class="info"> 
+            <h1>Program Analysis for Ssecurity and Reliability </h1>
+            <p class="subtitle">Course by Prof. Dr. Vechev</p>
+            <div class="author">
+              <div class="authorImage"></div>
+              <div class="authorInfo">
+                <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
+                <div class="authorSub">April 2022 <span class="median-divider"> </span> </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
   <main class="article">
 
     <h1> Data flow analysis in Datalog</h1>
     <p>
       Suppose we are given the following code (line numbering omitted):
     </p>
-   
-    <div style="background: rgb(230, 230, 230); width: auto; margin-bottom: 40px; margin-right: 10px;">
-      <pre style="border: 0ch;">
+    <div style="background: rgb(230, 230, 230); width: fit-content; padding-right: 35px; margin-bottom: 40px;">
+      <pre style="border: 0ch; width: fit-content;">
      <code  class="language-pascal">
       x = source()
       y = x + z
@@ -70,6 +70,9 @@ pre{
      </code>
      </pre>
   </div>
+    
+     
+  
 
   <p>
     The semantics are
@@ -95,7 +98,7 @@ pre{
     
     
 
-    <pre style="border-style: solid; border-radius: 0.5cm; border-color: blueviolet; overflow: auto;">
+    <pre style="border-style: solid; border-radius: 0.5cm; border-color: blueviolet; overflow: scroll;">
 
   // <code>L: X = source()</code> 
   <code>.decl source(L: number, X: symbol)</code>  
@@ -135,8 +138,9 @@ pre{
 execution of that line and calculates if a sink may accept an unsanitised user input:
   </p>
 
-
-  <pre style="border-style: solid; border-radius: 0.5cm; border-color: blueviolet;overflow: auto;">
+<p>
+  
+  <pre style="border-style: solid; border-radius: 0.5cm; border-color: blueviolet;overflow: scroll;">
 
   // derived predicates
   .decl taintedBefore(L:number, X:symbol)
@@ -171,6 +175,7 @@ execution of that line and calculates if a sink may accept an unsanitised user i
   taintedBefore(L1, X) :- join(L1, _, L3), taintedAfter(L3, X).
   </pre>
 
+</p>
   <p>
     Now assume we have a sanitize function <code>sanitize(x)</code> which can be used to "sanitize" variables. To include this functionality in Datalog, note that
     we already had a similar functionality when we specified x to be tainted-after only if it is NOT assigned to something else. 
