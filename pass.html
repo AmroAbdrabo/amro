@@ -17,6 +17,10 @@
 }
 pre{
   font-size: 16px;
+  border-style: solid; 
+  border-radius: 0.5cm; 
+  border-color: blueviolet;
+  overflow: auto;
 }
 </style>
 <body>
@@ -52,7 +56,7 @@ pre{
     </p>
    
     <div style="background: rgb(230, 230, 230); width: 15em; margin-bottom: 40px; margin-right: 10px;">
-      <pre>
+      <pre style="border: 0ch;">
      <code  class="language-pascal">
       x = source()
       y = x + z
@@ -91,7 +95,7 @@ pre{
     
     
 
-    <pre style="border-style: solid; border-radius: 1%; border-color: blueviolet; overflow: auto;">
+    <pre style="border-style: solid; border-radius: 0.5cm; border-color: blueviolet; overflow: auto;">
 
   // <code>L: X = source()</code> 
   <code>.decl source(L: number, X: symbol)</code>  
@@ -132,7 +136,7 @@ execution of that line and calculates if a sink may accept an unsanitised user i
   </p>
 
 
-  <pre style="border-style: solid; border-radius: 1%; border-color: blueviolet;overflow: auto;">
+  <pre style="border-style: solid; border-radius: 0.5cm; border-color: blueviolet;overflow: auto;">
 
   // derived predicates
   .decl taintedBefore(L:number, X:symbol)
@@ -167,6 +171,15 @@ execution of that line and calculates if a sink may accept an unsanitised user i
   taintedBefore(L1, X) :- join(L1, _, L3), taintedAfter(L3, X).
   </pre>
 
+  <p>
+    Now assume we have a sanitize function <code>sanitize(x)</code> which can be used to "sanitize" variables. To include this functionality in Datalog, note that
+    we already had a similar functionality when we specified x to be tainted-after only if it is NOT assigned to something else. 
+  </p>
+
+  <pre style="border-radius: 0.2cm;">
+    
+  taintedAfter(L, X) :- taintedBefore(L, X), !assign(L, X, _, _), !sanitize(X).
+  </pre>
 
      
 
