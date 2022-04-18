@@ -8,6 +8,17 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+<style>
+  code {
+  font-size: 16px;
+  background: rgba(0,0,0,0);
+  border-radius: 0px;
+  padding: 0px 0px;
+}
+pre{
+  font-size: 16px;
+}
+</style>
 <body>
 
 
@@ -28,64 +39,138 @@
         <div class="authorImage"></div>
         <div class="authorInfo">
           <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
-          <div class="authorSub">Feb. 15 <span class="median-divider"> </span> </div>
+          <div class="authorSub">April 2022 <span class="median-divider"> </span> </div>
         </div>
       </div>
     </div>
   </div>
   <main class="article">
 
-    <h2 style = "margin-top: 0;"> Lecture 2: Datalog and Static Analysis </h2>
-    <br>
+    <h1> Data flow analysis in Datalog</h1>
+    <p>
+      Suppose we are given the following code (line numbering omitted):
+    </p>
+   
+    <div style="background: rgb(230, 230, 230); width: 15em; margin-bottom: 40px; margin-right: 10px;">
+      <pre>
+     <code  class="language-pascal">
+      x = source()
+      y = x + z
+      if (y > 0){
+        y = x + 4
+      }
+      else {
+        z = 2
+      }
+      sink(y)
+     </code>
+     </pre>
+  </div>
+
+  <p>
+    The semantics are
+    <ul>
+      <li> Reading untrusted input<code> x = source()</code></li>
+      <li>
+        Assignments: <code> y = x + z </code> 
+      </li>
+      <li>
+        Branching
+      </li>
+      <li>
+        Output sink: <code>sink(y)</code> outputs the value of variable <code>y</code>  to output 
+      </li>
+    </ul>
+  </p>
+
+  <p>
+    To write a datalog program that captures these semantics (encodes these programs), then we have:
+  </p>
+
+  <p>
     
-    <h2 class= "subtitle">
-        Souffle 
-    </h2>
     
-    <p>
-     At its core, there are three main functionalities to SD systems. The first is sensing, which means collecting data via <b> LiDAR </b> (a sort of "light" radar), <b> camera</b>, and <b>GPS/IMU</b>. This sensing component
-     is responsible for the collection of raw data about the surrounding (Camera, LiDAR) or the geographic position (GPS/IMU). The second functionality is perception which consists of interpreting the data provided by the sensing component for 
-     <b> localization</b>, <b>object recognition</b>, and <b> object tracking</b>. The final layer is decision which relates to <b>path planning</b>, <b>action prediction</b>, and <b>obstacle avoidance</b>. We discuss the components one-by-one.
-    </p>
 
-    <p class="subtopic">
-        Sensing
-    </p>
+    <pre style="border-style: solid; border-radius: 1%; border-color: blueviolet; overflow: auto;">
 
-    <p>
-        Autonmous cars have multiple sensors that they combine to form estimates of their position. These sensors include:
-    </p>
+  // <code>L: X = source()</code> 
+  <code>.decl source(L: number, X: symbol)</code>  
 
-    <p>
-        <ul>
-            <li>
-                <span style="color: blue">IMU/GPS</span>: The GPS provides an accurate estimate of the position of the car; however, it can only do so at a rate of 10 Hz. A low-precision high-frequency (200 Hz) component called the IMU (Inertial measurement unit) measures the acceleration of a car. 
-                As such, the position it calulates has an error which accumulates quadratically with time. Using both GPS and IMU one can, both accurately and with a very high frenquency, estimate the position of the car. 
-            </li>
+  // <code>L: sink(X)</code> 
+  <code>.decl source(L: number, X: symbol)</code> 
 
-            <li>
-                <span style="color: blue">LiDAR</span>: is used for mapping, obstacle localization and avoidance. It emits a ray and measures the time of reflection to determine distance. 
-                LiDAR produces HD maps, localizes a moving vehicle using the map. It operates at a frequency of 10 Hz.  
-            </li>
-            <li>
-                <span style="color: blue">Camera</span>: an autonomous car has eight 1080p cameras mounted in front, behind, and to the sides of the car. Each camera runs at 60 Hz. It is used to detect pedestrians, traffic lights, and lanes. 
-            </li>
-            <li>
-                <span style="color: blue">Radar and sonar</span>: does not flow through the computation pipeline, as it is required to be low-latency, and is a last line of defense against collision. Measures distance and velocity from nearest object in vehicle's path. 
-            </li>
-        </ul>
-    </p>
+  // <code>L: X = Y+Z</code> 
+  <code>.decl assign(L: number, X: symbol, Y: symbol, Z: symbol)</code> 
 
-    <p class="subtopic">
-        Perception
-    </p>
+  // <code>L1: ...</code> 
+  // <code>L2: ...</code> 
+  <code>.decl next(L1: number, L2: number)</code> 
 
-    <p>
-        With the sensor data, one can perform localization, object detection, and object tracking. To combine the GPS and IMU, a Kalman Filter is used as follows 
-        <img src="img/kf.PNG" alt="" style = "width: 100%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+  // <code>L1: if(X) { </code> 
+  // <code>L2:  ... </code> 
+  // <code> } </code> 
+  // <code>L3:  ... </code> 
+  // <code> } else { </code> 
+  <code>.decl if(L1: number, L2: number, L3: number)</code> 
 
-    </p>
+  // <code>if   { </code> 
+  // <code>    ... </code> 
+  // <code> L2: } </code> 
+  // <code>else { </code> 
+  // <code>     ... </code> 
+  // <code> L3: } </code> 
+  // <code> L1: ... </code> 
+  <code>.decl join(L1: number, L2: number, L3: number)</code> 
+  </pre>
+  
+  </p>
 
+  <p>
+    A value is unsanitized if its value is derived from user input (ignoring implicit control-flow dependencies). 
+    Here we see a datalog program that calculates at every line all tainted values <b> before and after </b>
+execution of that line and calculates if a sink may accept an unsanitised user input:
+  </p>
+
+
+  <pre style="border-style: solid; border-radius: 1%; border-color: blueviolet;overflow: auto;">
+
+  // derived predicates
+  .decl taintedBefore(L:number, X:symbol)
+  .decl taintedBefore(L:number, X:symbol)
+
+  // The sink argument at label L is tainted
+  .decl unsanitized(L: number)
+  .output unsanitized
+
+  // After execution of source at line L (unsanitised user input) 
+  // the value X after line L is unsanitised
+  taintedAfter(L, X) :- source(L, X).
+
+  // Line L is unsanitized if X is the outputted at line L 
+  // and X was tainted before line L
+  unsanitized(L) :- sink(L, X), taintedBefore(L, X).
+
+  // X is tainted after line L if it was tainted 
+  // before line L and it was not assigned something else
+  taintedAfter(L, X) :- taintedBefore(L, X), !assign(L, X, _, _).
+  
+  // X is tainted after L if it was assigned at a tainted value on L
+  taintedAfter(L, X) :- assign(L, X, Y, _), taintedBefore(L, Y).
+  taintedAfter(L, X) :- assign(L, X, _, Z), taintedBefore(L, Z).
+
+  // X is tainted before a line if it was tainted 
+  // after an earlier line (all possible cases)
+  taintedBefore(L2, X) :- next(L1, L2), taintedAfter(L1, X).
+  taintedBefore(L2, X) :- if(L1, L2, _), taintedAfter(L1, X).
+  taintedBefore(L3, X) :- if(L1, _, L3), taintedAfter(L1, X).
+  taintedBefore(L1, X) :- join(L1, L2, _), taintedAfter(L2, X).
+  taintedBefore(L1, X) :- join(L1, _, L3), taintedAfter(L3, X).
+  </pre>
+
+
+     
+
+    
    
   </main>
 </div>
