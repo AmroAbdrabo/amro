@@ -38,10 +38,27 @@
     <p>
       Note: since the course is too vast to cover in a reasonable time, I include only the most practically applicable aspect of the course, AVX vectorization.    
     </p>
-    <h2> Vectorization</h2>
+    <h2> Finite-impulse response filter</h2>
 
+    <p>
+      Suppose you want to compute the finite-impulse-response filter given by \( y_i = \sum_{k=0}^{m-1} h_k\cdot |x_{i+(m-1)-k}| \). To simplify matters assume \(m=4\). A naive solution 
+      would be
+      </p>
+      <div style="display: block; margin-left: auto; margin-right: auto; font-size: small;">
+      <script src="https://gist.github.com/AmroAbdrabo/619ace6aac547d53309ac771ebca1247.js"></script> </div> 
+      
+      <p> however running this should give around 20,000 cycles for \(n\) bordering \(2\cdot 2^{10}\).
+      A naive vectorial approach would be  </p><script src="https://gist.github.com/AmroAbdrabo/67d1c76150d824a717d8d16fdcaf3b44.js"></script> 
+   
+    <p>
+      Note that this approach, while being fast, will still be suboptimal given the unaligned loads and the fact that FMA are not exploited. Instead of unaligned loads, a better approach is to apply lane-changing permutations (still costly but better than unaligned loads) as well as fused-multiply-adds 
+      in the iteration. Doing this gives the optimal solution which produces the optimal runtime of 1800 cycles <script src="https://gist.github.com/AmroAbdrabo/f0a9c17f5de279ea601c2ef936a581bd.js"></script>.
+    </p>
     
-
+    <h2> Complex conversion</h2>
+    <p>
+      For this problem we have an array of doubles which has complex numbers stored in <span style="font-family: monospace;">re_1, im_1, re_2, im_2, re_3, im_3...</span> order
+    </p>
     
 
 
