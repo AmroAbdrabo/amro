@@ -57,7 +57,12 @@
     
     <h2> Complex conversion</h2>
     <p>
-      For this problem we have an array of doubles which has complex numbers stored in <span style="font-family: monospace;">re_1, im_1, re_2, im_2, re_3, im_3...</span> order
+      For this problem we have an array of doubles which has complex numbers stored in <span style="font-family: monospace;">re_1, im_1, re_2, im_2, re_3, im_3...</span> order. The simple solution is 
+      <script src="https://gist.github.com/AmroAbdrabo/b606c18f5ae9136b24d6c8086dcbfb51.js"></script>.
+    </p>
+    <p>
+      To get 2X speedup, one can vectorize the code as follows:
+      <script src="https://gist.github.com/AmroAbdrabo/0ca61a965ddf4c5f9723f4d0f315da80.js"></script>
     </p>
     
 
