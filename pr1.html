@@ -10,6 +10,7 @@
   text-align: center;
 }
 
+
 h1:before,
 h1:after {
   background-color: #000;
@@ -34,8 +35,11 @@ h1:after {
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body>
-    <h1> <span>\( \mathcal{A}lgo \)</span></h1>
+  <h1> <span>\( \mathcal{A}lgo \)</span></h1>
+  <div style = "margin-left: 25vw; margin-right: 25vw; font-size: large;"> 
+ 
     <h3>Observation 1</h3>
     Consider the left endpoint \( a[i] \): if there exists an index \(i'\) less than  \(i \) such that \( a[i'] > a[i]\) then clearly 
     the expression \( (a[i]+a[j])(j-i) \) can be made larger. This leads to the observation that \(a[i] \) must be the maximum element in the range \([0,..,i] \). We can construct such an array, call it \(indices\_grow\),
