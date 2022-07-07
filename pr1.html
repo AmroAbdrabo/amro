@@ -13,18 +13,20 @@
 
 h1:before,
 h1:after {
-  background-color: #000;
+  background-color: rgb(16, 66, 217);
   content: "";
-  display: inline-block;
-  height: 5px;
+  display: block;
+  height: 20px;
   position: relative;
-  vertical-align: middle;
-  width: 50vw;
+  width: 100%;
+  margin-left: 55%;
 }
 
 h1:before {
-  right: 0.5em;
-  margin-left: -50vw;
+  display: block;
+  background-color: rgb(24, 51, 87);
+  width: 100%;
+  margin-left: -55%;
 }
 .mainc {
   margin-left: 25vw; 
@@ -34,26 +36,38 @@ h1:before {
 }
 
 
-@media only screen and (max-width: 720px){
+@media only screen and (max-width: 750px){
     .mainc {
         margin-left: 5vw;
         margin-right: 5vw;
         font-size: large; 
         margin-bottom: 120px;
     }
+    h1:after {
+      background-color: rgb(16, 66, 217);
+      content: "";
+      display: block;
+      height: 10px;
+      position: relative;
+      width: 100%;
+      margin-left: 55%;
+    }
+    h1:before {
+      display: block;
+      height: 10px;
+      background-color: rgb(24, 51, 87);
+      width: 100%;
+      margin-left: -55%;
+    }
 }
 
-h1:after {
-  left: 0.5em;
-  margin-right: -50%;
-}
     </style>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
-  <h1> <span>\( \mathcal{A}lgo \)</span></h1>
+  <h1> <div>\( \mathcal{A}lgo \)</div></h1>
   <div class = "mainc"> 
  
     <h3>Observation 1</h3>
