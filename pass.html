@@ -364,6 +364,22 @@ execution of that line and calculates if a sink may accept an unsanitised user i
   For untargeted adversarial attacks, the DCT-basis SimBA algorithm performs better with ~1000 queries (~97% ASR). However, the Cartesian-basis SimBA performs better on the 
   targeted case with ~10,000 queries and 100% ASR.  
 </p>
+<p class = "subtitle">Algorithm IV: Boundary Attack</p>
+<p>
+  The most beautiful attack in my opinion: this attack walks in reverse by starting with a random noise image, represented as <b>x</b> in original input space, and then repeatedly does a step which consists of a random orthogonal step followed by a step toward the original meaningful image. 
+  The algorithm can be visualized as:
+  <br>
+  <img src="img/attboundary.PNG" alt="" style = "width: 80%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+
+</p>
+<br>  
+<p>
+  The idea is summarized as,
+  <blockquote style="font-size: x-large">
+    How close can we get to the actual image so as to resemble the image while still being classified incorrectly?
+  </blockquote>
+</p>
+
 
 
   </main>
