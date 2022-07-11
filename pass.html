@@ -351,12 +351,18 @@ execution of that line and calculates if a sink may accept an unsanitised user i
 </p>
 
 <p>
-  The idea is to subdivide the image into square 9x9 regions and have each region encoded using 9 numbers which represent the coefficients of the following 9x9 single-channeled matrices:
+  The idea is that 9x9 images are encoded using 9 numbers which represent the coefficients of the following 9x9 single-channeled matrices:
   <img src="img/dct.PNG" alt="" style = "width: 30%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
 
 </p>
 <p>
-  Each of these 9 squares has entries determined by the discrete cosine function sampled at fixed points.
+  Each of these 9 squares has entries determined by the discrete cosine function sampled at fixed points. Reducing the size of the basis to something below 9 will result in some compression for 9x9 images (see weitz.de/dct/).
+  Same idea applies for 32x32 images using 32*32=1024 DCT bases matrices. Hence, dimensionality reduction can be achieved by limited the number of basis matrices.  
+
+</p>
+<p>
+  For untargeted adversarial attacks, the DCT-basis SimBA algorithm performs better with ~1000 queries (~97% ASR). However, the Cartesian-basis SimBA performs better on the 
+  targeted case with ~10,000 queries and 100% ASR.  
 </p>
 
 
