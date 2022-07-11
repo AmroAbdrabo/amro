@@ -185,10 +185,91 @@ execution of that line and calculates if a sink may accept an unsanitised user i
 
   taintedAfter(L, X) :- taintedBefore(L, X), !assign(L, X, _, _), !sanitize(X).
   </pre>
-
+  <p>
+    The full project for a taint-analyzer on Ethereum smart contracts can be found at this 
+    <a href="https://github.com/AmroAbdrabo/ethereum-sc-taint-analyzer"> GitHub link</a>. As for now, 
+    let us focus on ways to attack models so that they (perhaps correctly) output "garbage dump" when they are fed an image of a WOKO student housing complex.
+  
+  </p>
+  
      
 
-    
+  <h1> Black-box Attacks on Machine Learning Models</h1>
+  
+ <p>
+  The defining question of this topic is whether ML can be deployed to the real world. Let us see some of the attacks against ML models.
+ </p>
+ <p>
+  Imagine you are training a model to detect pneumothorax in lungs using a chest X-ray. The doctor attaches a drain to the chest and the patient 
+  has an X-ray of his chest taken. Now, when the ML model is trained on this image, it will notice the presence of a drain. Of course, the probability that a 
+  patient has pneumothorax given he has a drain is much higer than the probability of them having the disease with no drain attached. And that is exactly what the model would do.
+  Given an X-ray showing a drain, its prediction will be biased towards showing presence of the disease, unlike the doctor who would make his decision independent of the drain (to some extent).  
+ </p>
+<p>
+  There are certain threats to ML security:
+</p>
+<p>
+  <ul>
+    <li>Model inversion: inverting the model to obtain the dataset</li>
+    <li>
+      Membership inference: given the model, knowing whether a sample was used in the training dataset
+    </li>
+    <li>
+      Adversarial attack: given a correctly classified image, can the image be slightly changed so that it is no longer correctly classified
+    </li>
+    <li>
+      Data poisoning: adversary injects into the training set a few correctly classified images with a small and specific pixel pattern that biases the model towards that pixel pattern
+    </li>
+    <li>
+      Backdoor ML: involves the use of data poisoning but with the attack component being incorrect label produced during inference
+    </li>
+  </ul>
+</p>
+<p>
+  All images are affected by adversarial attacks, and even the best model is affected by adversarial attacks. 
+</p>
+<p>
+  The problem is that state of the art models are accurate but very brittle.
+</p>
+
+<h2>
+  Adversarial robustness
+</h2>
+<p>
+  In order to achieve adversarial robustness, one must specify two components: 
+  <ul>
+    <li>
+      Specification: what are the allowed changes to the image (e.g. rotation, sheering, lighting, scaling, masked parts, etc.)  
+    </li>
+    <li>
+      Optimization: given the image, embedded into the input space, and the allowed modifications (defining a hyperplane of samples around the original input), can we obtain an incorrect label for a sample from this hyperplane. 
+    </li>
+  </ul>
+
+  <img src="img/spec_opt.PNG" alt="" style = "width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block;">  
+</p>
+
+<p>
+  Recall the task of model training is to find \[ \text{argmin}_{\theta} E_{(\textbf{x, y}) \sim  D} \ loss(\theta, \textbf{x}, \textbf{y})    \]
+</p>
+<p>
+  However, for adversarial attack the task is to find,  \[  \text{argmax}_{|| \delta|| < \epsilon }  \ loss(\theta, \textbf{x}+\delta, \textbf{y})  \]
+</p>
+<p>
+  with the update being,
+</p>
+<p>
+  \[\delta \leftarrow \delta - \nabla loss(\theta, \textbf{x}+\delta, \textbf{y}) \]
+</p>
+<h2>
+  Attack taxonomy
+</h2>
+<p>
+  <img src="img/att_tax.png" alt="" style = "width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block;">  
+</p>
+<p>
+  Note that as we go right-down the attack difficulty increases. 
+</p>
    
   </main>
 </div>
