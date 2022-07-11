@@ -23,6 +23,12 @@ pre{
   border-color: blueviolet;
   overflow: auto;
 }
+.algo {
+  background: rgba(12, 12, 183, 0.2); padding-right: 35px; margin-bottom: 40px; display: block; margin-left: auto; margin-right: auto; border-radius: 0.5cm;
+}
+.algo_pre{
+  border: 0ch; width: fit-content; display: block; margin-right: auto; margin-left: auto;
+}
 </style>
 <body>
 
@@ -268,9 +274,92 @@ execution of that line and calculates if a sink may accept an unsanitised user i
   <img src="img/att_tax.png" alt="" style = "width: 90%; height: auto; margin-left: auto; margin-right: auto; display: block;">  
 </p>
 <p>
-  Note that as we go right-down the attack difficulty increases. 
+  Note that as we go right-down the attack difficulty increases, and that we can aim for attacks that change the label to some defined target label or just an incorrect label (easier).
 </p>
-   
+<h2>
+  Generating Perturbations
+</h2>
+<br>
+
+
+<p class = "subtitle">Algorithm I: Random Perturbation</p>
+<div class="algo">
+  <pre class="algo_pre">
+ <code  class="language-python">
+  δ = 0
+  while y != argmax<sub>i</sub> f<sub>i</sub>(x+δ):
+    δ <- U(0,1)  
+ </code>
+ </pre>
+</div>
+<p>
+  The algorithm keeps sampling a uniformly distributed perturbation until the classifier outputs the adversarial target class. 
+  This is of course the simplest approach and achieves 0 to 10% attack success rate (ASR) even after half a million queries. 
+</p>
+<p class = "subtitle">Algorithm II: Genetic Perturbations</p>
+<p>
+  The high level idea is creating initial generation, with size N, based on the original input <b>x</b> and the p-code explains the rest
+</p>
+<div class="algo" style="width: fit-content">
+  <pre class="algo_pre">
+ <code  class="language-python">
+  // Create initial generation
+  For i = 1..N 
+    P <sup>0</sup><sub>i</sub> <- <b>x + U(-δ, δ)</b> 
+  For all generations do:
+      For every member of the generation do:
+          Compute the fitness of the member 
+      If label of "most fit" member is the target t:
+          return success
+      Compute selection probabilities ("fitter" members more likely selected)
+      For every member of the generation do:
+          Apply mutations and clipping to new child input 
+          Add mutated child to next generation
+      Adaptively update α (mutation range) and ρ (mutation prob.) variables 
+ </code>
+ </pre>
+</div>
+<p>
+  The algorithm achieves 95% to 100% ASR using around 100,000 queries.  A possible optimization is that instead of independently modifying 
+  every single pixel, to instead modify nearby pixels together using a smaller noise mask:
+</p>
+<img src="img/genatt.PNG" alt="" style = "width: 70%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+<p>
+  This in turn drives the number of queries down to ~20,000.
+</p>
+<p class = "subtitle">Algorithm III: SimBA (untargeted)</p>
+<div class="algo">
+  <pre class="algo_pre">
+ <code  class="language-python">
+  δ = 0
+  p<sub>y</sub> = f<sub>y</sub>(x)
+  while p<sub>y</sub> = argmax<sub>i</sub> f<sub>i</sub> (x+δ):
+    pick randomly and without replacement q ∈ Q
+    for 𝛼 ∈ {𝜀, -𝜀} do
+      p<sub>y</sub><sup>new</sup>  = f<sub>y</sub> (x + 𝛿 + 𝛼q) 
+      if p<sub>y</sub><sup>new</sup> < p<sub>y</sub>
+          𝛿 = 𝛿 + 𝛼q
+          p<sub>y</sub> = p<sub>y</sub><sup>new</sup>
+          break
+ </code>
+ </pre>
+</div>
+
+<p>
+  where Q is an orthonormal basis for image inputs. This basis can be the normal cartesian basis (if you think of each N-by-N image as vector of length \(N^2\) then this is the normal canonical basis for these vectors).
+  Another basis is the DCT (discrete cosine transform) basis (non-coincidentally used in JPEG image compression):
+</p>
+
+<p>
+  The idea is to subdivide the image into square 9x9 regions and have each region encoded using 9 numbers which represent the coefficients of the following 9x9 single-channeled matrices:
+  <img src="img/dct.PNG" alt="" style = "width: 30%; height: auto; margin-left: auto; margin-right: auto; display: block;"> 
+
+</p>
+<p>
+  Each of these 9 squares has entries determined by the discrete cosine function sampled at fixed points.
+</p>
+
+
   </main>
 </div>
 </body>
