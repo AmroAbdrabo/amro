@@ -333,7 +333,7 @@ execution of that line and calculates if a sink may accept an unsanitised user i
  <code  class="language-python">
   δ = 0
   p<sub>y</sub> = f<sub>y</sub>(x)
-  while p<sub>y</sub> = argmax<sub>i</sub> f<sub>i</sub> (x+δ):
+  while y = argmax<sub>i</sub> f<sub>i</sub> (x+δ):
     pick randomly and without replacement q ∈ Q
     for 𝛼 ∈ {𝜀, -𝜀} do
       p<sub>y</sub><sup>new</sup>  = f<sub>y</sub> (x + 𝛿 + 𝛼q) 
@@ -379,8 +379,15 @@ execution of that line and calculates if a sink may accept an unsanitised user i
     How close can we get to the actual image so as to resemble the image while still being classified incorrectly?
   </blockquote>
 </p>
-
-
+<p>
+  This attack is decision based as it relies only on hard labels and uses gaussian noise for the orthogonal perturbations.
+</p>
+<p class = "subtitle">Algorithm V: Guessing smart</p>
+<p>
+  Also decision-based attack, this attack takes two images, the original and the target label, and applies boundary attack by changing only 
+  the relevant regions in the original image. This relevant region is obtained by the mask which emphasizes the areas of both images which are different. 
+  This helps prevent modiying background pixels depicting the sky for example. 
+</p>
 
   </main>
 </div>

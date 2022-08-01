@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href = "syssec.css">
+    <title>Program Analysis</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<style>
+    h2 {
+  font-family: "Lato", sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  padding: 0;
+  margin: 36px 0 -13px -1.883px;
+  text-align: left;
+  line-height: 34.5px;
+  letter-spacing: -0.45px;
+}
+  code {
+  font-size: 1rem;
+  background: rgba(0,0,0,0);
+  border-radius: 0px;
+  padding: 0px 0px;
+}
+pre{
+  font-size: 1rem;
+  border-style: solid; 
+  border-radius: 0.5cm; 
+  width: min(90vw, 690px);
+  border-color: blueviolet;
+  overflow: auto;
+}
+.algo {
+  background: rgba(12, 12, 183, 0.2); padding-right: 35px; margin-bottom: 40px; display: block; margin-left: auto; margin-right: auto; border-radius: 0.5cm;
+}
+.algo_pre{
+  border: 0ch; width: fit-content; display: block; margin-right: auto; margin-left: auto;
+}
+</style>
+<body>
+
+
+    <div class="topnav" style = "background-color: rgb(91, 16, 112);">
+        <a class="active" href="index.html" style = "background-color: rgb(146, 135, 211);">Home</a>
+      </div>
+      
+     
+   
+      <script async="async" defer="defer" src="https://buttons.github.io/buttons.js"></script>
+      <div class="container">
+        <div class="meta"> 
+          <div class="image" style="background: url(img/writing.jpg); background-size:cover; width: 95%; background-position: center;"></div>
+          <div class="info"> 
+            <h1>Natural Language Processing </h1>
+            <p class="subtitle">Based on lectures by Alice Zhao and Antonis Karamitros</p>
+            <div class="author">
+              <div class="authorImage"></div>
+              <div class="authorInfo">
+                <div class="authorName"><a href="https://github.com/AmroAbdrabo">Amro Abdrabo</a></div>
+                <div class="authorSub">April 2022 <span class="median-divider"> </span> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  <main class="article">
+
+    <h1> Introduction</h1>
+    <p>
+     Assume you are the manager of a customer service center. You are working for a company that sells hats and shirts, and you want to 
+     get an idea of how people are feeling about your hats and shirts overall. Let's say you get a 1000 calls, and you might have your customer 
+     care representatives take notes on people's satisfaction with their purchases. Another technique you can do, is to apply NLP to figure out 
+     if there is positive emotion or not from their feedback. Applying this technique on the record of calls, you can for example see that 
+     people are happy about the hats but not the shirts. The methods used to achieve this are called <i> sentiment analysis</i>.     
+    </p>
+    <p>
+        Another example is you working for a legal firm. You are working on a case where someone at a compnay may have embezzled some money. The company gives you 
+        access to the emails, and you only want to go through the emails which are likely related to embezzling money. Thus, after running your NLP algorithm, 
+        you assign one or more labels to each email, and prioritize emails which have a <b>Money</b> label and not other label such as <b>Personal</b>. This NLP technique 
+        is called <i>topic modelling</i>.
+    </p>
+
+    <p>
+        As a last example, assume you're a writer for an inspirational quote company. You're task is to write a quote every day of the year. But then after 11 months, you
+        run out of ideas. You have a lot of quotes and as a Python developer, you think why not use python to generate a new quote for me. This is called <i>text generation</i>.  
+    </p>
+    
+    <p>
+        Let's quickly recap the topics:
+        <ul>
+            <li>Sentiment analysis </li>
+            <li>
+                Topic modelling 
+            </li>
+            <li>
+                Text generation
+            </li>
+        </ul>
+    </p>
+     
+    <h1>Data Science Workflow</h1>
+    <p>
+        The typical data scientific workflow typically flows the pattern:
+    </p>
+    <p>
+        <ol>
+            <li>Start with a question: If I study more, will I get a higher grade?</li>
+            <br>
+            <li>
+                Get and clean the data: missing values, badly formatted values, incorrect type
+            </li>
+            <br>
+            <li>
+                Exploratory data analysis: plots, correlation coefficients, sample statistics, outliers (get a "feeling" for the data)
+            </li>
+            <br>
+            <li>
+                Apply techniques: linear regression, linear discriminant analysis, and other ML techniques. Example output, grade = 1.5*study hours + 65
+            </li>
+            <br>
+
+            <li>
+                Share insights: Yes, there is a positive correlation. However, since there was a smarty pant student who had a high grade with little study time, the result of linear regression is over-optimistic. 
+            </li>
+        </ol>
+    </p>
+
+    <h1>
+        Case study 
+    </h1>
+ <p>
+    The case study we investigate here is Ali Wong's comedy routine. 
+ </p>
+
+ <h2>
+    Question
+ </h2>
+ <p>
+    What makes Ali Wong's comedy routine different. 
+ </p>
+
+ <h2>
+    Gather data
+ </h2>
+ <p>
+    Transcripts of stand-up shows were obtained from the website <i>Scraps from the loft</i> and the list of 9 other comedians 
+    was obtained using an advanced search on IMDB using the following filters:
+    <ul>
+        <li>
+            Stand-up comedy specials from the last 5 years
+        </li>
+        <li>
+            At least 7.5 rating on IMDB with 2000+ votes
+        </li>
+    </ul>
+ </p>
+ <h2>
+    Clean data
+ </h2>
+
+  <p>
+ The data should like this
+ <figure style="margin-top: -10px;">
+    <img src="img/comedian_data.PNG" alt="" style = "width: 110%; height: auto; margin-left: auto; margin-right: auto; display: block;">  
+
+    <figcaption>Fig. 1 -Data in corpus format</figcaption>
+  </figure>
+ 
+</p>
+  <p>
+    The next step is to format the data. There are two formats: Corpus and Document-Term matrix
+  </p>
+  <p>
+    The corpus (collection of texts) format is very simple: it is shown in Fig. 1 above. The second format, document-term matrix, is a matrix where each row corresponds to a document and the columns corresponds to words. Each cell denotes the count of that word (column) for that document (row).  
+  </p>
+</main>
+</div>
+</body>
+</html>
