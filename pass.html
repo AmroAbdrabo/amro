@@ -386,7 +386,7 @@ execution of that line and calculates if a sink may accept an unsanitised user i
 <p>
   Also decision-based attack, this attack takes two images, the original and the target label, and applies boundary attack by changing only 
   the relevant regions in the original image. This relevant region is obtained by the mask which emphasizes the areas of both images which are different. 
-  This helps prevent modiying background pixels depicting the sky for example. 
+  This helps prevent modiying background pixels depicting the sky for example. It applies perlin noise on the mask. 
 </p>
 
   </main>
