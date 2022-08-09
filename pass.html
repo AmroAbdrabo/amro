@@ -150,7 +150,7 @@ execution of that line and calculates if a sink may accept an unsanitised user i
 
   // derived predicates
   .decl taintedBefore(L:number, X:symbol)
-  .decl taintedBefore(L:number, X:symbol)
+  .decl taintedAfter(L:number, X:symbol)
 
   // The sink argument at label L is tainted
   .decl unsanitized(L: number)
@@ -189,7 +189,7 @@ execution of that line and calculates if a sink may accept an unsanitised user i
 
   <pre style="border-radius: 0.2cm;">
 
-  taintedAfter(L, X) :- taintedBefore(L, X), !assign(L, X, _, _), !sanitize(X).
+  taintedAfter(L, X) :- taintedBefore(L, X), !assign(L, X, _, _), !sanitize(L, X).
   </pre>
   <p>
     The full project for a taint-analyzer on Ethereum smart contracts can be found at this 
