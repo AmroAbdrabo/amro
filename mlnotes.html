@@ -510,6 +510,20 @@ Misclassified examples are given higher weight and base models with higher accur
      <br>
     
 </div>
+<h2 style = "text-decoration: underline; "> Lecture 7: Support Vector Machine</h2>
+<p>
+    Motivated by the instability of the perceptron, which produces different separating hyperplanes dependent on the weight initialization of \(\vec{w} \),  the SVM produces a maximum margin and unique split (per choice of support vectors) in the data points. The objective can be classified as follows: <br>
+    <br> Given {\( (\vec{x_1}, y_1), ..., (\vec{x_n}, y_n)  \)} \( \in \mathbb{R}^d \times \{1, -1\} \) find \(\vec{w} \in \mathbb{R}^d, w_0 \in \mathbb{R} \) s.t. 
+    <ol>
+        <li> \( \vec{w}^T x_i + w_0 > 0 \) if \( y_i = 1 \)</li>
+        <li>
+            \( \vec{w}^T x_i + w_0 < 0 \) if \( y_i = -1 \)
+        </li>
+    </ol>
+    <img src="img/svm.png" style =" display: block; margin-left: auto; margin-right: auto; width: 30%; height: auto;" alt=""> 
+
+  
+</p>
 
 </body>
 </html>
