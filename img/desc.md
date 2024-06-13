@@ -23,7 +23,7 @@ Our contributions have shown the potential of deep learning models for bird soun
 | ---------------  |:------------------------------:|:-------------:|
 | BirdAST          | AST* + MLP                     | 0.6825        |
 | BirdAST_Seq      | AST* + Sequence Pooling + MLP  | 0.7335        |
-| BirdWav2Vec      | Wav2Vec* (Pretrained)          | 0.8051        |
+| BirdWav2Vec      | Wav2vec2 (Pretrained)          | 0.8051        |
 
 </div>
 
