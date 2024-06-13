@@ -22,8 +22,8 @@ Our contributions have shown the potential of deep learning models for bird soun
 | Model name       | Architecture                   | ROC-AUC Score |
 | ---------------  |:------------------------------:|:-------------:|
 | BirdAST          | AST* + MLP                     | 0.6825        |
+| BirdWav2Vec      | Wav2vec2 (pretrained)          | 0.8051        |
 | BirdAST_Seq      | AST* + Sequence Pooling + MLP  | 0.7335        |
-| BirdWav2Vec      | Wav2vec2 (Pretrained)          | 0.8051        |
 
 </div>
 
